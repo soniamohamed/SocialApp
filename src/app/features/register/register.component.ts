@@ -37,7 +37,7 @@ submitform(): void{
       next: (res)=>{
         if(res.success)
         {
-          // this.loading=false;
+          this.loading=false;
           console.log(res);
          // redirect to login
           setTimeout(() => {
@@ -66,7 +66,7 @@ submitform(): void{
   }
   else
     {
-      // this.loading=false;
+       this.loading=false;
       //show all errors to user
       
       this.registerForm.markAllAsTouched();
