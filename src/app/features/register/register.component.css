@@ -1,0 +1,668 @@
+:host {
+  display: block;
+}
+
+
+/* =========================================
+   PAGE
+========================================= */
+
+.auth-page {
+  min-height: 100vh;
+
+  display: flex;
+  align-items: center;
+
+  padding: 45px 60px;
+
+  background-color: #f1f3f6;
+}
+
+
+/* =========================================
+   MAIN LAYOUT
+========================================= */
+
+.auth-container {
+  width: 100%;
+  max-width: 1150px;
+
+  margin: auto;
+
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, 1fr)
+    430px;
+
+  gap: 145px;
+
+  align-items: center;
+}
+
+
+/* =========================================
+   LEFT SIDE
+========================================= */
+
+.intro-section {
+  width: 100%;
+}
+
+
+.brand-header {
+  margin-bottom: 25px;
+}
+
+
+.brand-title {
+  margin: 0 0 18px;
+
+  color: #1239a6;
+
+  font-size: 58px;
+  font-weight: 800;
+
+  line-height: 1;
+
+  letter-spacing: -1px;
+}
+
+
+.brand-description {
+  max-width: 590px;
+
+  margin: 0;
+
+  color: #111827;
+
+  font-size: 25px;
+
+  line-height: 1.35;
+}
+
+
+/* =========================================
+   ACADEMY CARD
+========================================= */
+
+.academy-card {
+  max-width: 575px;
+
+  padding: 22px 20px 20px;
+
+  background-color: #ffffff;
+
+  border: 1px solid #c7d4ff;
+
+  border-radius: 17px;
+
+  box-shadow:
+    0 2px 5px
+    rgba(18, 57, 166, 0.08);
+}
+
+
+.academy-label {
+  margin: 0 0 10px;
+
+  color: #1239a6;
+
+  font-size: 14px;
+
+  font-weight: 800;
+
+  letter-spacing: 1.5px;
+}
+
+
+.academy-title {
+  margin: 0 0 12px;
+
+  color: #161e2e;
+
+  font-size: 18px;
+
+  font-weight: 700;
+}
+
+
+.academy-description {
+  margin: 0 0 17px;
+
+  color: #56657c;
+
+  font-size: 14px;
+
+  line-height: 1.65;
+}
+
+
+/* =========================================
+   STATISTICS
+========================================= */
+
+.stats-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, 1fr);
+
+  gap: 8px;
+}
+
+
+.stat-card {
+  min-height: 58px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content: center;
+
+  padding: 9px 12px;
+
+  background-color: #f3f6ff;
+
+  border: 1px solid #c7d4ff;
+
+  border-radius: 11px;
+}
+
+
+.stat-card strong {
+  margin-bottom: 3px;
+
+  color: #1239a6;
+
+  font-size: 16px;
+
+  font-weight: 800;
+}
+
+
+.stat-card span {
+  color: #5c6980;
+
+  font-size: 11px;
+
+  font-weight: 700;
+}
+
+
+/* =========================================
+   REGISTER CARD
+========================================= */
+
+.register-card {
+  width: 430px;
+
+  padding: 24px;
+
+  background-color: #ffffff;
+
+  border-radius: 17px;
+}
+
+
+/* =========================================
+   AUTH TABS
+========================================= */
+
+.auth-tabs {
+  height: 45px;
+
+  display: grid;
+
+  grid-template-columns:
+    1fr 1fr;
+
+  padding: 3px;
+
+  margin-bottom: 23px;
+
+  background-color: #f0f3f8;
+
+  border-radius: 12px;
+}
+
+
+.tab {
+  border: none;
+
+  border-radius: 9px;
+
+  background-color: transparent;
+
+  color: #24324b;
+
+  font-size: 14px;
+
+  font-weight: 700;
+
+  cursor: pointer;
+}
+
+
+.tab.active {
+  background-color: #ffffff;
+
+  color: #1239a6;
+
+  box-shadow:
+    0 1px 4px
+    rgba(16, 24, 40, 0.14);
+}
+
+
+/* =========================================
+   HEADER
+========================================= */
+
+.form-header {
+  margin-bottom: 20px;
+}
+
+
+.form-header h2 {
+  margin: 0 0 6px;
+
+  color: #101828;
+
+  font-size: 23px;
+
+  font-weight: 800;
+}
+
+
+.form-header p {
+  margin: 0;
+
+  color: #667085;
+
+  font-size: 14px;
+}
+
+
+/* =========================================
+   REGISTER FORM
+========================================= */
+
+.register-form {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 14px;
+}
+
+
+/* =========================================
+   FORM FIELD
+========================================= */
+
+.form-field {
+  width: 100%;
+
+  height: 46px;
+
+  display: flex;
+
+  align-items: center;
+
+  padding: 0 13px;
+
+  background-color: #f9fafc;
+
+  border: 1px solid #d8e0ea;
+
+  border-radius: 11px;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background-color 0.2s ease;
+}
+
+
+/* =========================================
+   FIELD ICON
+========================================= */
+
+.field-icon {
+  width: 20px;
+
+  height: 20px;
+
+  flex-shrink: 0;
+
+  margin-right: 13px;
+
+  color: #91a6c4;
+}
+
+
+.at-icon {
+  width: 20px;
+
+  flex-shrink: 0;
+
+  margin-right: 13px;
+
+  color: #91a6c4;
+
+  font-size: 19px;
+
+  font-weight: 600;
+
+  line-height: 1;
+}
+
+
+/* =========================================
+   INPUT
+========================================= */
+
+.form-field input {
+  width: 100%;
+
+  height: 100%;
+
+  padding: 0;
+
+  border: none;
+
+  outline: none;
+
+  background-color: transparent;
+
+  color: #1d2939;
+
+  font-size: 14px;
+}
+
+
+.form-field input::placeholder {
+  color: #93a4bb;
+}
+
+
+/* =========================================
+   SELECT
+========================================= */
+
+.form-field select {
+  width: 100%;
+
+  height: 100%;
+
+  padding: 0;
+
+  border: none;
+
+  outline: none;
+
+  background-color: transparent;
+
+  color: #1d2939;
+
+  font-size: 14px;
+
+  cursor: pointer;
+}
+
+
+/* =========================================
+   DATE
+========================================= */
+
+.date-input {
+  color: #1d2939;
+}
+
+
+/* =========================================
+   FOCUS
+========================================= */
+
+.form-field:focus-within {
+  background-color: #ffffff;
+
+   border-color: #1239a6; 
+
+  /* box-shadow:
+    0 0 0 3px
+    rgba(18, 57, 166, 0.08); */
+   box-shadow: none;
+}
+.form-field.invalid-field {
+  border-color: #e11d48;
+}
+
+/* =========================================
+   REGISTER BUTTON
+========================================= */
+
+.register-button {
+  width: 100%;
+
+  height: 49px;
+
+  border: none;
+
+  border-radius: 11px;
+
+  background-color: #1239a6;
+
+  color: #ffffff;
+
+  font-size: 16px;
+
+  font-weight: 800;
+
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition:
+    background-color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.15s ease;
+
+}
+
+
+.register-button:hover {
+  background-color: #0d318f;
+
+  box-shadow:
+    0 7px 17px
+    rgba(18, 57, 166, 0.18);
+}
+
+
+.register-button:active {
+  transform: translateY(1px);
+}
+
+.register-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+/* =========================================
+   TABLET
+========================================= */
+
+@media (max-width: 1050px) {
+
+  .auth-container {
+    grid-template-columns:
+      minmax(0, 1fr)
+      390px;
+
+    gap: 60px;
+  }
+
+
+  .register-card {
+    width: 390px;
+  }
+
+
+  .brand-title {
+    font-size: 50px;
+  }
+
+
+  .brand-description {
+    font-size: 22px;
+  }
+
+}
+
+
+/* =========================================
+   SMALL TABLET
+========================================= */
+
+@media (max-width: 850px) {
+
+  .auth-page {
+    padding: 40px 24px;
+  }
+
+
+  .auth-container {
+    max-width: 620px;
+
+    grid-template-columns: 1fr;
+
+    gap: 35px;
+  }
+
+
+  .register-card {
+    width: 100%;
+  }
+
+
+  .intro-section {
+    text-align: center;
+  }
+
+
+  .brand-description {
+    margin-inline: auto;
+  }
+
+
+  .academy-card {
+    max-width: 100%;
+
+    text-align: left;
+  }
+
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 550px) {
+
+  .auth-page {
+    padding: 25px 15px;
+  }
+
+
+  .brand-title {
+    font-size: 42px;
+  }
+
+
+  .brand-description {
+    font-size: 19px;
+  }
+
+
+  .academy-card,
+  .register-card {
+    padding: 18px;
+  }
+
+
+  .stats-grid {
+    grid-template-columns:
+      repeat(2, 1fr);
+  }
+
+
+  .stat-card:last-child {
+    grid-column: span 2;
+  }
+
+
+  .form-header h2 {
+    font-size: 21px;
+  }
+
+}
+.auth-tabs {
+  height: 45px;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+
+  padding: 3px;
+
+  margin-bottom: 23px;
+
+  background-color: #f0f3f8;
+
+  border-radius: 12px;
+}
+
+.tab {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  height: 100%;
+
+  border-radius: 9px;
+
+  color: #24324b;
+
+  font-size: 14px;
+  font-weight: 700;
+
+  text-decoration: none;
+
+  cursor: pointer;
+
+  transition: 0.2s ease;
+}
+
+
+.tab:hover {
+  color: #1239a6;
+}
+
+.tab.active {
+  background-color: #ffffff;
+
+  color: #1239a6;
+
+  box-shadow:
+    0 1px 4px rgba(16, 24, 40, 0.14);
+}
+.validation-message {
+  margin-top: 5px;
+  color: #e11d48;
+  font-size: 13px;
+  font-weight: 600;
+}

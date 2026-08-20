@@ -1,0 +1,511 @@
+<main class="auth-page">
+
+  <div class="auth-container">
+
+    <!-- ===================================
+         LEFT SIDE
+    ==================================== -->
+
+    <section class="intro-section">
+
+      <header class="brand-header">
+
+        <h1 class="brand-title">
+          Route Posts
+        </h1>
+
+        <p class="brand-description">
+          Connect with friends and the world around you on Route Posts.
+        </p>
+
+      </header>
+
+
+      <!-- Academy Card -->
+
+      <article class="academy-card">
+
+        <p class="academy-label">
+          ABOUT ROUTE ACADEMY
+        </p>
+
+        <h2 class="academy-title">
+          Egypt's Leading IT Training Center Since 2012
+        </h2>
+
+        <p class="academy-description">
+          Route Academy is the premier IT training center in Egypt,
+          established in 2012. We specialize in delivering high-quality
+          training courses in programming, web development, and application
+          development. We've identified the unique challenges people may face
+          when learning new technology and made efforts to provide strategies
+          to overcome them.
+        </p>
+
+
+        <!-- Statistics -->
+
+        <div class="stats-grid">
+
+          <div class="stat-card">
+            <strong>2012</strong>
+            <span>FOUNDED</span>
+          </div>
+
+
+          <div class="stat-card">
+            <strong>40K+</strong>
+            <span>GRADUATES</span>
+          </div>
+
+
+          <div class="stat-card">
+            <strong>50+</strong>
+            <span>PARTNER COMPANIES</span>
+          </div>
+
+
+          <div class="stat-card">
+            <strong>5</strong>
+            <span>BRANCHES</span>
+          </div>
+
+
+          <div class="stat-card">
+            <strong>20</strong>
+            <span>DIPLOMAS AVAILABLE</span>
+          </div>
+
+        </div>
+
+      </article>
+
+    </section>
+
+
+
+    <!-- ===================================
+         RIGHT SIDE
+    ==================================== -->
+
+    <section class="register-card">
+
+
+      <!-- Login / Register Tabs -->
+
+      <div class="auth-tabs">
+
+          <a
+    routerLink="/login"
+    routerLinkActive="active"
+    class="tab"
+  >
+    Login
+  </a>
+
+  <a
+    routerLink="/register"
+    routerLinkActive="active"
+    class="tab"
+  >
+    Register
+  </a>
+
+      </div>
+
+
+
+      <!-- Header -->
+
+      <div class="form-header">
+
+        <h2>
+          Create a new account
+        </h2>
+
+        <p>
+          It is quick and easy.
+        </p>
+
+      </div>
+
+
+
+      <!-- Registration Form -->
+
+      <form class="register-form" [formGroup]="registerForm"  
+       (ngSubmit)="submitform()" >
+
+
+        <!-- Full Name -->
+           @let nameControle=registerForm.get('name');
+      <div>
+      
+        <div class="form-field"
+        class="form-field"
+  [class.invalid-field]="
+    nameControle?.invalid   && nameControle?.touched ">
+
+          <svg
+            class="field-icon"
+            viewBox="0 0 24 24"
+            fill="none"
+          >
+
+            <circle
+              cx="12"
+              cy="8"
+              r="3.5"
+              stroke="currentColor"
+              stroke-width="1.7"
+            />
+
+            <path
+              d="M6.5 19c.5-3.2 2.6-5 5.5-5s5 1.8 5.5 5"
+              stroke="currentColor"
+              stroke-width="1.7"
+              stroke-linecap="round"
+            />
+
+          </svg>
+
+
+          <input
+            type="text"
+            placeholder="Full name"
+            formControlName="name">
+            <!-- /* [class]="registerForm.get('name')?.invalid && registerForm.get('name')?.touched ? 'border-rose-600' : 'border-slat-200' " */
+           -->
+
+        </div>
+      
+        <!-- Error Alert  -->
+        @if (nameControle?.invalid  && nameControle?.touched  ) 
+        {
+         <p class="validation-message">
+          @if (nameControle?.hasError('required')) 
+          {
+            <span class="block">Full name is required.</span>
+          }
+          @else if (nameControle?.hasError('minlength') )
+          {
+           <span class="block"> Name must be at least 3 characters .</span>
+          }
+          </p>
+        }
+      </div>
+        <!-- Username -->
+
+        <div class="form-field">
+
+          <span class="at-icon">
+            @
+          </span>
+
+
+          <input
+            type="text"
+            placeholder="Username (optional)"
+             formControlName="username"
+          >
+
+        </div>
+
+
+
+        <!-- Email -->
+      <div>
+         @let emailControle=registerForm.get('email');
+        <div class="form-field"
+       [class.invalid-field]="
+    emailControle?.invalid  && emailControle?.touched ">
+
+          <span class="at-icon">
+            @
+          </span>
+
+
+          <input
+            type="email"
+            placeholder="Email address"
+            formControlName="email"
+             
+          >
+
+        </div>
+  @if (emailControle?.invalid  && emailControle?.touched) 
+        {
+       <!-- Error Alert  -->
+        <p class="validation-message">
+           @if (emailControle?.hasError('required')) 
+           {
+            <span class="block">Email is required.</span>
+           }
+       
+          @else if (emailControle?.hasError('email') )
+          {
+            <span class="block">Please enter a valid email address.</span> 
+          }
+        </p>
+      }
+      </div>
+        <!-- Gender -->
+        <div>
+             @let genderControle=registerForm.get('gender');
+   <div class="form-field"
+  [class.invalid-field]="
+   genderControle?.invalid && genderControle?.touched">
+
+          <svg
+            class="field-icon"
+            viewBox="0 0 24 24"
+            fill="none"
+          >
+
+            <circle
+              cx="8"
+              cy="8"
+              r="3"
+              stroke="currentColor"
+              stroke-width="1.7"
+            />
+
+            <circle
+              cx="16"
+              cy="9"
+              r="2.5"
+              stroke="currentColor"
+              stroke-width="1.7"
+            />
+
+            <path
+              d="M3.5 19c.3-3 2-5 4.5-5 2.7 0 4.2 2 4.5 5"
+              stroke="currentColor"
+              stroke-width="1.7"
+              stroke-linecap="round"
+            />
+
+            <path
+              d="M13.5 14.5c2.8-.8 5.5 1.1 6 4.5"
+              stroke="currentColor"
+              stroke-width="1.7"
+              stroke-linecap="round"
+            />
+
+          </svg>
+
+
+          <select   formControlName="gender">
+
+            <option
+              value=""
+              selected
+              disabled
+            >
+              Select gender
+            </option>
+
+            <option value="male">
+              Male
+            </option>
+
+            <option value="female">
+              Female
+            </option>
+
+          </select>
+
+        </div>
+ @if (genderControle?.invalid && genderControle?.touched) 
+        {
+         <!-- Error Alert  -->
+        <p class="validation-message">
+        @if (genderControle?.hasError('required')) 
+        {
+          <span class="block">Gender is required.</span>
+        }
+        </p>
+      }
+        </div>
+       
+        <!-- Date -->
+        <div>
+             @let dateOfBirthControle=registerForm.get('dateOfBirth');
+        <div class="form-field"
+        [class.invalid-field]="
+    dateOfBirthControle?.invalid && dateOfBirthControle?.touched">
+
+          <svg
+            class="field-icon"
+            viewBox="0 0 24 24"
+            fill="none"
+          >
+
+            <rect
+              x="4"
+              y="5"
+              width="16"
+              height="15"
+              rx="2"
+              stroke="currentColor"
+              stroke-width="1.7"
+            />
+
+            <path
+              d="M8 3v4M16 3v4M4 9h16"
+              stroke="currentColor"
+              stroke-width="1.7"
+              stroke-linecap="round"
+            />
+
+          </svg>
+
+
+          <input
+            class="date-input"
+            type="date"
+            formControlName="dateOfBirth"
+          >
+
+        </div>
+
+     @if (dateOfBirthControle?.invalid && dateOfBirthControle?.touched) 
+        {
+         <!-- Error Alert  -->
+        <p class="validation-message">
+        @if (dateOfBirthControle?.hasError('required')) 
+        {
+          <span class="block">Date of birth is required.</span>
+        }
+        </p>
+      }
+      </div>
+        <!-- Password -->
+        <div>
+          @let passwordControle=registerForm.get('password');
+        <div class="form-field"
+            [class.invalid-field]="passwordControle?.invalid && passwordControle?.touched">
+          <svg
+            class="field-icon"
+            viewBox="0 0 24 24"
+            fill="none"
+          >
+
+            <circle
+              cx="15.5"
+              cy="8.5"
+              r="4"
+              stroke="currentColor"
+              stroke-width="1.7"
+            />
+
+            <path
+              d="M12.7 11.3L5 19v2h2.5v-2.5H10V16h2.5l2.2-2.2"
+              stroke="currentColor"
+              stroke-width="1.7"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+
+          </svg>
+
+
+          <input
+            type="password"
+            placeholder="Password"
+            formControlName="password"
+            autocomplete="new-password"
+          >
+
+        </div>
+
+        @if (passwordControle?.invalid && passwordControle?.touched) 
+        {
+         <!-- Error Alert  -->
+        <p class="validation-message">
+        @if (passwordControle?.hasError('required')) 
+        {
+          <span class="block">Password is required.</span>
+        }
+         @else if (passwordControle?.hasError('pattern')) 
+        {
+          <span class="block">Password must include uppercase, lowercase, number, and special character. </span>
+        }
+        </p>
+      }
+       </div>
+        <!-- Confirm Password -->
+       <div>
+        <div class="form-field">
+
+          <svg
+            class="field-icon"
+            viewBox="0 0 24 24"
+            fill="none"
+          >
+
+            <circle
+              cx="15.5"
+              cy="8.5"
+              r="4"
+              stroke="currentColor"
+              stroke-width="1.7"
+            />
+
+            <path
+              d="M12.7 11.3L5 19v2h2.5v-2.5H10V16h2.5l2.2-2.2"
+              stroke="currentColor"
+              stroke-width="1.7"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+
+          </svg>
+
+
+          <input
+            type="password"
+            placeholder="Confirm password"
+             formControlName="rePassword"
+          >
+
+        </div>
+
+         <!-- Error Alert  -->
+        <!-- <p class="validation-message">
+          <span class="block">Please confirm your password.</span>
+          <span class="block">Passwords do not match. </span>
+        </p> -->
+       </div>
+        <!-- Submit Button -->
+         <!-- [disabled]="registerForm.invalid"  -->
+         
+        <button
+         class="register-button"
+          type="submit"
+        >
+         
+          
+          @if(loading) 
+          {
+          <i class="fas fa-spinner animate-spin"></i>
+          Create New Account
+          }
+           @else
+           {
+             Create New Account
+           }
+        </button>
+        @if(errMsg)
+        {
+        <p class="validation-message">
+           <span class="block">{{errMsg}}</span>
+       </p>
+        }
+      </form>
+
+    </section>
+
+  </div>
+
+</main>

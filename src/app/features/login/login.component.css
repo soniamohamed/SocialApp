@@ -1,0 +1,543 @@
+:host {
+  display: block;
+}
+
+
+/* ===============================
+   Page
+================================ */
+
+.auth-page {
+  min-height: 100vh;
+
+  display: flex;
+  align-items: center;
+
+  background-color: #f1f3f6;
+
+  padding: 60px;
+}
+
+
+/* ===============================
+   Main Container
+================================ */
+
+.auth-container {
+  width: 100%;
+
+  max-width: 1150px;
+
+  margin: auto;
+
+  display: grid;
+
+  grid-template-columns: 1fr 430px;
+
+  gap: 145px;
+
+  align-items: center;
+}
+
+
+/* ===============================
+   Left Section
+================================ */
+
+.intro-section {
+  width: 100%;
+}
+
+
+.brand-header {
+  margin-bottom: 25px;
+}
+
+
+.brand-title {
+  margin: 0 0 18px;
+
+  font-size: 58px;
+
+  line-height: 1;
+
+  font-weight: 800;
+
+  color: #1239a6;
+}
+
+
+.brand-description {
+  max-width: 590px;
+
+  margin: 0;
+
+  font-size: 25px;
+
+  line-height: 1.35;
+
+  color: #111827;
+}
+
+
+/* ===============================
+   Academy Card
+================================ */
+
+.academy-card {
+  max-width: 575px;
+
+  padding: 22px 20px 20px;
+
+  background-color: white;
+
+  border: 1px solid #c7d4ff;
+
+  border-radius: 17px;
+
+  box-shadow: 0 2px 5px rgba(18, 57, 166, 0.08);
+}
+
+
+.academy-label {
+  margin: 0 0 10px;
+
+  font-size: 14px;
+
+  font-weight: 800;
+
+  letter-spacing: 1.5px;
+
+  color: #1239a6;
+}
+
+
+.academy-title {
+  margin: 0 0 12px;
+
+  font-size: 18px;
+
+  font-weight: 700;
+
+  color: #161e2e;
+}
+
+
+.academy-description {
+  margin: 0 0 17px;
+
+  font-size: 14px;
+
+  line-height: 1.65;
+
+  color: #56657c;
+}
+
+
+/* ===============================
+   Statistics
+================================ */
+
+.stats-grid {
+  display: grid;
+
+  grid-template-columns: repeat(3, 1fr);
+
+  gap: 8px;
+}
+
+
+.stat-card {
+  min-height: 58px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content: center;
+
+  padding: 9px 12px;
+
+  background-color: #f3f6ff;
+
+  border: 1px solid #c7d4ff;
+
+  border-radius: 11px;
+}
+
+
+.stat-card strong {
+  margin-bottom: 3px;
+
+  font-size: 16px;
+
+  font-weight: 800;
+
+  color: #1239a6;
+}
+
+
+.stat-card span {
+  font-size: 11px;
+
+  font-weight: 700;
+
+  color: #5c6980;
+}
+
+
+/* ===============================
+   Login Card
+================================ */
+
+.login-card {
+  width: 430px;
+
+  padding: 24px;
+
+  background-color: white;
+
+  border-radius: 17px;
+}
+
+
+/* ===============================
+   Login/Register Tabs
+================================ */
+
+.auth-tabs {
+  height: 45px;
+
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  padding: 3px;
+
+  margin-bottom: 24px;
+
+  background-color: #f0f3f8;
+
+  border-radius: 12px;
+}
+
+
+.tab {
+  border: none;
+
+  background-color: transparent;
+
+  border-radius: 9px;
+
+  font-size: 14px;
+
+  font-weight: 700;
+
+  color: #24324b;
+
+  cursor: pointer;
+}
+
+
+.tab.active {
+  background-color: white;
+
+  color: #1239a6;
+
+  box-shadow: 0 1px 4px rgba(16, 24, 40, 0.12);
+}
+
+
+/* ===============================
+   Form Header
+================================ */
+
+.form-header {
+  margin-bottom: 21px;
+}
+
+
+.form-header h2 {
+  margin: 0 0 6px;
+
+  font-size: 23px;
+
+  font-weight: 800;
+
+  color: #101828;
+}
+
+
+.form-header p {
+  margin: 0;
+
+  font-size: 14px;
+
+  color: #667085;
+}
+
+
+/* ===============================
+   Form
+================================ */
+
+.login-form {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 14px;
+}
+
+
+/* ===============================
+   Input
+================================ */
+
+.form-field {
+  height: 46px;
+
+  display: flex;
+
+  align-items: center;
+
+  padding: 0 13px;
+
+  background-color: #f9fafc;
+
+  border: 1px solid #d8e0ea;
+
+  border-radius: 11px;
+}
+
+
+.field-icon {
+  width: 20px;
+
+  height: 20px;
+
+  margin-right: 13px;
+
+  color: #8ca2c3;
+}
+
+
+.form-field input {
+  width: 100%;
+
+  height: 100%;
+
+  border: none;
+
+  outline: none;
+
+  background-color: transparent;
+
+  font-size: 14px;
+
+  color: #1d2939;
+}
+
+
+.form-field input::placeholder {
+  color: #93a4bb;
+}
+
+
+/* ===============================
+   Focus
+================================ */
+
+.form-field:focus-within {
+  background-color: white;
+
+  border-color: #1239a6;
+
+  box-shadow: 0 0 0 3px rgba(18, 57, 166, 0.08);
+}
+
+
+/* ===============================
+   Login Button
+================================ */
+
+.login-button {
+  width: 100%;
+
+  height: 49px;
+
+  border: none;
+
+  border-radius: 11px;
+
+  background-color: #1239a6;
+
+  color: white;
+
+  font-size: 16px;
+
+  font-weight: 800;
+
+  cursor: pointer;
+}
+
+
+.login-button:hover {
+  background-color: #0d318f;
+}
+
+
+/* ===============================
+   Forgot Password
+================================ */
+
+.forgot-password {
+  align-self: center;
+
+  color: #1239a6;
+
+  font-size: 14px;
+
+  text-decoration: none;
+}
+
+
+.forgot-password:hover {
+  text-decoration: underline;
+}
+
+
+/* ===============================
+   Tablet
+================================ */
+
+@media (max-width: 1050px) {
+
+  .auth-container {
+    grid-template-columns: 1fr 390px;
+
+    gap: 60px;
+  }
+
+  .login-card {
+    width: 390px;
+  }
+
+}
+
+
+/* ===============================
+   Small Tablet / Mobile
+================================ */
+
+@media (max-width: 850px) {
+
+  .auth-page {
+    padding: 40px 24px;
+  }
+
+
+  .auth-container {
+    max-width: 620px;
+
+    grid-template-columns: 1fr;
+
+    gap: 35px;
+  }
+
+
+  .login-card {
+    width: 100%;
+  }
+
+}
+
+
+/* ===============================
+   Mobile
+================================ */
+
+@media (max-width: 550px) {
+
+  .auth-page {
+    padding: 25px 15px;
+  }
+
+
+  .brand-title {
+    font-size: 42px;
+  }
+
+
+  .brand-description {
+    font-size: 19px;
+  }
+
+
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+
+  .stat-card:last-child {
+    grid-column: span 2;
+  }
+
+
+  .login-card,
+  .academy-card {
+    padding: 18px;
+  }
+
+}
+
+.auth-tabs {
+  height: 45px;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+
+  padding: 3px;
+
+  margin-bottom: 23px;
+
+  background-color: #f0f3f8;
+
+  border-radius: 12px;
+}
+
+.tab {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  height: 100%;
+
+  border-radius: 9px;
+
+  color: #24324b;
+
+  font-size: 14px;
+  font-weight: 700;
+
+  text-decoration: none;
+
+  cursor: pointer;
+
+  transition: 0.2s ease;
+}
+
+
+.tab:hover {
+  color: #1239a6;
+}
+
+.tab.active {
+  background-color: #ffffff;
+
+  color: #1239a6;
+
+  box-shadow:
+    0 1px 4px rgba(16, 24, 40, 0.14);
+}
