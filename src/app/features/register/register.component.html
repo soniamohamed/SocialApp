@@ -134,7 +134,7 @@
       <!-- Registration Form -->
 
       <form class="register-form" [formGroup]="registerForm"  
-       (ngSubmit)="submitform()" >
+       (ngSubmit)="submitForm()" >
 
 
         <!-- Full Name -->
@@ -411,12 +411,19 @@
 
 
           <input
+          #passInputpass
             type="password"
             placeholder="Password"
             formControlName="password"
             autocomplete="new-password"
           >
-
+           <span class="password-icon"  (click)="showPassword(passInputpass)">
+            
+           <i   [class]="{ 'fa-eye-slash':passInputpass.type=== 'password',
+           'fa-eye' : passInputpass.type==='text' }"
+           class="fas"
+            ></i>
+          </span>
         </div>
 
         @if (passwordControle?.invalid && passwordControle?.touched) 
@@ -436,7 +443,10 @@
        </div>
         <!-- Confirm Password -->
        <div>
-        <div class="form-field">
+        @let rePasswordControle=registerForm.get('rePassword');
+        <div class="form-field"
+            [class.invalid-field]="rePasswordControle?.invalid && rePasswordControle?.touched">
+      
 
           <svg
             class="field-icon"
@@ -463,19 +473,35 @@
           </svg>
 
 
-          <input
+          <input 
+          #passInputRepass
             type="password"
             placeholder="Confirm password"
              formControlName="rePassword"
           >
-
+        <span class="password-icon"  (click)="showPassword(passInputRepass)">
+            
+           <i   [class]="{ 'fa-eye-slash':passInputRepass.type=== 'password',
+           'fa-eye' : passInputRepass.type==='text' }"
+           class="fas"
+            ></i>
+          </span>
         </div>
 
          <!-- Error Alert  -->
-        <!-- <p class="validation-message">
+           @if (rePasswordControle?.invalid && rePasswordControle?.touched) 
+        {
+         <p class="validation-message">
+        @if (rePasswordControle?.hasError('required')) 
+        {
           <span class="block">Please confirm your password.</span>
+        }
+        @else if(rePasswordControle?.hasError('mismatch'))
+        {
           <span class="block">Passwords do not match. </span>
-        </p> -->
+        }
+        </p>
+      }
        </div>
         <!-- Submit Button -->
          <!-- [disabled]="registerForm.invalid"  -->

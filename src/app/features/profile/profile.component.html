@@ -1,1 +1,57 @@
-<p>profile works!</p>
+<!-- Cover & Header Section -->
+  <div class="bg-white shadow-sm border-b border-gray-200">
+    <div class="max-w-5xl mx-auto">
+      
+      <!-- Cover Photo (الغلاف) -->
+      <div class="h-40 sm:h-64 md:h-80 w-full bg-gradient-to-r from-blue-600 to-indigo-700 rounded-b-2xl relative overflow-hidden flex items-center justify-center text-white/50 text-xs sm:text-sm font-medium">
+        [ Cover Photo Placeholder ]
+      </div>
+
+      <!-- Profile Info Section (النصوص والأزرار مستقرة على الخلفية البيضاء) -->
+      <div class="px-4 sm:px-8 pb-4 relative bg-white">
+        
+        <!-- لاحظي: أزلنا الـ margin السالب من الحاوية الكلية ليتموضع النص على الأبيض -->
+        <div class="flex flex-col md:flex-row items-center md:items-end justify-between gap-4 md:gap-6">
+          
+          <!-- Avatar & Name Container -->
+          <div class="flex flex-col md:flex-row items-center md:items-end gap-4 md:gap-6 text-center md:text-left w-full md:w-auto">
+            
+            <!-- صورة البروفايل (هنا فقط وضعنا Margin سالب لتصعد فوق الغلاف) -->
+            <div class="relative -mt-16 sm:-mt-20 md:-mt-24 z-10 shrink-0">
+              <img src="assets/images/user-avatar.jpg" alt="Profile Avatar" class="w-32 h-32 sm:w-40 sm:h-40 rounded-full object-cover border-4 border-white shadow-md bg-white" onerror="this.src='https://via.placeholder.com/150'">
+              <span class="absolute bottom-3 right-3 sm:bottom-4 sm:right-4 w-4 h-4 sm:w-5 sm:h-5 bg-green-500 border-2 border-white rounded-full"></span>
+            </div>
+            
+            <!-- الاسم والبيانات (ألوان واضحة جداً على الخلفية البيضاء) -->
+            <div class="mb-2 md:mb-4 mt-2 md:mt-0">
+              <h1 class="text-2xl sm:text-3xl font-extrabold text-gray-900 tracking-tight">Sonia Mohamed</h1>
+              <p class="text-sm sm:text-base font-semibold text-gray-700 mt-1">Senior UI/UX Designer & Frontend Developer 🚀</p>
+              <span class="text-xs sm:text-sm font-medium text-gray-500 mt-1.5 block">500+ connections • Route Community</span>
+            </div>
+
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="flex items-center gap-3 w-full md:w-auto justify-center mb-2 md:mb-4">
+            <button class="bg-gray-100 hover:bg-gray-200 text-gray-800 font-bold text-sm px-5 py-2.5 rounded-xl transition-colors cursor-pointer flex items-center gap-2">
+              <span>✏️</span> Edit profile
+            </button>
+            <button class="bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm px-5 py-2.5 rounded-xl transition-colors cursor-pointer flex items-center gap-2 shadow-sm">
+              <span>➕</span> Add to story
+            </button>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Profile Tabs (Scrollable on Mobile) -->
+      <div class="flex items-center gap-1 border-t border-gray-200 overflow-x-auto px-4 sm:px-8 scrollbar-none">
+        <button class="px-4 py-3 sm:py-4 text-sm font-bold text-blue-600 border-b-[3px] border-blue-600 cursor-pointer whitespace-nowrap">Posts</button>
+        <button class="px-4 py-3 sm:py-4 text-sm font-semibold text-gray-600 hover:bg-gray-50 hover:text-gray-800 transition-colors cursor-pointer whitespace-nowrap">About</button>
+        <button class="px-4 py-3 sm:py-4 text-sm font-semibold text-gray-600 hover:bg-gray-50 hover:text-gray-800 transition-colors cursor-pointer whitespace-nowrap">Friends</button>
+        <button class="px-4 py-3 sm:py-4 text-sm font-semibold text-gray-600 hover:bg-gray-50 hover:text-gray-800 transition-colors cursor-pointer whitespace-nowrap">Photos</button>
+        <button class="px-4 py-3 sm:py-4 text-sm font-semibold text-gray-600 hover:bg-gray-50 hover:text-gray-800 transition-colors cursor-pointer whitespace-nowrap">Videos</button>
+      </div>
+
+    </div>
+  </div>

@@ -1,0 +1,143 @@
+:host {
+  display: block;
+  width: 100%;
+}
+
+.feed-center-area {
+  width: 100%;
+  max-width: 640px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  box-sizing: border-box;
+}
+
+.feed-center-area * {
+  box-sizing: border-box;
+}
+
+.post-card {
+  background-color: #ffffff;
+  border-radius: 16px;
+  border: 1px solid rgba(229, 231, 235, 0.9);
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.04);
+  padding: 16px;
+}
+
+.post-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.author-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.author-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.author-name {
+  font-size: 14px;
+  font-weight: 700;
+  color: #111827;
+  margin: 0 0 2px 0;
+}
+
+.post-info-meta {
+  font-size: 11px;
+  color: #6b7280;
+  margin: 0;
+}
+
+.options-btn {
+  background: none;
+  border: none;
+  color: #9ca3af;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  padding: 4px;
+  letter-spacing: 1px;
+}
+
+.post-text-body {
+  font-size: 14px;
+  color: #374151;
+  margin-bottom: 16px;
+  line-height: 1.5;
+}
+
+.post-text-body p {
+  margin: 0;
+}
+
+.post-stats-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 12px;
+  color: #6b7280;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #f3f4f6;
+  margin-bottom: 6px;
+}
+
+.likes-side {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.comments-shares-side {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.view-details-trigger {
+  color: #2563eb;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.view-details-trigger:hover {
+  text-decoration: underline;
+}
+
+.post-actions-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4px;
+}
+
+.action-trigger-btn {
+  flex: 1;
+  background: none;
+  border: none;
+  padding: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #4b5563;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: background-color 0.2s;
+}
+
+.action-trigger-btn:hover {
+  background-color: #f3f4f6;
+}

@@ -103,43 +103,50 @@
       </div>
 
 
-      <form class="login-form">
+      <form class="login-form"  [formGroup]="loginForm"  
+       (ngSubmit)="submitForm()">
 
-        <!-- Email -->
-        <div class="form-field">
+      <!-- Email -->
+      <div>
+         @let emailControle=loginForm.get('email');
+        <div class="form-field"
+       [class.invalid-field]="
+    emailControle?.invalid  && emailControle?.touched ">
 
-          <svg
-            class="field-icon"
-            viewBox="0 0 24 24"
-            fill="none"
-          >
-            <circle
-              cx="12"
-              cy="8"
-              r="3.5"
-              stroke="currentColor"
-              stroke-width="1.7"
-            />
+          <span class="at-icon">
+            @
+          </span>
 
-            <path
-              d="M6.5 19c.5-3.2 2.6-5 5.5-5s5 1.8 5.5 5"
-              stroke="currentColor"
-              stroke-width="1.7"
-              stroke-linecap="round"
-            />
-          </svg>
 
           <input
-            type="text"
-            placeholder="Email or username"
+            type="email"
+            placeholder="Email address"
+            formControlName="email"
+             
           >
 
         </div>
-
-
-        <!-- Password -->
-        <div class="form-field">
-
+  @if (emailControle?.invalid  && emailControle?.touched) 
+        {
+       <!-- Error Alert  -->
+        <p class="validation-message">
+           @if (emailControle?.hasError('required')) 
+           {
+            <span class="block">Email is required.</span>
+           }
+       
+          @else if (emailControle?.hasError('email') )
+          {
+            <span class="block">Please enter a valid email address.</span> 
+          }
+        </p>
+      }
+      </div>
+          <!-- Password -->
+        <div>
+          @let passwordControle=loginForm.get('password');
+        <div class="form-field"
+            [class.invalid-field]="passwordControle?.invalid && passwordControle?.touched">
           <svg
             class="field-icon"
             viewBox="0 0 24 24"
@@ -164,25 +171,68 @@
 
           </svg>
 
+          
           <input
-            type="password"
+          #passInput
+            type= "password"
             placeholder="Password"
+            formControlName="password"
+            autocomplete="new-password"
           >
+          <span class="password-icon"  (click)="showPassword(passInput)">
+            
+           <i   [class]="{ 'fa-eye-slash':passInput.type=== 'password',
+           'fa-eye' : passInput.type==='text' }"
+           class="fas"
+            ></i>
+          </span>
+
 
         </div>
 
+        @if (passwordControle?.invalid && passwordControle?.touched) 
+        {
+         <!-- Error Alert  -->
+        <p class="validation-message">
+        @if (passwordControle?.hasError('required')) 
+        {
+          <span class="block">Password is required.</span>
+        }
+         @else if (passwordControle?.hasError('pattern')) 
+        {
+          <span class="block">Password must include uppercase, lowercase, number, and special character. </span>
+        }
+        </p>
+      }
+       </div>
 
-        <button class="login-button">
-          Log In
+
+        <button class="login-button" type="submit">
+          @if(loading) 
+          {
+          <i class="fas fa-spinner animate-spin"></i>
+           Log In
+          }
+           @else
+           {
+              Log In
+           }
+         
         </button>
 
+         @if(errMsg)
+        {
+        <p class="validation-message">
+           <span class="block">{{errMsg}}</span>
+       </p>
+        }
 
-        <a href="#" class="forgot-password">
+        <a routerLink="/forget-password"  class="forget-password">
           Forgot password?
         </a>
-
+     
       </form>
-
+    
     </section>
 
   </div>

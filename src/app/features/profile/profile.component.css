@@ -1,0 +1,26 @@
+:host {
+  display: block;
+  width: 100%;
+  background-color: #f0f2f5;
+  min-height: calc(100vh - 64px);
+  margin-top: 64px; /* مسافة أمان تحت الـ Navbar الثابتة */
+}
+
+/* تخصيص مظهر شريط التمرير الأفقي والرأسي */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #ccd0d5;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #bec3c9;
+}

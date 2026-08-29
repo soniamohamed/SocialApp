@@ -9,6 +9,8 @@ import { FeedComponent } from './features/feed/feed.component';
 import { ProfileComponent } from './features/profile/profile.component';
 import { NotificationsComponent } from './features/notifications/notifications.component';
 import { NotFoundComponent } from './features/not-found/not-found.component';
+import { authGuard } from './core/auth/guards/auth-guard';
+import { guestGuard } from './core/auth/guards/guest-guard';
 
 export const routes: Routes = [
 {   path:'',
@@ -17,8 +19,9 @@ export const routes: Routes = [
 },
     {
     path:'' ,
-    component:AuthLayoutComponent,
-    children: [
+    component:AuthLayoutComponent
+    ,canActivate:[guestGuard]
+    ,children: [
     {
         path:'login',
         component:LoginComponent
@@ -33,11 +36,12 @@ export const routes: Routes = [
     }
     ]
 },
-{path:'',component:MainLayoutComponent,
-     children: [
+{path:'',component:MainLayoutComponent
+    ,canActivate:[authGuard]
+     ,children: [
     {
-        path:'feed',
-        component:FeedComponent
+        path:'feed'
+       , component:FeedComponent
     },
     {
         path:'profile',

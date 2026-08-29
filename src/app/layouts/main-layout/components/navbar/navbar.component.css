@@ -1,0 +1,23 @@
+:host {
+  display: block;
+}
+
+body {
+  padding-top: 64px; 
+}
+
+/* تأثير ظهور خفيف وانسيابي للقائمة المنسدلة */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.15s ease-out forwards;
+}
