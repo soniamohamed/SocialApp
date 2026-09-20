@@ -1,38 +1,104 @@
-<div class="suggestions-box-card" dir="ltr">
-  
-  <div class="suggestions-top-heading">
-    <div class="title-with-icon">
-      <span class="group-icon">👥</span>
-      <h4>Suggested Friends</h4>
+
+<section
+  class="suggestions-card"
+  dir="ltr"
+>
+
+  <!-- ================= HEADER ================= -->
+  <div class="suggestions-header">
+
+    <div class="suggestions-title">
+
+      <span class="group-icon">
+        👥
+      </span>
+
+      <h2>
+        Suggested Friends
+      </h2>
+
     </div>
-    <span class="badge-number">5</span>
+
+    <span class="suggestions-count">
+      5
+    </span>
+
   </div>
 
-  <!-- خانة البحث -->
-  <div class="search-friends-wrapper">
-    <span class="search-lens-icon">🔍</span>
-    <input type="text" placeholder="Search friends..." class="search-friends-input">
+
+  <!-- ================= SEARCH ================= -->
+  <div class="friends-search">
+
+    <span class="search-icon">
+      🔍
+    </span>
+
+    <input
+      type="text"
+      placeholder="Search friends..."
+      aria-label="Search friends"
+    >
+
   </div>
 
-  <!-- كارت الصديق المقترح -->
-  <div class="suggested-friend-item">
-    <div class="friend-data-group">
-      <img src="assets/images/imgotherProfile.jpg" alt="Ahmed Bahnasy" class="friend-avatar-img">
-      <div>
-        <h5 class="friend-real-name">Ahmed Bahnasy</h5>
-        <p class="friend-handle-id">&#64;bahnasy20222...</p>
+
+  <!-- ================= FRIEND ================= -->
+  <div class="friend-item">
+
+    <div class="friend-info">
+
+      <img
+        src="assets/images/imgotherProfile.jpg"
+        alt="Ahmed Bahnasy"
+        class="friend-avatar"
+      >
+
+      <div class="friend-text">
+
+        <h3>
+          Ahmed Bahnasy
+        </h3>
+
+        <p>
+          &#64;bahnasy20222...
+        </p>
+
       </div>
+
     </div>
-    <button class="follow-action-btn">+ Follow</button>
+
+
+    <button
+      type="button"
+      class="follow-button"
+    >
+      + Follow
+    </button>
+
   </div>
 
-  <!-- التاغات -->
-  <div class="friend-pills-row">
-    <span class="pill-tag">41 followers</span>
-    <span class="pill-tag mutual-pill">2 mutual</span>
+
+  <!-- ================= META ================= -->
+  <div class="friend-meta">
+
+    <span>
+      41 followers
+    </span>
+
+    <span class="mutual">
+      2 mutual
+    </span>
+
   </div>
 
-  <!-- زر عرض المزيد -->
-  <button class="view-more-action-btn">View more</button>
 
-</div>
+  <!-- ================= VIEW MORE ================= -->
+  <button
+    type="button"
+    class="view-more-button"
+  >
+    View more
+  </button>
+
+</section>
+

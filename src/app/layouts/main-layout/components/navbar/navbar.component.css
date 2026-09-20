@@ -1,23 +1,22 @@
+
+
+
 :host {
   display: block;
 }
 
-body {
-  padding-top: 64px; 
-}
-
-/* تأثير ظهور خفيف وانسيابي للقائمة المنسدلة */
-@keyframes fadeIn {
+@keyframes dropdownFadeIn {
   from {
     opacity: 0;
-    transform: translateY(-8px);
+    transform: translateY(-8px) scale(0.98);
   }
+
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
   }
 }
 
-.animate-fadeIn {
-  animation: fadeIn 0.15s ease-out forwards;
+.dropdown-animation {
+  animation: dropdownFadeIn 0.18s ease-out;
 }

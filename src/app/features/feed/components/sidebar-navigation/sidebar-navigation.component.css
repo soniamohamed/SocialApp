@@ -1,50 +1,104 @@
 :host {
   display: block;
-  position: sticky;
-  top: 88px;
-  height: fit-content;
+  width: 100%;
+  box-sizing: border-box;
 }
 
-.menu-card {
-  background-color: #ffffff;
-  border-radius: 16px;
-  border: 1px solid rgba(229, 231, 235, 0.9);
-  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.04);
-  padding: 12px;
+:host *, :host *::before, :host *::after {
+  box-sizing: border-box;
+}
+
+/* حماية صارمة لمنع أي صورة أو أيقونة أو لوجو من الخروج عن الحدود وتدمير الديزاين */
+:host img, :host svg, :host .logo {
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+
+/* =========================================
+   SIDEBAR CARD
+========================================= */
+
+.sidebar-card {
+  width: 100%;
+
   display: flex;
   flex-direction: column;
   gap: 4px;
-  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+
+  padding: 12px;
+
+  background: #ffffff;
+
+  border: 1px solid rgba(229, 231, 235, 0.9);
+  border-radius: 16px;
+
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.04);
+
   box-sizing: border-box;
 }
 
-.menu-card * {
-  box-sizing: border-box;
-}
 
-.menu-item {
+/* =========================================
+   ITEM
+========================================= */
+
+.sidebar-item {
   display: flex;
   align-items: center;
+
   gap: 12px;
-  padding: 10px 14px;
+
+  padding: 11px 14px;
+
   border-radius: 12px;
+
   color: #4b5563;
+
   font-size: 14px;
   font-weight: 600;
+
   text-decoration: none;
-  transition: background-color 0.2s;
+
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    transform 0.15s ease;
 }
 
-.menu-item:hover {
-  background-color: #f3f4f6;
+
+/* =========================================
+   HOVER
+========================================= */
+
+.sidebar-item:hover {
+  background: #f3f4f6;
   color: #1f2937;
 }
 
-.menu-item.active {
-  background-color: #eff6ff;
+
+/* =========================================
+   ACTIVE
+========================================= */
+
+.sidebar-item.active {
+  background: #eff6ff;
   color: #2563eb;
 }
 
-.menu-icon {
+
+/* =========================================
+   ICON
+========================================= */
+
+.sidebar-icon {
+  width: 22px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   font-size: 16px;
 }

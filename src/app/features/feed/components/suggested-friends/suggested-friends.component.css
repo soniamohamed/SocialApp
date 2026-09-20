@@ -1,172 +1,295 @@
+
 :host {
   display: block;
-  position: sticky;
-  top: 88px;
-  height: fit-content;
+  width: 100%;
 }
 
-.suggestions-box-card {
-  background-color: #ffffff;
-  border-radius: 16px;
-  border: 1px solid rgba(229, 231, 235, 0.9);
-  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.04);
-  padding: 16px;
+
+/* =========================================
+   CARD
+========================================= */
+
+.suggestions-card {
+  width: 100%;
+
   display: flex;
   flex-direction: column;
   gap: 14px;
-  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+
+  padding: 16px;
+
+  background: #ffffff;
+
+  border: 1px solid rgba(229, 231, 235, 0.9);
+  border-radius: 16px;
+
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.04);
+
   box-sizing: border-box;
 }
 
-.suggestions-box-card * {
-  box-sizing: border-box;
-}
 
-.suggestions-top-heading {
+/* =========================================
+   HEADER
+========================================= */
+
+.suggestions-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
-.title-with-icon {
+
+.suggestions-title {
   display: flex;
   align-items: center;
   gap: 8px;
 }
 
+
 .group-icon {
-  color: #1d4ed8;
   font-size: 16px;
 }
 
-.suggestions-top-heading h4 {
+
+.suggestions-title h2 {
+  margin: 0;
+
   font-size: 14px;
   font-weight: 700;
+
   color: #111827;
-  margin: 0;
 }
 
-.badge-number {
-  background-color: #f3f4f6;
+
+.suggestions-count {
+  padding: 2px 8px;
+
+  border-radius: 9999px;
+
+  background: #f3f4f6;
+
   color: #4b5563;
+
   font-size: 11px;
   font-weight: 700;
-  padding: 2px 8px;
-  border-radius: 9999px;
 }
 
-.search-friends-wrapper {
+
+/* =========================================
+   SEARCH
+========================================= */
+
+.friends-search {
   position: relative;
+  width: 100%;
 }
 
-.search-friends-input {
+
+.search-icon {
+  position: absolute;
+
+  left: 10px;
+  top: 50%;
+
+  transform: translateY(-50%);
+
+  font-size: 12px;
+  color: #9ca3af;
+
+  pointer-events: none;
+}
+
+
+.friends-search input {
   width: 100%;
-  padding: 8px 12px 8px 36px;
-  background-color: #f3f4f6;
+
+  padding: 9px 12px 9px 36px;
+
   border: 1px solid transparent;
   border-radius: 10px;
-  font-size: 12px;
+
+  background: #f3f4f6;
+
   color: #374151;
+
+  font-size: 12px;
+
   outline: none;
-  transition: background-color 0.2s, border-color 0.2s;
+
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease;
 }
 
-.search-friends-input:focus {
-  background-color: #ffffff;
+
+.friends-search input:focus {
+  background: #ffffff;
   border-color: #93c5fd;
 }
 
-.search-lens-icon {
-  position: absolute;
-  left: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 12px;
-  color: #9ca3af;
-}
 
-.suggested-friend-item {
+/* =========================================
+   FRIEND
+========================================= */
+
+.friend-item {
   display: flex;
   align-items: center;
   justify-content: space-between;
-}
 
-.friend-data-group {
-  display: flex;
-  align-items: center;
   gap: 10px;
 }
 
-.friend-avatar-img {
+
+.friend-info {
+  display: flex;
+  align-items: center;
+
+  gap: 10px;
+
+  min-width: 0;
+}
+
+
+.friend-avatar {
   width: 38px;
   height: 38px;
+
+  flex-shrink: 0;
+
   border-radius: 50%;
+
   object-fit: cover;
 }
 
-.friend-real-name {
+
+.friend-text {
+  min-width: 0;
+}
+
+
+.friend-text h3 {
+  margin: 0 0 2px;
+
+  overflow: hidden;
+
+  color: #111827;
+
   font-size: 13px;
   font-weight: 700;
-  color: #111827;
-  margin: 0 0 2px 0;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
-.friend-handle-id {
-  font-size: 11px;
-  color: #6b7280;
+
+.friend-text p {
   margin: 0;
+
+  overflow: hidden;
+
+  color: #6b7280;
+
+  font-size: 11px;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
-.follow-action-btn {
-  background-color: #eff6ff;
-  color: #2563eb;
-  border: none;
+
+/* =========================================
+   FOLLOW BUTTON
+========================================= */
+
+.follow-button {
+  flex-shrink: 0;
+
   padding: 6px 12px;
+
+  border: none;
   border-radius: 8px;
+
+  background: #eff6ff;
+
+  color: #2563eb;
+
   font-size: 12px;
   font-weight: 700;
+
   cursor: pointer;
-  transition: background-color 0.2s;
+
+  transition: background-color 0.2s ease;
 }
 
-.follow-action-btn:hover {
-  background-color: #dbeafe;
+
+.follow-button:hover {
+  background: #dbeafe;
 }
 
-.friend-pills-row {
+
+/* =========================================
+   META
+========================================= */
+
+.friend-meta {
   display: flex;
+  align-items: center;
+
   gap: 6px;
+
   padding-left: 48px;
+
   margin-top: -4px;
 }
 
-.pill-tag {
-  font-size: 10px;
-  background-color: #f3f4f6;
-  color: #4b5563;
+
+.friend-meta span {
   padding: 2px 6px;
+
   border-radius: 4px;
+
+  background: #f3f4f6;
+
+  color: #4b5563;
+
+  font-size: 10px;
   font-weight: 500;
 }
 
-.mutual-pill {
-  background-color: #eff6ff;
+
+.friend-meta .mutual {
+  background: #eff6ff;
   color: #2563eb;
 }
 
-.view-more-action-btn {
+
+/* =========================================
+   VIEW MORE
+========================================= */
+
+.view-more-button {
   width: 100%;
-  background-color: transparent;
-  border: 1px solid #e5e7eb;
+
   padding: 8px;
+
+  border: 1px solid #e5e7eb;
   border-radius: 10px;
+
+  background: transparent;
+
+  color: #374151;
+
   font-size: 12px;
   font-weight: 700;
-  color: #374151;
+
   cursor: pointer;
-  transition: background-color 0.2s;
+
+  transition: background-color 0.2s ease;
 }
 
-.view-more-action-btn:hover {
-  background-color: #f9fafb;
+
+.view-more-button:hover {
+  background: #f9fafb;
 }

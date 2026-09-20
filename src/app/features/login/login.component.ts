@@ -63,6 +63,7 @@ submitForm(): void{
       next: (res)=>{
         if(res.success)
         {
+          
           // save token
           localStorage.setItem('socialToken',res.data.token);
           //save user data

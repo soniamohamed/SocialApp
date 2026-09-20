@@ -1,13 +1,26 @@
-<div class="feed-wrapper" dir="ltr">
-  <div class="feed-container">
-    
-    <!-- 1. العمود الأيمن: القائمة الجانبية (Feed, My Posts, Community, Saved) -->
+
+<div class="feed-page" dir="ltr">
+
+  <div class="feed-layout">
+
+    <!-- ================= LEFT SIDEBAR ================= -->
+    <aside class="left-sidebar">
       <app-sidebar-navigation></app-sidebar-navigation>
+    </aside>
 
-    <!-- 2. العمود الأوسط: المنشورات (Post Card الخاصة بأحمد منيسي) -->
-    <app-feed-content></app-feed-content>
 
-    <!-- 3. العمود الأيسر: الأصدقاء المقترحون (Suggested Friends) -->
-    <app-suggested-friends></app-suggested-friends>
+    <!-- ================= CENTER ================= -->
+    <main class="feed-main">
+      <app-feed-content></app-feed-content>
+    </main>
+
+
+    <!-- ================= RIGHT SIDEBAR ================= -->
+    <aside class="right-sidebar">
+      <app-suggested-friends></app-suggested-friends>
+    </aside>
+
   </div>
+
 </div>
+

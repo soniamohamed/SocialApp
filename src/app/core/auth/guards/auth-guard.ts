@@ -11,10 +11,7 @@ export const authGuard: CanActivateFn = (route, state) => {
   }
   else
   {
-    // router.navigate(['/login']);
-    //   return false; // الطريقه دي مش مفضله 
     // الافضل create url tree && parse url tree هابحث عن الفرق بينهم 
-    //return UrlTree
     return router.parseUrl('/login');
   }
  

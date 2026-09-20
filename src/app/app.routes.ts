@@ -11,6 +11,7 @@ import { NotificationsComponent } from './features/notifications/notifications.c
 import { NotFoundComponent } from './features/not-found/not-found.component';
 import { authGuard } from './core/auth/guards/auth-guard';
 import { guestGuard } from './core/auth/guards/guest-guard';
+import { DetailsComponent } from './features/details/details.component';
 
 export const routes: Routes = [
 {   path:'',
@@ -54,6 +55,10 @@ export const routes: Routes = [
     {
         path:'change-password',
         component:ChangePasswordComponent
+    },
+    {
+        path:'details/:id',
+        component:DetailsComponent
     }
     ]
 },

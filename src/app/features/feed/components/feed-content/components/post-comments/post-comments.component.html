@@ -1,0 +1,551 @@
+<section
+  class="border border-slate-200 rounded-[16px] p-4 bg-white"
+  aria-label="Comments"
+>
+
+  <!-- =========================
+       Header
+  ========================== -->
+
+  <div class="flex items-center gap-2 mb-4">
+
+    <h3
+      class="font-bold text-[15px] text-slate-900"
+    >
+      Comments
+    </h3>
+
+    <span
+      class="bg-blue-100 text-blue-600 text-[12px] font-bold px-2 py-0.5 rounded-full"
+    >
+      {{ commentsList.length }}
+    </span>
+
+  </div>
+
+
+  <!-- =========================
+       Comments
+  ========================== -->
+
+  @for (comment of commentsList; track comment._id) {
+
+    <div class="flex gap-2 mb-4 group">
+
+      <!-- =========================
+           Avatar
+      ========================== -->
+
+      <img
+        [src]="comment.commentCreator.photo"
+        [alt]="comment.commentCreator.name"
+        class="w-8 h-8 rounded-full object-cover shrink-0 mt-1 bg-slate-100 border border-slate-50"
+      />
+
+
+      <div
+        class="flex-1 flex flex-col items-start min-w-0"
+      >
+
+        <!-- =====================================================
+             EDIT MODE
+        ====================================================== -->
+
+        @if (editingCommentId === comment._id) {
+
+          <div
+            class="w-full bg-white border border-blue-200 rounded-2xl rounded-tl-none p-3 shadow-sm"
+          >
+
+            <!-- =========================
+                 Edit Header
+            ========================== -->
+
+            <div
+              class="flex items-center justify-between mb-2"
+            >
+
+              <div
+                class="flex items-center gap-2"
+              >
+
+                <i
+                  class="fa-solid fa-pen-to-square text-blue-500 text-sm"
+                ></i>
+
+                <span
+                  class="text-[12px] font-semibold text-blue-600"
+                >
+                  Edit comment
+                </span>
+
+              </div>
+
+            </div>
+
+
+            <!-- =========================
+                 Image Preview
+            ========================== -->
+
+            @if (editImgUrl) {
+
+              <div
+                class="relative inline-block mb-2"
+              >
+
+                <img
+                  [src]="editImgUrl"
+                  alt="Comment image"
+                  class="w-20 h-20 object-cover rounded-xl border border-slate-200"
+                />
+
+                <button
+                  type="button"
+                  (click)="removeEditFile()"
+                  class="absolute -top-2 -right-2 w-6 h-6 rounded-full bg-slate-800 text-white flex items-center justify-center text-xs hover:bg-red-600 transition-colors cursor-pointer shadow-md"
+                  title="Remove image"
+                >
+
+                  <i
+                    class="fa-solid fa-xmark"
+                  ></i>
+
+                </button>
+
+              </div>
+
+            }
+
+
+            <!-- =========================
+                 Textarea
+            ========================== -->
+
+            <textarea
+              [formControl]="editContentControl"
+              class="w-full min-h-[80px] bg-slate-50 border border-slate-200 rounded-xl text-[14px] text-slate-800 resize-none outline-none focus:border-blue-400 focus:ring-4 focus:ring-blue-50 px-3 py-2"
+              placeholder="Edit your comment..."
+            ></textarea>
+
+
+            <!-- =========================
+                 Edit Actions
+            ========================== -->
+
+            <div
+              class="flex items-center justify-between mt-2"
+            >
+
+              <!-- =========================
+                   Add Image
+              ========================== -->
+
+              <div>
+
+                <!-- تم إضافة #editFileInput هنا -->
+                <input
+                  type="file"
+                  accept="image/*"
+                  #editFileInput
+                  class="hidden"
+                  (change)="changeEditFile($event)"
+                />
+
+                <label
+                  [for]="editFileInput.id || 'editCommentFileInput'"
+                  (click)="editFileInput.click()"
+                  class="flex items-center gap-2 px-2.5 py-1.5 rounded-lg text-slate-500 hover:bg-slate-100 hover:text-slate-700 cursor-pointer transition-colors"
+                >
+
+                  <i
+                    class="fa-regular fa-image text-[#22c55e]"
+                  ></i>
+
+                  <span
+                    class="text-[12px] font-semibold"
+                  >
+                    Photo
+                  </span>
+
+                </label>
+
+              </div>
+
+
+              <!-- =========================
+                   Cancel + Update
+              ========================== -->
+
+              <div
+                class="flex items-center gap-2"
+              >
+
+                <!-- Cancel -->
+
+                <button
+                  type="button"
+                  (click)="cancelEdit()"
+                  class="px-3 py-1.5 rounded-lg text-[12px] font-semibold text-slate-500 hover:bg-slate-100 hover:text-slate-700 transition-colors cursor-pointer"
+                >
+                  Cancel
+                </button>
+
+
+                <!-- Update -->
+
+                <button
+                  type="button"
+                  (click)="updateComment(comment._id)"
+                  
+                class="px-3 py-1.5 rounded-lg bg-blue-500 hover:bg-blue-600 text-white text-[12px] font-semibold flex items-center gap-1.5 transition-colors cursor-pointer">
+
+                  <i class="fa-solid fa-check text-[11px]"></i>
+
+                  Update
+
+                </button>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        }
+
+
+        <!-- =====================================================
+             NORMAL COMMENT MODE
+        ====================================================== -->
+
+        @else {
+
+          <!-- =========================
+               Comment Bubble
+          ========================== -->
+
+          <div
+            class="bg-slate-100 rounded-2xl rounded-tl-none px-3.5 py-2.5 max-w-full"
+          >
+
+            <!-- =========================
+                 Name
+            ========================== -->
+
+            <div
+              class="flex items-center gap-1.5 mb-0.5"
+            >
+
+              <span
+                class="text-[13px] font-bold text-slate-900 hover:underline cursor-pointer"
+              >
+                {{ comment.commentCreator.name }}
+              </span>
+
+            </div>
+
+
+            <!-- =========================
+                 Username / Date
+            ========================== -->
+
+            <div
+              class="flex items-center gap-1 text-[12px] text-slate-500 mb-1"
+            >
+
+              <span>
+                {{ comment.commentCreator.username }}
+              </span>
+
+              <span>
+                &middot;
+              </span>
+
+              <span>
+                {{ comment.createdAt }}
+              </span>
+
+            </div>
+
+
+            <!-- =========================
+                 Content
+            ========================== -->
+
+            @if (comment.content) {
+
+              <p
+                class="text-[14px] text-slate-800 wrap-break-word"
+              >
+                {{ comment.content }}
+              </p>
+
+            }
+
+
+            <!-- =========================
+                 COMMENT IMAGE
+            ========================== -->
+
+            @if (comment.image) {
+
+              <div
+                class="mt-2"
+              >
+
+                <img
+                  [src]="comment.image"
+                  alt="Comment image"
+                  class="max-w-full max-h-72 rounded-xl object-cover border border-slate-200 cursor-pointer"
+                />
+
+              </div>
+
+            }
+
+          </div>
+
+
+          <!-- =========================
+               Actions
+          ========================== -->
+
+          <div
+            class="flex items-center gap-3 mt-1 ml-2 text-[12px] text-slate-500 font-semibold"
+          >
+
+            <!-- Date -->
+
+            <span
+              class="cursor-pointer hover:underline"
+            >
+              {{ comment.createdAt }}
+            </span>
+
+
+            <!-- Like -->
+
+            <button
+              type="button"
+              class="cursor-pointer hover:underline"
+            >
+              Like ({{ comment.likes.length }})
+            </button>
+
+
+            <!-- Reply -->
+
+            <button
+              type="button"
+              class="cursor-pointer hover:underline"
+            >
+              {{ comment.repliesCount }} Reply
+            </button>
+
+
+            <!-- =========================
+                 User Actions
+            ========================== -->
+
+            @if (comment.commentCreator._id === userId) {
+
+              <!-- Edit -->
+
+              <button
+                type="button"
+                (click)="startEdit(comment)"
+                class="cursor-pointer hover:text-blue-600 transition-colors"
+                title="Edit"
+              >
+
+                <i
+                  class="fa-solid fa-pen-to-square"
+                ></i>
+
+              </button>
+
+
+              <!-- Delete -->
+
+              <button
+                type="button"
+                (click)="deleteComment(postId, comment._id)"
+                class="cursor-pointer hover:text-red-600 transition-colors"
+                title="Delete"
+              >
+
+                <i
+                  class="fa-solid fa-trash"
+                ></i>
+
+              </button>
+
+
+              <!-- More -->
+
+              <button
+                type="button"
+                class="w-6 h-6 flex items-center justify-center rounded-full hover:bg-slate-100 text-slate-400 opacity-0 group-hover:opacity-100 transition-opacity"
+              >
+
+                <i
+                  class="fa-solid fa-ellipsis"
+                ></i>
+
+              </button>
+
+            }
+
+          </div>
+
+        }
+
+      </div>
+
+    </div>
+
+  }
+
+
+  <!-- =========================================================
+       CREATE COMMENT
+  ========================================================== -->
+
+  <form
+    #form
+    class="mb-6"
+    (submit)="submitForm($event, form)"
+  >
+
+    <div
+      class="flex gap-2 mt-4"
+    >
+
+      <!-- =========================
+           Avatar
+      ========================== -->
+
+      <img
+        src="https://i.pravatar.cc/150?img=11"
+        alt="User"
+        class="w-8 h-8 rounded-full object-cover shrink-0 mt-1 bg-slate-100 border border-slate-50"
+      />
+
+
+      <div
+        class="flex-1 bg-slate-100 border border-transparent focus-within:border-blue-300 focus-within:ring-4 focus-within:ring-blue-50 focus-within:bg-white transition-all rounded-[20px] p-2 flex flex-col"
+      >
+
+        <!-- =========================
+             Image Preview
+        ========================== -->
+
+        @if (imgUrl) {
+
+          <div
+            class="relative inline-block m-2 w-fit"
+          >
+
+            <img
+              [src]="imgUrl"
+              alt="Preview"
+              class="h-20 w-20 object-cover rounded-xl border border-slate-200"
+            />
+
+            <button
+              type="button"
+              (click)="removeFile()"
+              class="absolute -top-2 -right-2 bg-slate-800 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs hover:bg-red-600 transition-colors cursor-pointer shadow-md"
+            >
+
+              <i
+                class="fa-solid fa-xmark"
+              ></i>
+
+            </button>
+
+          </div>
+
+        }
+
+
+        <!-- =========================
+             Textarea
+        ========================== -->
+
+        <textarea
+          [formControl]="contentControl"
+          class="w-full bg-transparent ring-0 border-none text-[14px] text-slate-800 placeholder-slate-500 resize-none outline-none px-2 pt-1 pb-3 min-h-15"
+          placeholder="Write a comment..."
+        ></textarea>
+
+
+        <!-- =========================
+             Bottom
+        ========================== -->
+
+        <div
+          class="flex items-center justify-between px-1"
+        >
+
+          <!-- Photo -->
+
+          <div
+            class="flex items-center gap-1"
+          >
+
+            <input
+              type="file"
+              accept="image/*"
+              [id]="'commentFileInput-' + postId"
+              class="hidden"
+              (change)="ChangeFile($event)"
+            />
+
+            <label
+              [for]="'commentFileInput-' + postId"
+              class="flex cursor-pointer items-center gap-2 text-slate-600 hover:bg-slate-50 px-2 py-1.5 rounded-lg transition-colors group"
+            >
+
+              <i
+                class="fa-regular fa-image text-[#22c55e] text-[1.1rem] group-hover:scale-110 transition-transform"
+              ></i>
+
+              <span
+                class="text-[14px] font-semibold text-slate-600"
+              >
+                Photo
+              </span>
+
+            </label>
+
+          </div>
+
+
+          <!-- Send -->
+
+          <button
+            type="submit"
+            [disabled]="
+              !contentControl.value?.trim() &&
+              !selectedFile
+            "
+            class="w-8 h-8 cursor-pointer rounded-full bg-blue-400 hover:bg-blue-500 disabled:bg-slate-300 disabled:cursor-not-allowed text-white flex items-center justify-center transition-colors"
+          >
+
+            <i
+              class="fa-solid fa-paper-plane text-[13px] ms-1"
+            ></i>
+
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </form>
+
+</section>
