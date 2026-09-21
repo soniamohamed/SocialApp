@@ -104,12 +104,11 @@
 }
 @media (max-width: 1023px) {
   .sidebar-card {
-    flex-direction: row;
-    overflow-x: auto;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     padding: 8px;
   }
   .sidebar-item {
-    flex: 1 0 auto;
     justify-content: center;
     gap: 6px;
     padding: 10px;

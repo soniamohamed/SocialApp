@@ -1,8 +1,9 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, DestroyRef, inject, OnInit } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
-import { finalize } from 'rxjs';
+import { debounceTime, distinctUntilChanged, finalize, map, Subscription } from 'rxjs';
 
 import { AuthService } from '../../core/auth/services/auth.service';
 import { SuggestedFriend } from '../../core/models/suggested-friends-data.interface';
@@ -30,6 +31,10 @@ export class SuggestedFriendsPageComponent implements OnInit {
     nonNullable: true
   });
 
+  private readonly destroyRef = inject(DestroyRef);
+  private searchQuery = '';
+  private suggestionsRequest?: Subscription;
+
   readonly followRequests = new Set<string>();
 
   suggestions: SuggestedFriend[] = [];
@@ -45,37 +50,7 @@ export class SuggestedFriendsPageComponent implements OnInit {
 
 
   // ============================================
-  // SEARCH BY NAME OR USERNAME
-  // ============================================
-
-  get filteredSuggestions(): SuggestedFriend[] {
-
-    const query = this.normalizeSearchValue(
-      this.searchControl.value
-    );
-
-    if (!query) {
-      return this.suggestions;
-    }
-
-    return this.suggestions.filter((friend) => {
-
-      const name =
-        this.normalizeSearchValue(friend.name);
-
-      const username =
-        this.normalizeSearchValue(friend.username);
-
-      return (
-        name.includes(query) ||
-        username.includes(query)
-      );
-    });
-  }
-
-
-  // ============================================
-  // NORMALIZE SEARCH TEXT
+  // NORMALIZE SEARCH
   // ============================================
 
   private normalizeSearchValue(
@@ -90,11 +65,30 @@ export class SuggestedFriendsPageComponent implements OnInit {
 
 
   // ============================================
+  // SEARCH BY NAME OR USERNAME
+  // Results come from the server for the active query
+  // ============================================
+
+  get filteredSuggestions(): SuggestedFriend[] {
+    return this.suggestions;
+  }
+
+
+  // ============================================
   // INIT
   // ============================================
 
   ngOnInit(): void {
     this.loadPage(1);
+    this.searchControl.valueChanges.pipe(
+      map(value => this.normalizeSearchValue(value)),
+      debounceTime(400),
+      distinctUntilChanged(),
+      takeUntilDestroyed(this.destroyRef),
+    ).subscribe(query => {
+      this.searchQuery = query;
+      this.loadPage(1);
+    });
   }
 
 
@@ -141,7 +135,6 @@ export class SuggestedFriendsPageComponent implements OnInit {
     }
 
     this.followRequests.add(friend._id);
-
     this.errorMessage = '';
 
     this.suggestedFriendsService
@@ -186,8 +179,7 @@ export class SuggestedFriendsPageComponent implements OnInit {
 
 
   // ============================================
-  // LOAD PAGE
-  // 20 USERS EACH PAGE
+  // LOAD 20 USERS PER PAGE
   // ============================================
 
   private loadPage(
@@ -195,11 +187,14 @@ export class SuggestedFriendsPageComponent implements OnInit {
     append = false
   ): void {
 
-    if (
-      this.isLoading ||
-      this.isLoadingMore
-    ) {
-      return;
+    if (append && (this.isLoading || this.isLoadingMore)) return;
+
+    this.suggestionsRequest?.unsubscribe();
+    if (!append) {
+      this.suggestions = [];
+      this.currentPage = 0;
+      this.totalPages = 0;
+      this.totalSuggestions = 0;
     }
 
     if (append) {
@@ -210,10 +205,11 @@ export class SuggestedFriendsPageComponent implements OnInit {
 
     this.errorMessage = '';
 
-    this.suggestedFriendsService
-      .GetFollowSuggestions(page, 20)
+    this.suggestionsRequest = this.suggestedFriendsService
+      .GetFollowSuggestions(page, 20, this.searchQuery)
 
       .pipe(
+        takeUntilDestroyed(this.destroyRef),
         finalize(() => {
           this.isLoading = false;
           this.isLoadingMore = false;
@@ -241,7 +237,7 @@ export class SuggestedFriendsPageComponent implements OnInit {
                 ]
               : incoming;
 
-          // remove duplicate users
+          // Remove duplicate users
           this.suggestions = Array.from(
             new Map(
               combined.map(

@@ -16,7 +16,8 @@
 
       <div class="page-search">
         <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
-        <input type="search" [formControl]="searchControl" placeholder="Search friends..." aria-label="Search friends" />
+        <input type="search" [formControl]="searchControl" placeholder="Search by name or username..."
+          aria-label="Search friends by name or username"/>
       </div>
 
       @if (errorMessage) {
@@ -50,11 +51,16 @@
         <p class="page-message">{{ searchControl.value.trim() ? 'No friends found.' : 'No suggested friends.' }}</p>
       }
 
-      @if (hasMore && !isLoading) {
-        <button type="button" class="view-more-button" (click)="loadMore()" [disabled]="isLoadingMore">
-          {{ isLoadingMore ? 'Loading...' : 'View more' }}
-        </button>
-      }
+ @if (hasMore && !isLoading) {
+  <button
+    type="button"
+    class="view-more-button"
+    (click)="loadMore()"
+    [disabled]="isLoadingMore"
+  >
+    {{ isLoadingMore ? 'Loading...' : 'View more' }}
+  </button>
+}
     </div>
   </div>
 </section>

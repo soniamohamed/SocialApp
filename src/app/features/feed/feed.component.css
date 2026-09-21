@@ -107,4 +107,14 @@
   .right-sidebar {
     position: static;
   }
+  .left-sidebar {
+    order: 1;
+    overflow: visible;
+  }
+  .right-sidebar {
+    order: 2;
+  }
+  .feed-main {
+    order: 3;
+  }
 }

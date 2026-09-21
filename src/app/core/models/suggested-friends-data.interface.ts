@@ -19,6 +19,12 @@ export interface SuggestedFriend {
   followersCount?: number;
 }
 
+export interface UserSearchResponse extends Omit<SuggestedFriendsResponse, 'data'> {
+  data: {
+    users: SuggestedFriend[];
+  };
+}
+
 export interface FollowUserResponse {
   success: boolean;
   message: string;
