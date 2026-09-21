@@ -1,0 +1,263 @@
+{
+  "COMMON": {
+    "LOADING": "جاري التحميل...",
+    "SAVE": "حفظ",
+    "CANCEL": "إلغاء",
+    "DELETE": "حذف",
+    "EDIT": "تعديل",
+    "UPDATE": "تحديث",
+    "SEARCH": "بحث",
+    "BACK": "رجوع",
+    "VIEW_MORE": "عرض المزيد",
+    "NO_DATA": "لا توجد بيانات",
+    "TRY_AGAIN": "حاول مرة أخرى"
+  },
+
+  "NAV": {
+    "FEED": "الرئيسية",
+    "PROFILE": "الملف الشخصي",
+    "NOTIFICATIONS": "الإشعارات",
+    "PROFILE_SETTINGS": "إعدادات الملف الشخصي",
+    "CHANGE_PASSWORD": "تغيير كلمة المرور",
+    "LOGOUT": "تسجيل الخروج"
+  },
+
+  "SIDEBAR": {
+    "NAVIGATION": "التنقل في الصفحة الرئيسية",
+    "FEED": "الرئيسية",
+    "MY_POSTS": "منشوراتي",
+    "COMMUNITY": "المجتمع",
+    "SAVED": "المحفوظات"
+  },
+
+  "AUTH": {
+    "LOGIN": "تسجيل الدخول",
+    "REGISTER": "إنشاء حساب",
+
+    "INTRO_DESCRIPTION": "تواصل مع أصدقائك ومع العالم من حولك على Route Posts.",
+
+    "ABOUT_ROUTE_ACADEMY": "عن Route Academy",
+
+    "ACADEMY_TITLE": "أحد أبرز مراكز التدريب في مجال تكنولوجيا المعلومات في مصر منذ عام 2012",
+
+    "ACADEMY_DESCRIPTION": "Route Academy هي مركز متخصص في التدريب على تكنولوجيا المعلومات في مصر منذ عام 2012. نقدم دورات تدريبية عالية الجودة في البرمجة وتطوير الويب وتطوير التطبيقات، ونعمل على مساعدة المتدربين في التغلب على التحديات التي قد تواجههم أثناء تعلم التقنيات الجديدة.",
+
+    "FOUNDED": "تأسست",
+    "GRADUATES": "خريج",
+    "PARTNER_COMPANIES": "شركة شريكة",
+    "BRANCHES": "فروع",
+    "DIPLOMAS_AVAILABLE": "دبلومة متاحة",
+
+    "LOGIN_TITLE": "تسجيل الدخول إلى Route Posts",
+    "LOGIN_SUBTITLE": "سجّل الدخول وواصل رحلتك الاجتماعية.",
+
+    "REGISTER_TITLE": "إنشاء حساب جديد",
+    "REGISTER_SUBTITLE": "الأمر سريع وسهل.",
+
+    "FULL_NAME": "الاسم الكامل",
+    "FULL_NAME_REQUIRED": "الاسم الكامل مطلوب.",
+    "FULL_NAME_MIN_LENGTH": "يجب ألا يقل الاسم عن 3 أحرف.",
+
+    "USERNAME_OPTIONAL": "اسم المستخدم (اختياري)",
+
+    "EMAIL": "البريد الإلكتروني",
+    "EMAIL_ADDRESS": "البريد الإلكتروني",
+    "EMAIL_REQUIRED": "البريد الإلكتروني مطلوب.",
+    "EMAIL_INVALID": "يرجى إدخال بريد إلكتروني صحيح.",
+
+    "SELECT_GENDER": "اختر النوع",
+    "MALE": "ذكر",
+    "FEMALE": "أنثى",
+    "GENDER_REQUIRED": "النوع مطلوب.",
+
+    "DATE_OF_BIRTH_REQUIRED": "تاريخ الميلاد مطلوب.",
+
+    "PASSWORD": "كلمة المرور",
+    "PASSWORD_REQUIRED": "كلمة المرور مطلوبة.",
+    "PASSWORD_PATTERN": "يجب أن تحتوي كلمة المرور على حرف كبير وحرف صغير ورقم ورمز خاص.",
+
+    "CONFIRM_PASSWORD": "تأكيد كلمة المرور",
+    "CONFIRM_PASSWORD_REQUIRED": "يرجى تأكيد كلمة المرور.",
+    "PASSWORDS_DO_NOT_MATCH": "كلمتا المرور غير متطابقتين.",
+
+    "LOG_IN": "تسجيل الدخول",
+    "LOGGING_IN": "جاري تسجيل الدخول...",
+
+    "SIGN_IN": "دخول",
+    "SIGN_UP": "إنشاء حساب",
+
+    "CREATE_ACCOUNT": "إنشاء حساب جديد",
+    "CREATING_ACCOUNT": "جاري إنشاء الحساب...",
+
+    "FORGOT_PASSWORD": "هل نسيت كلمة المرور؟",
+    "RESET_PASSWORD": "إعادة تعيين كلمة المرور",
+    "OLD_PASSWORD": "كلمة المرور الحالية",
+    "NEW_PASSWORD": "كلمة المرور الجديدة"
+  },
+
+  "FEED": {
+    "WHATS_ON_YOUR_MIND": "بماذا تفكر؟",
+    "CREATE_POST": "إنشاء منشور جديد",
+    "PUBLIC": "عام",
+    "PHOTO_VIDEO": "صورة/فيديو",
+    "FEELING_ACTIVITY": "شعور/نشاط",
+    "POST": "نشر",
+    "LOADING_POSTS": "جاري تحميل المنشورات...",
+    "NO_POSTS": "لا توجد منشورات حتى الآن.",
+    "NO_SAVED_POSTS": "لا توجد منشورات محفوظة حتى الآن.",
+    "REMOVE_FILE": "إزالة الملف المحدد",
+    "PREVIEW_IMAGE": "معاينة الصورة"
+  },
+
+  "POST": {
+    "PUBLIC": "عام",
+    "FOLLOWERS": "المتابعون",
+    "ONLY_ME": "أنا فقط",
+
+    "SAVE": "حفظ",
+    "UNSAVE": "إلغاء الحفظ",
+
+    "SAVE_POST": "حفظ المنشور",
+    "UNSAVE_POST": "إلغاء حفظ المنشور",
+
+    "EDIT_POST": "تعديل المنشور",
+    "DELETE_POST": "حذف المنشور",
+    "UPDATE_POST": "تحديث المنشور",
+
+    "POST_CONTENT": "محتوى المنشور",
+
+    "UPDATING": "جاري التحديث...",
+    "DELETING": "جاري الحذف...",
+
+    "DELETE_CONFIRMATION": "هل أنت متأكد من حذف هذا المنشور؟",
+
+    "LIKE": "إعجاب",
+    "COMMENT": "تعليق",
+    "SHARE": "مشاركة",
+
+    "LIKES": "إعجابات",
+    "COMMENTS": "تعليقات",
+    "SHARES": "مشاركات",
+
+    "VIEW_DETAILS": "عرض التفاصيل",
+    "BACK_TO_POSTS": "العودة إلى المنشورات"
+  },
+
+  "COMMENTS": {
+    "COMMENTS": "التعليقات",
+    "WRITE_COMMENT": "اكتب تعليقًا...",
+    "ADD_COMMENT": "إضافة تعليق",
+    "EDIT_COMMENT": "تعديل التعليق",
+    "DELETE_COMMENT": "حذف التعليق",
+    "REPLY": "رد",
+    "REPLIES": "الردود",
+    "VIEW_MORE_COMMENTS": "عرض المزيد من التعليقات"
+  },
+
+  "PROFILE": {
+    "PROFILE": "الملف الشخصي",
+
+    "MY_POSTS": "منشوراتي",
+    "SAVED": "المحفوظات",
+    "SAVED_POSTS": "المنشورات المحفوظة",
+    "POSTS": "المنشورات",
+
+    "FOLLOWERS": "المتابعون",
+    "FOLLOWING": "المتابَعون",
+    "BOOKMARKS": "المحفوظات",
+
+    "EDIT_PROFILE": "تعديل الملف الشخصي",
+
+    "LOADING_PROFILE": "جاري تحميل ملفك الشخصي...",
+    "DATA_UNAVAILABLE": "بيانات الملف الشخصي غير متاحة.",
+
+    "ROUTE_POSTS_MEMBER": "عضو في Route Posts",
+
+    "ABOUT": "حول",
+    "MEMBER_SINCE": "عضو منذ",
+
+    "NO_POSTS": "لا توجد منشورات حتى الآن.",
+    "NO_SAVED_POSTS": "لا توجد منشورات محفوظة حتى الآن.",
+
+    "VIEW_DETAILS": "عرض التفاصيل",
+    "POST_IMAGE": "صورة المنشور"
+  },
+
+  "NOTIFICATIONS": {
+    "TITLE": "الإشعارات",
+
+    "DESCRIPTION": "تحديثات فورية للإعجابات والتعليقات والمشاركات والمتابعات.",
+
+    "ALL": "الكل",
+    "UNREAD": "غير المقروءة",
+
+    "MARK_ALL_READ": "تحديد الكل كمقروء",
+    "MARK_AS_READ": "تحديد كمقروء",
+    "MARKING": "جاري التحديد...",
+
+    "READ": "مقروء",
+
+    "LOADING": "جاري تحميل الإشعارات...",
+
+    "NO_NOTIFICATIONS": "لا توجد إشعارات حتى الآن.",
+    "NO_UNREAD": "لا توجد إشعارات غير مقروءة.",
+
+    "EMPTY_DESCRIPTION": "عندما يتفاعل الأشخاص مع منشوراتك أو يتابعونك ستظهر الإشعارات هنا."
+  },
+
+  "SUGGESTED_FRIENDS": {
+    "TITLE": "أصدقاء مقترحون",
+    "ALL_TITLE": "كل الأصدقاء المقترحين",
+
+    "PEOPLE_YOU_MAY_KNOW": "أشخاص قد تعرفهم",
+    "BACK_TO_FEED": "العودة إلى الرئيسية",
+
+    "SEARCH_PLACEHOLDER": "ابحث عن أصدقاء...",
+    "SEARCH_BY_NAME": "ابحث بالاسم أو اسم المستخدم...",
+
+    "FOLLOW": "+ متابعة",
+    "FOLLOWING": "جاري المتابعة...",
+    "FOLLOWERS": "متابع",
+
+    "LOADING": "جاري تحميل الأصدقاء المقترحين...",
+
+    "VIEW_MORE": "عرض المزيد",
+
+    "NO_RESULTS": "لم يتم العثور على أصدقاء.",
+    "NO_SUGGESTIONS": "لا يوجد أصدقاء مقترحون."
+  },
+
+  "COMMUNITY": {
+    "COMING_SOON": "قسم المجتمع قريبًا."
+  },
+
+  "CHANGE_PASSWORD": {
+    "TITLE": "تغيير كلمة المرور",
+
+    "DESCRIPTION": "أدخل كلمة المرور الحالية واختر كلمة مرور جديدة وآمنة.",
+
+    "CURRENT_PASSWORD": "كلمة المرور الحالية",
+    "NEW_PASSWORD": "كلمة المرور الجديدة",
+    "CONFIRM_NEW_PASSWORD": "تأكيد كلمة المرور الجديدة",
+
+    "CURRENT_PASSWORD_REQUIRED": "كلمة المرور الحالية مطلوبة.",
+    "NEW_PASSWORD_REQUIRED": "كلمة المرور الجديدة مطلوبة.",
+    "NEW_PASSWORD_MIN_LENGTH": "يجب ألا تقل كلمة المرور الجديدة عن 8 أحرف.",
+    "NEW_PASSWORD_PATTERN": "استخدم حرفًا كبيرًا وحرفًا صغيرًا ورقمًا ورمزًا خاصًا.",
+    "SAME_PASSWORD": "يجب أن تختلف كلمة المرور الجديدة عن كلمة المرور الحالية.",
+    "CONFIRM_PASSWORD_REQUIRED": "يرجى تأكيد كلمة المرور الجديدة.",
+    "PASSWORD_MISMATCH": "كلمتا المرور غير متطابقتين.",
+
+    "SHOW_CURRENT_PASSWORD": "إظهار كلمة المرور الحالية",
+    "HIDE_CURRENT_PASSWORD": "إخفاء كلمة المرور الحالية",
+
+    "SHOW_NEW_PASSWORD": "إظهار كلمة المرور الجديدة",
+    "HIDE_NEW_PASSWORD": "إخفاء كلمة المرور الجديدة",
+
+    "SHOW_CONFIRM_PASSWORD": "إظهار تأكيد كلمة المرور",
+    "HIDE_CONFIRM_PASSWORD": "إخفاء تأكيد كلمة المرور",
+
+    "UPDATE_PASSWORD": "تحديث كلمة المرور",
+    "UPDATING": "جاري التحديث..."
+  }
+}

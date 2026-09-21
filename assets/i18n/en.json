@@ -1,0 +1,263 @@
+{
+  "COMMON": {
+    "LOADING": "Loading...",
+    "SAVE": "Save",
+    "CANCEL": "Cancel",
+    "DELETE": "Delete",
+    "EDIT": "Edit",
+    "UPDATE": "Update",
+    "SEARCH": "Search",
+    "BACK": "Back",
+    "VIEW_MORE": "View more",
+    "NO_DATA": "No data found",
+    "TRY_AGAIN": "Try again"
+  },
+
+  "NAV": {
+    "FEED": "Feed",
+    "PROFILE": "Profile",
+    "NOTIFICATIONS": "Notifications",
+    "PROFILE_SETTINGS": "Profile Settings",
+    "CHANGE_PASSWORD": "Change Password",
+    "LOGOUT": "Logout"
+  },
+
+  "SIDEBAR": {
+    "NAVIGATION": "Feed navigation",
+    "FEED": "Feed",
+    "MY_POSTS": "My Posts",
+    "COMMUNITY": "Community",
+    "SAVED": "Saved"
+  },
+
+  "AUTH": {
+    "LOGIN": "Login",
+    "REGISTER": "Register",
+
+    "INTRO_DESCRIPTION": "Connect with friends and the world around you on Route Posts.",
+
+    "ABOUT_ROUTE_ACADEMY": "ABOUT ROUTE ACADEMY",
+
+    "ACADEMY_TITLE": "Egypt's Leading IT Training Center Since 2012",
+
+    "ACADEMY_DESCRIPTION": "Route Academy is the premier IT training center in Egypt, established in 2012. We specialize in delivering high-quality training courses in programming, web development, and application development. We've identified the unique challenges people may face when learning new technology and made efforts to provide strategies to overcome them.",
+
+    "FOUNDED": "FOUNDED",
+    "GRADUATES": "GRADUATES",
+    "PARTNER_COMPANIES": "PARTNER COMPANIES",
+    "BRANCHES": "BRANCHES",
+    "DIPLOMAS_AVAILABLE": "DIPLOMAS AVAILABLE",
+
+    "LOGIN_TITLE": "Log in to Route Posts",
+    "LOGIN_SUBTITLE": "Log in and continue your social journey.",
+
+    "REGISTER_TITLE": "Create a new account",
+    "REGISTER_SUBTITLE": "It is quick and easy.",
+
+    "FULL_NAME": "Full name",
+    "FULL_NAME_REQUIRED": "Full name is required.",
+    "FULL_NAME_MIN_LENGTH": "Name must be at least 3 characters.",
+
+    "USERNAME_OPTIONAL": "Username (optional)",
+
+    "EMAIL": "Email",
+    "EMAIL_ADDRESS": "Email address",
+    "EMAIL_REQUIRED": "Email is required.",
+    "EMAIL_INVALID": "Please enter a valid email address.",
+
+    "SELECT_GENDER": "Select gender",
+    "MALE": "Male",
+    "FEMALE": "Female",
+    "GENDER_REQUIRED": "Gender is required.",
+
+    "DATE_OF_BIRTH_REQUIRED": "Date of birth is required.",
+
+    "PASSWORD": "Password",
+    "PASSWORD_REQUIRED": "Password is required.",
+    "PASSWORD_PATTERN": "Password must include uppercase, lowercase, number, and special character.",
+
+    "CONFIRM_PASSWORD": "Confirm password",
+    "CONFIRM_PASSWORD_REQUIRED": "Please confirm your password.",
+    "PASSWORDS_DO_NOT_MATCH": "Passwords do not match.",
+
+    "LOG_IN": "Log In",
+    "LOGGING_IN": "Logging in...",
+
+    "SIGN_IN": "Sign In",
+    "SIGN_UP": "Sign Up",
+
+    "CREATE_ACCOUNT": "Create New Account",
+    "CREATING_ACCOUNT": "Creating account...",
+
+    "FORGOT_PASSWORD": "Forgot password?",
+    "RESET_PASSWORD": "Reset Password",
+    "OLD_PASSWORD": "Old Password",
+    "NEW_PASSWORD": "New Password"
+  },
+
+  "FEED": {
+    "WHATS_ON_YOUR_MIND": "What's on your mind...?",
+    "CREATE_POST": "Create a new post",
+    "PUBLIC": "Public",
+    "PHOTO_VIDEO": "Photo/video",
+    "FEELING_ACTIVITY": "Feeling/activity",
+    "POST": "Post",
+    "LOADING_POSTS": "Loading posts...",
+    "NO_POSTS": "No posts yet.",
+    "NO_SAVED_POSTS": "No saved posts yet.",
+    "REMOVE_FILE": "Remove selected file",
+    "PREVIEW_IMAGE": "Preview image"
+  },
+
+  "POST": {
+    "PUBLIC": "Public",
+    "FOLLOWERS": "Followers",
+    "ONLY_ME": "Only me",
+
+    "SAVE": "Save",
+    "UNSAVE": "Unsave",
+
+    "SAVE_POST": "Save Post",
+    "UNSAVE_POST": "Unsave Post",
+
+    "EDIT_POST": "Edit post",
+    "DELETE_POST": "Delete post",
+    "UPDATE_POST": "Update post",
+
+    "POST_CONTENT": "Post content",
+
+    "UPDATING": "Updating...",
+    "DELETING": "Deleting...",
+
+    "DELETE_CONFIRMATION": "Are you sure you want to delete this post?",
+
+    "LIKE": "Like",
+    "COMMENT": "Comment",
+    "SHARE": "Share",
+
+    "LIKES": "likes",
+    "COMMENTS": "comments",
+    "SHARES": "shares",
+
+    "VIEW_DETAILS": "View details",
+    "BACK_TO_POSTS": "Back to Posts"
+  },
+
+  "COMMENTS": {
+    "COMMENTS": "Comments",
+    "WRITE_COMMENT": "Write a comment...",
+    "ADD_COMMENT": "Add Comment",
+    "EDIT_COMMENT": "Edit Comment",
+    "DELETE_COMMENT": "Delete Comment",
+    "REPLY": "Reply",
+    "REPLIES": "Replies",
+    "VIEW_MORE_COMMENTS": "View more comments"
+  },
+
+  "PROFILE": {
+    "PROFILE": "Profile",
+
+    "MY_POSTS": "My Posts",
+    "SAVED": "Saved",
+    "SAVED_POSTS": "Saved Posts",
+    "POSTS": "Posts",
+
+    "FOLLOWERS": "Followers",
+    "FOLLOWING": "Following",
+    "BOOKMARKS": "Bookmarks",
+
+    "EDIT_PROFILE": "Edit Profile",
+
+    "LOADING_PROFILE": "Loading your profile...",
+    "DATA_UNAVAILABLE": "Profile data is unavailable.",
+
+    "ROUTE_POSTS_MEMBER": "Route Posts member",
+
+    "ABOUT": "About",
+    "MEMBER_SINCE": "Member since",
+
+    "NO_POSTS": "No posts yet.",
+    "NO_SAVED_POSTS": "No saved posts yet.",
+
+    "VIEW_DETAILS": "View details",
+    "POST_IMAGE": "Post image"
+  },
+
+  "NOTIFICATIONS": {
+    "TITLE": "Notifications",
+
+    "DESCRIPTION": "Realtime updates for likes, comments, shares, and follows.",
+
+    "ALL": "All",
+    "UNREAD": "Unread",
+
+    "MARK_ALL_READ": "Mark all as read",
+    "MARK_AS_READ": "Mark as read",
+    "MARKING": "Marking...",
+
+    "READ": "Read",
+
+    "LOADING": "Loading notifications...",
+
+    "NO_NOTIFICATIONS": "No notifications yet.",
+    "NO_UNREAD": "No unread notifications yet.",
+
+    "EMPTY_DESCRIPTION": "When people interact with your posts or follow you, notifications will appear here."
+  },
+
+  "SUGGESTED_FRIENDS": {
+    "TITLE": "Suggested Friends",
+    "ALL_TITLE": "All Suggested Friends",
+
+    "PEOPLE_YOU_MAY_KNOW": "People you may know",
+    "BACK_TO_FEED": "Back to feed",
+
+    "SEARCH_PLACEHOLDER": "Search friends...",
+    "SEARCH_BY_NAME": "Search by name or username...",
+
+    "FOLLOW": "+ Follow",
+    "FOLLOWING": "Following...",
+    "FOLLOWERS": "followers",
+
+    "LOADING": "Loading suggested friends...",
+
+    "VIEW_MORE": "View more",
+
+    "NO_RESULTS": "No friends found.",
+    "NO_SUGGESTIONS": "No suggested friends."
+  },
+
+  "COMMUNITY": {
+    "COMING_SOON": "Community coming soon."
+  },
+
+  "CHANGE_PASSWORD": {
+    "TITLE": "Change Password",
+
+    "DESCRIPTION": "Enter your current password and choose a secure new password.",
+
+    "CURRENT_PASSWORD": "Current password",
+    "NEW_PASSWORD": "New password",
+    "CONFIRM_NEW_PASSWORD": "Confirm new password",
+
+    "CURRENT_PASSWORD_REQUIRED": "Current password is required.",
+    "NEW_PASSWORD_REQUIRED": "New password is required.",
+    "NEW_PASSWORD_MIN_LENGTH": "New password must be at least 8 characters.",
+    "NEW_PASSWORD_PATTERN": "Use uppercase, lowercase, a number, and a special character.",
+    "SAME_PASSWORD": "New password must be different from the current password.",
+    "CONFIRM_PASSWORD_REQUIRED": "Please confirm your new password.",
+    "PASSWORD_MISMATCH": "Passwords do not match.",
+
+    "SHOW_CURRENT_PASSWORD": "Show current password",
+    "HIDE_CURRENT_PASSWORD": "Hide current password",
+
+    "SHOW_NEW_PASSWORD": "Show new password",
+    "HIDE_NEW_PASSWORD": "Hide new password",
+
+    "SHOW_CONFIRM_PASSWORD": "Show password confirmation",
+    "HIDE_CONFIRM_PASSWORD": "Hide password confirmation",
+
+    "UPDATE_PASSWORD": "Update password",
+    "UPDATING": "Updating..."
+  }
+}
