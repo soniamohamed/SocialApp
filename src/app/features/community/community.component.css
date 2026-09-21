@@ -1,0 +1,4 @@
+:host { display: block; }
+.community-card { padding: 80px 20px; border: 1px solid #e2e8f0; border-radius: 16px; background: #fff; color: #64748b; text-align: center; box-shadow: 0 2px 10px rgba(15, 23, 42, .05); }
+.community-card i { color: #2563eb; font-size: 34px; }
+.community-card p { margin: 14px 0 0; }

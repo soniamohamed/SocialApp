@@ -837,3 +837,69 @@
   }
 
 }
+
+/* Connected profile states and content */
+.cover-section,
+.profile-card,
+.tabs-card,
+.posts-section {
+  width: min(1120px, calc(100% - 32px));
+  margin-inline: auto;
+}
+
+.cover-section { margin-top: 8px; }
+.cover-section.has-cover { background-position: center; background-size: cover; }
+.profile-card { margin-top: -65px; }
+.tabs-card { margin-top: 26px; }
+.posts-section { margin-top: 16px; }
+.tab.active { background: #0866ff; color: #ffffff; }
+.view-details { text-decoration: none; }
+
+.post-image {
+  max-width: 100%;
+  max-height: 560px;
+  display: block;
+  object-fit: contain;
+}
+
+.post-media {
+  width: 100%;
+  min-height: 280px;
+  max-height: 560px;
+  margin-top: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 16px;
+  background-color: #020617;
+}
+
+@media (max-width: 500px) {
+  .post-media {
+    min-height: 220px;
+    border-radius: 12px;
+  }
+}
+.post-metrics { margin-top: 15px; padding-top: 12px; display: flex; align-items: center; gap: 20px; border-top: 1px solid #edf1f6; color: #627495; font-size: 12px; }
+.post-metrics span { display: inline-flex; align-items: center; gap: 6px; }
+
+.posts-empty,
+.profile-state { padding: 50px 20px; text-align: center; background: #ffffff; border: 1px solid #dbe3ef; border-radius: 16px; color: #627495; box-shadow: 0 4px 14px rgba(18, 32, 59, 0.07); }
+.profile-state { width: min(768px, calc(100% - 32px)); margin: 80px auto 0; }
+.posts-empty i,
+.profile-state i { color: #0866ff; font-size: 28px; }
+.posts-empty p,
+.profile-state p { margin: 10px 0 0; }
+.profile-error { color: #991b1b; background: #fef2f2; border-color: #fecaca; }
+.profile-error i { color: #dc2626; }
+.profile-error button { margin-top: 14px; padding: 8px 14px; border: 0; border-radius: 9px; background: #0866ff; color: #fff; font-weight: 700; cursor: pointer; }
+
+@media (max-width: 500px) {
+  .cover-section,
+  .profile-card,
+  .tabs-card,
+  .posts-section { width: 100%; }
+  .post-header { align-items: flex-start; }
+  .post-metrics { justify-content: space-between; gap: 8px; }
+}

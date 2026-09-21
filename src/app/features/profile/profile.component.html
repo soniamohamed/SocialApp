@@ -1,323 +1,106 @@
 <main class="profile-page">
-
-  <!-- =========================
-       COVER
-  ========================== -->
-  <section class="cover-section">
-
-    <button class="cover-btn" type="button">
-      <span class="camera-icon">📷</span>
-      Add cover
-    </button>
-
-  </section>
-
-
-  <!-- =========================
-       PROFILE CARD
-  ========================== -->
-  <section class="profile-card">
-
-    <!-- Profile Header -->
-    <div class="profile-header">
-
-      <!-- User Info -->
-      <div class="user-info">
-
-        <div class="avatar-wrapper">
-          <img
-            src="assets/images/user-avatar.jpg"
-            alt="Sonia Mohamed"
-          />
-        </div>
-
-        <div class="user-details">
-
-          <h1>sonia mohamed</h1>
-
-          <p class="username">
-            &#64;soniamohamed
-          </p>
-
-          <span class="member-badge">
-            <span>♧</span>
-            Route Posts member
-          </span>
-
-        </div>
-
-      </div>
-
-
-      <!-- Statistics -->
-      <div class="profile-stats">
-
-        <div class="stat-box">
-
-          <span class="stat-title">
-            FOLLOWERS
-          </span>
-
-          <strong>
-            0
-          </strong>
-
-        </div>
-
-
-        <div class="stat-box">
-
-          <span class="stat-title">
-            FOLLOWING
-          </span>
-
-          <strong>
-            0
-          </strong>
-
-        </div>
-
-
-        <div class="stat-box">
-
-          <span class="stat-title">
-            BOOKMARKS
-          </span>
-
-          <strong>
-            0
-          </strong>
-
-        </div>
-
-      </div>
-
-    </div>
-
-
-    <!-- =========================
-         PROFILE DETAILS
-    ========================== -->
-    <div class="profile-details">
-
-      <!-- About -->
-      <div class="about-card">
-
-        <h2>
-          About
-        </h2>
-
-
-        <div class="about-item">
-
-          <span class="about-icon">
-            ✉
-          </span>
-
-          <span>
-            sonia.mohamed41&#64;gmail.com
-          </span>
-
-        </div>
-
-
-        <div class="about-item">
-
-          <span class="about-icon">
-            ♧
-          </span>
-
-          <span>
-            Active on Route Posts
-          </span>
-
-        </div>
-
-      </div>
-
-
-      <!-- Activity -->
-      <div class="activity-section">
-
-        <div class="activity-card">
-
-          <span>
-            MY POSTS
-          </span>
-
-          <strong>
-            2
-          </strong>
-
-        </div>
-
-
-        <div class="activity-card">
-
-          <span>
-            SAVED POSTS
-          </span>
-
-          <strong>
-            0
-          </strong>
-
-        </div>
-
-      </div>
-
-    </div>
-
-  </section>
-
-
-  <!-- =========================
-       TABS
-  ========================== -->
-  <section class="tabs-card">
-
-    <div class="tabs">
-
-      <button
-        type="button"
-        class="tab active"
-      >
-
-        <span class="tab-icon">
-          ▤
-        </span>
-
-        My Posts
-
-      </button>
-
-
-      <button
-        type="button"
-        class="tab"
-      >
-
-        <span class="tab-icon">
-          ♡
-        </span>
-
-        Saved
-
-      </button>
-
-    </div>
-
-
-    <span class="posts-count">
-      2
-    </span>
-
-  </section>
-
-
-  <!-- =========================
-       POSTS
-  ========================== -->
-  <section class="posts-section">
-
-    <!-- Post -->
-    <article class="post-card">
-
-      <header class="post-header">
-
-        <div class="post-author">
-
-          <img
-            src="assets/images/user-avatar.jpg"
-            alt="Sonia Mohamed"
-          />
-
-          <div>
-
-            <h3>
-              sonia mohamed
-            </h3>
-
-            <span>
-              &#64;soniamohamed
-            </span>
-
+  @if (isLoading) {
+    <section class="profile-state" role="status">
+      <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
+      <p>Loading your profile...</p>
+    </section>
+  } @else if (errorMessage || !profile) {
+    <section class="profile-state profile-error" role="alert">
+      <i class="fa-regular fa-circle-xmark" aria-hidden="true"></i>
+      <p>{{ errorMessage || 'Profile data is unavailable.' }}</p>
+      <button type="button" (click)="loadProfile()">Try again</button>
+    </section>
+  } @else {
+    <section
+      class="cover-section"
+      [class.has-cover]="!!profile.cover"
+      [style.background-image]="profile.cover ? 'url(' + profile.cover + ')' : null"
+    ></section>
+
+    <section class="profile-card">
+      <div class="profile-header">
+        <div class="user-info">
+          <div class="avatar-wrapper">
+            <img [src]="profile.photo || 'assets/images/user-avatar.jpg'" [alt]="profile.name" />
           </div>
-
-        </div>
-
-
-        <button
-          type="button"
-          class="view-details"
-        >
-          View details
-        </button>
-
-      </header>
-
-
-      <div class="post-content">
-
-        <p>
-          Hello Route Academy!
-          <a href="#">
-            &#64;Sonia Mohamed
-          </a>
-        </p>
-
-      </div>
-
-    </article>
-
-
-    <!-- Second Post -->
-    <article class="post-card">
-
-      <header class="post-header">
-
-        <div class="post-author">
-
-          <img
-            src="assets/images/user-avatar.jpg"
-            alt="Sonia Mohamed"
-          />
-
-          <div>
-
-            <h3>
-              sonia mohamed
-            </h3>
-
-            <span>
-              &#64;soniamohamed
-            </span>
-
+          <div class="user-details">
+            <h1>{{ profile.name }}</h1>
+            <p class="username">&#64;{{ profile.username }}</p>
+            <span class="member-badge"><i class="fa-solid fa-shield-halved" aria-hidden="true"></i> Route Posts member</span>
           </div>
-
         </div>
 
-
-        <button
-          type="button"
-          class="view-details"
-        >
-          View details
-        </button>
-
-      </header>
-
-
-      <div class="post-content">
-
-        <p>
-          Welcome to my Route Posts profile.
-        </p>
-
+        <div class="profile-stats">
+          <div class="stat-box"><span class="stat-title">Followers</span><strong>{{ profile.followersCount ?? '—' }}</strong></div>
+          <div class="stat-box"><span class="stat-title">Following</span><strong>{{ profile.followingCount ?? '—' }}</strong></div>
+          <div class="stat-box"><span class="stat-title">Bookmarks</span><strong>{{ bookmarksCount }}</strong></div>
+        </div>
       </div>
 
-    </article>
+      <div class="profile-details">
+        <div class="about-card">
+          <h2>About</h2>
+          <div class="about-item"><span class="about-icon"><i class="fa-regular fa-envelope"></i></span><span>{{ profile.email }}</span></div>
+          <div class="about-item"><span class="about-icon"><i class="fa-regular fa-user"></i></span><span>&#64;{{ profile.username }}</span></div>
+          @if (profile.createdAt) {
+            <div class="about-item"><span class="about-icon"><i class="fa-regular fa-calendar"></i></span><span>Member since {{ profile.createdAt | date: 'MMMM y' }}</span></div>
+          }
+        </div>
 
-  </section>
+        <div class="activity-section">
+          <div class="activity-card"><span>My Posts</span><strong>{{ myPostsCount }}</strong></div>
+          <div class="activity-card"><span>Saved Posts</span><strong>{{ savedPostsCount }}</strong></div>
+        </div>
+      </div>
+    </section>
 
+    <section class="tabs-card">
+      <div class="tabs">
+        <button type="button" class="tab" [class.active]="activeTab === 'posts'" (click)="setActiveTab('posts')">
+          <i class="fa-regular fa-rectangle-list tab-icon" aria-hidden="true"></i> My Posts
+        </button>
+        <button type="button" class="tab" [class.active]="activeTab === 'saved'" (click)="setActiveTab('saved')">
+          <i class="fa-regular fa-bookmark tab-icon" aria-hidden="true"></i> Saved
+        </button>
+      </div>
+      <span class="posts-count">{{ displayedCount }}</span>
+    </section>
+
+    <section class="posts-section">
+      @if (displayedPosts.length === 0) {
+        <div class="posts-empty">
+          <i [class]="activeTab === 'posts' ? 'fa-regular fa-rectangle-list' : 'fa-regular fa-bookmark'" aria-hidden="true"></i>
+          <p>{{ activeTab === 'posts' ? 'No posts yet.' : 'No saved posts yet.' }}</p>
+        </div>
+      } @else {
+        @for (post of displayedPosts; track postId(post)) {
+          <article class="post-card">
+            <header class="post-header">
+              <div class="post-author">
+                <img [src]="post.user.photo || 'assets/images/user-avatar.jpg'" [alt]="post.user.name" />
+                <div>
+                  <h3>{{ post.user.name }}</h3>
+                  <span>&#64;{{ post.user.username }} · {{ post.createdAt | date: 'MMM d, y' }}</span>
+                </div>
+              </div>
+              <a class="view-details" [routerLink]="['/details', postId(post)]">View details</a>
+            </header>
+
+            @if (post.body) { <div class="post-content"><p>{{ post.body }}</p></div> }
+            @if (post.image) {
+              <div class="post-media">
+                <img class="post-image" [src]="post.image" [alt]="post.body || 'Post image'" />
+              </div>
+            }
+
+            <footer class="post-metrics">
+              <span><i class="fa-regular fa-thumbs-up"></i> {{ post.likesCount }}</span>
+              <span><i class="fa-regular fa-comment"></i> {{ post.commentsCount }}</span>
+              <span><i class="fa-solid fa-share"></i> {{ post.sharesCount }}</span>
+            </footer>
+          </article>
+        }
+      }
+    </section>
+  }
 </main>

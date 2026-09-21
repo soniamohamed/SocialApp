@@ -228,6 +228,11 @@
   background: #dbeafe;
 }
 
+.follow-button:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
 
 /* =========================================
    META
@@ -292,4 +297,51 @@
 
 .view-more-button:hover {
   background: #f9fafb;
+}
+
+.view-more-button:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.friends-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.friend-card {
+  min-width: 0;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.friend-card:last-child {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+.suggestions-loading,
+.suggestions-empty,
+.suggestions-error {
+  margin: 0;
+  padding: 18px 8px;
+  text-align: center;
+  color: #6b7280;
+  font-size: 12px;
+}
+
+.suggestions-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.suggestions-error {
+  padding: 10px;
+  border: 1px solid #fecaca;
+  border-radius: 10px;
+  background: #fef2f2;
+  color: #b91c1c;
 }

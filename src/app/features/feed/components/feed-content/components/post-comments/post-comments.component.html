@@ -18,7 +18,7 @@
     <span
       class="bg-blue-100 text-blue-600 text-[12px] font-bold px-2 py-0.5 rounded-full"
     >
-      {{ commentsList.length }}
+      {{ commentsCount }}
     </span>
 
   </div>
@@ -263,7 +263,7 @@
               </span>
 
               <span>
-                {{ comment.createdAt }}
+            {{ comment.createdAt | date:'dd MMM yyyy, h:mm a' }}
               </span>
 
             </div>
@@ -320,17 +320,20 @@
             <span
               class="cursor-pointer hover:underline"
             >
-              {{ comment.createdAt }}
+               {{ comment.createdAt | date:'dd MMM yyyy, h:mm a' }}
             </span>
 
 
             <!-- Like -->
 
             <button
+            (click)="UpdateLikeInComment(postId, comment._id)"
               type="button"
+              [class.text-blue-600]="isCommentLiked(comment)"
+              [class.text-slate-500]="!isCommentLiked(comment)"
               class="cursor-pointer hover:underline"
             >
-              Like ({{ comment.likes.length }})
+             ({{ comment.likesCount ?? comment.likes.length }}) Like
             </button>
 
 
@@ -338,9 +341,10 @@
 
             <button
               type="button"
+              (click)="toggleReplies(comment._id)"
               class="cursor-pointer hover:underline"
             >
-              {{ comment.repliesCount }} Reply
+              {{ comment.repliesCount ?? 0 }} Reply
             </button>
 
 
@@ -401,8 +405,33 @@
 
         }
 
+        @if (expandedReplyCommentIds.has(comment._id)) {
+          <app-post-replies
+            [postId]="postId"
+            [commentId]="comment._id"
+            [repliesCount]="comment.repliesCount ?? 0"
+            (repliesCountChange)="updateRepliesCount(comment._id, $event)"
+          />
+        }
+
       </div>
 
+    </div>
+
+  }
+
+
+  @if (commentsList.length < commentsCount) {
+
+    <div class="flex justify-center mb-4">
+      <button
+        type="button"
+        (click)="viewMoreComments()"
+        [disabled]="isLoadingMore"
+        class="px-4 py-2 rounded-xl text-[13px] font-semibold text-blue-600 hover:bg-blue-50 disabled:text-slate-400 disabled:cursor-not-allowed transition-colors cursor-pointer"
+      >
+        {{ isLoadingMore ? 'Loading...' : 'View more comments' }}
+      </button>
     </div>
 
   }

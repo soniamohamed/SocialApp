@@ -21,6 +21,7 @@
   <a
     routerLink="/my-posts"
     routerLinkActive="active"
+    [routerLinkActiveOptions]="{ exact: true }"
     class="sidebar-item"
   >
     <span class="sidebar-icon">✍️</span>
@@ -32,6 +33,7 @@
   <a
     routerLink="/community"
     routerLinkActive="active"
+    [routerLinkActiveOptions]="{ exact: true }"
     class="sidebar-item"
   >
     <span class="sidebar-icon">🌐</span>
@@ -43,6 +45,7 @@
   <a
     routerLink="/saved"
     routerLinkActive="active"
+    [routerLinkActiveOptions]="{ exact: true }"
     class="sidebar-item"
   >
     <span class="sidebar-icon">🔖</span>
@@ -50,4 +53,3 @@
   </a>
 
 </nav>
-

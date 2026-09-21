@@ -13,9 +13,9 @@ export class CommentsService {
  
 
 
-    getPostComments(postId:string):Observable<CommentsResponse>
+    getPostComments(postId:string,page:number = 1,limit:number = 10):Observable<CommentsResponse>
     {
-      return this.httpClient.get<CommentsResponse>(`${environment.base_url}/posts/${postId}/comments?page=1&limit=10`);
+      return this.httpClient.get<CommentsResponse>(`${environment.base_url}/posts/${postId}/comments?page=${page}&limit=${limit}`);
     }
      createComment(postId:string,data:FormData):Observable<CommentMutationDataResponse>
       {

@@ -1,0 +1,47 @@
+@if (isLoading) {
+        <section class="collection-state" role="status">
+          <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
+          <p>Loading {{ title.toLowerCase() }}...</p>
+        </section>
+      } @else if (errorMessage) {
+        <section class="collection-state error-state" role="alert">
+          <i class="fa-regular fa-circle-xmark" aria-hidden="true"></i>
+          <p>{{ errorMessage }}</p>
+          <button type="button" (click)="loadPosts()">Try again</button>
+        </section>
+      } @else if (posts.length === 0) {
+        <section class="collection-state">
+          <i [class]="source === 'my-posts' ? 'fa-regular fa-rectangle-list' : 'fa-regular fa-bookmark'" aria-hidden="true"></i>
+          <p>{{ emptyMessage }}</p>
+        </section>
+      } @else {
+        <section class="posts-list">
+          @for (post of posts; track postId(post)) {
+            <article class="post-card">
+              <header class="post-header">
+                <div class="post-author">
+                  <img [src]="post.user.photo || 'assets/images/user-avatar.jpg'" [alt]="post.user.name" />
+                  <div>
+                    <h3>{{ post.user.name }}</h3>
+                    <span>&#64;{{ post.user.username }} · {{ post.createdAt | date: 'MMM d, y' }}</span>
+                  </div>
+                </div>
+                <a class="view-details" [routerLink]="['/details', postId(post)]">View details</a>
+              </header>
+
+              @if (post.body) { <div class="post-content"><p>{{ post.body }}</p></div> }
+              @if (post.image) {
+                <div class="post-media">
+                  <img class="post-image" [src]="post.image" [alt]="post.body || 'Post image'" />
+                </div>
+              }
+
+              <footer class="post-metrics">
+                <span><i class="fa-regular fa-thumbs-up"></i> {{ post.likesCount }}</span>
+                <span><i class="fa-regular fa-comment"></i> {{ post.commentsCount }}</span>
+                <span><i class="fa-solid fa-share"></i> {{ post.sharesCount }}</span>
+              </footer>
+            </article>
+          }
+        </section>
+}

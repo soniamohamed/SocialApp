@@ -1,0 +1,73 @@
+<section class="w-full mt-3 ml-4 pl-3 border-l-2 border-slate-100">
+  @if (isLoading) {
+    <p class="py-2 text-xs text-slate-500">Loading replies...</p>
+  }
+
+  @for (reply of repliesList; track reply._id) {
+    <div class="flex gap-2 mb-3">
+      <img
+        [src]="reply.commentCreator.photo"
+        [alt]="reply.commentCreator.name"
+        class="w-7 h-7 rounded-full object-cover shrink-0 mt-1 bg-slate-100"
+      />
+
+      <div class="min-w-0 flex-1">
+        <div class="bg-slate-50 rounded-2xl rounded-tl-none px-3 py-2">
+          <div class="flex items-center gap-1 text-xs mb-1">
+            <span class="font-bold text-slate-900">
+              {{ reply.commentCreator.name }}
+            </span>
+            <span class="text-slate-400">
+              {{ reply.createdAt | date:'dd MMM yyyy, h:mm a' }}
+            </span>
+          </div>
+
+          <p class="text-[13px] text-slate-800 wrap-break-word">
+            {{ reply.content }}
+          </p>
+
+          @if (reply.image) {
+            <img
+              [src]="reply.image"
+              alt="Reply image"
+              class="max-w-full max-h-48 mt-2 rounded-xl object-cover border border-slate-200"
+            />
+          }
+        </div>
+      </div>
+    </div>
+  }
+
+  @if (repliesList.length < repliesCount && !isLoading) {
+    <button
+      type="button"
+      (click)="loadMoreReplies()"
+      [disabled]="isLoadingMore"
+      class="mb-3 text-xs font-semibold text-blue-600 hover:underline disabled:text-slate-400 disabled:cursor-not-allowed"
+    >
+      {{ isLoadingMore ? 'Loading...' : 'View more replies' }}
+    </button>
+  }
+
+  <div class="flex items-center gap-2">
+    <input
+      type="text"
+      [formControl]="replyControl"
+      (keyup.enter)="submitReply()"
+      placeholder="Write a reply..."
+      class="flex-1 rounded-full border border-slate-200 bg-slate-50 px-3 py-2 text-[13px] outline-none focus:border-blue-300 focus:bg-white"
+    />
+    <button
+      type="button"
+      (click)="submitReply()"
+      [disabled]="isSubmitting || !replyControl.value.trim()"
+      class="rounded-full bg-blue-500 px-3 py-2 text-xs font-semibold text-white hover:bg-blue-600 disabled:bg-slate-300 disabled:cursor-not-allowed"
+    >
+      {{ isSubmitting ? 'Sending...' : 'Reply' }}
+    </button>
+  </div>
+
+  @if (errorMessage) {
+    <p class="mt-2 text-xs text-red-600">{{ errorMessage }}</p>
+  }
+</section>

@@ -65,9 +65,8 @@ submitForm(): void{
         {
           
           // save token
-          localStorage.setItem('socialToken',res.data.token);
+          this.authService.setSession(res.data);
           //save user data
-           localStorage.setItem('userData',JSON.stringify(res.data.user)); //JSON.stringify لان البيانات عباره عن اوبجكت عشان نحولها لسترنج 
          this.loginForm.reset();
           this.loading=false;
           console.log(res);

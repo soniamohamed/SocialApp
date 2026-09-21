@@ -1,0 +1,60 @@
+<section class="suggested-page">
+  <div class="suggested-container">
+    <a routerLink="/feed" class="back-link">
+      <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
+      Back to feed
+    </a>
+
+    <div class="suggested-panel">
+      <header class="page-header">
+        <div>
+          <p class="eyebrow">People you may know</p>
+          <h1>All Suggested Friends</h1>
+        </div>
+        <span class="total-count">{{ totalSuggestions }}</span>
+      </header>
+
+      <div class="page-search">
+        <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+        <input type="search" [formControl]="searchControl" placeholder="Search friends..." aria-label="Search friends" />
+      </div>
+
+      @if (errorMessage) {
+        <p class="page-message error-message" role="alert">{{ errorMessage }}</p>
+      }
+
+      @if (isLoading && suggestions.length === 0) {
+        <div class="page-message loading-message" role="status">
+          <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
+          Loading suggested friends...
+        </div>
+      } @else if (filteredSuggestions.length > 0) {
+        <div class="friends-grid">
+          @for (friend of filteredSuggestions; track friend._id) {
+            <article class="friend-card">
+              <img [src]="friend.photo || 'assets/images/user-avatar.jpg'" [alt]="friend.name" class="friend-avatar" />
+              <div class="friend-details">
+                <h2>{{ friend.name }}</h2>
+                <p>&#64;{{ friend.username }}</p>
+                @if (friend.followersCount !== undefined) {
+                  <span class="meta-badge">{{ friend.followersCount }} followers</span>
+                }
+              </div>
+              <button type="button" class="follow-button" (click)="follow(friend)" [disabled]="followRequests.has(friend._id)">
+                {{ followRequests.has(friend._id) ? 'Following...' : '+ Follow' }}
+              </button>
+            </article>
+          }
+        </div>
+      } @else if (!isLoading && !errorMessage) {
+        <p class="page-message">{{ searchControl.value.trim() ? 'No friends found.' : 'No suggested friends.' }}</p>
+      }
+
+      @if (hasMore && !isLoading) {
+        <button type="button" class="view-more-button" (click)="loadMore()" [disabled]="isLoadingMore">
+          {{ isLoadingMore ? 'Loading...' : 'View more' }}
+        </button>
+      }
+    </div>
+  </div>
+</section>

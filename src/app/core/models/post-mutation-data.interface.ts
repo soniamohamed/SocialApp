@@ -18,6 +18,7 @@ export interface Post {
    sharedPost:null; 
    likes:string[];  
    likesCount: number;
+   bookmarked?: boolean;
    isShare: boolean;
    createdAt: string;
 }

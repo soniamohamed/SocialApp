@@ -1,104 +1,56 @@
-
-<section
-  class="suggestions-card"
-  dir="ltr"
->
-
-  <!-- ================= HEADER ================= -->
+<section class="suggestions-card" dir="ltr">
   <div class="suggestions-header">
-
     <div class="suggestions-title">
-
-      <span class="group-icon">
-        👥
-      </span>
-
-      <h2>
-        Suggested Friends
-      </h2>
-
+      <span class="group-icon"><i class="fa-solid fa-user-group" aria-hidden="true"></i></span>
+      <h2>Suggested Friends</h2>
     </div>
-
-    <span class="suggestions-count">
-      5
-    </span>
-
+    <span class="suggestions-count">{{ totalSuggestions }}</span>
   </div>
 
-
-  <!-- ================= SEARCH ================= -->
   <div class="friends-search">
-
-    <span class="search-icon">
-      🔍
-    </span>
-
-    <input
-      type="text"
-      placeholder="Search friends..."
-      aria-label="Search friends"
-    >
-
+    <span class="search-icon"><i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i></span>
+    <input type="search" [formControl]="searchControl" placeholder="Search friends..." aria-label="Search friends" />
   </div>
 
+  @if (errorMessage) {
+    <p class="suggestions-error" role="alert">{{ errorMessage }}</p>
+  }
 
-  <!-- ================= FRIEND ================= -->
-  <div class="friend-item">
-
-    <div class="friend-info">
-
-      <img
-        src="assets/images/imgotherProfile.jpg"
-        alt="Ahmed Bahnasy"
-        class="friend-avatar"
-      >
-
-      <div class="friend-text">
-
-        <h3>
-          Ahmed Bahnasy
-        </h3>
-
-        <p>
-          &#64;bahnasy20222...
-        </p>
-
-      </div>
-
+  @if (isLoading) {
+    <div class="suggestions-loading" role="status">
+      <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
+      <span>Loading suggestions...</span>
     </div>
+  } @else if (filteredSuggestions.length > 0) {
+    <div class="friends-list">
+      @for (friend of filteredSuggestions; track friend._id) {
+        <article class="friend-card">
+          <div class="friend-item">
+            <div class="friend-info">
+              <img [src]="friend.photo || 'assets/images/user-avatar.jpg'" [alt]="friend.name" class="friend-avatar" />
+              <div class="friend-text">
+                <h3>{{ friend.name }}</h3>
+                <p>&#64;{{ friend.username }}</p>
+              </div>
+            </div>
+            <button type="button" class="follow-button" (click)="follow(friend)" [disabled]="followRequests.has(friend._id)">
+              {{ followRequests.has(friend._id) ? 'Following...' : '+ Follow' }}
+            </button>
+          </div>
 
+          @if (friend.followersCount !== undefined) {
+            <div class="friend-meta"><span>{{ friend.followersCount }} followers</span></div>
+          }
+        </article>
+      }
+    </div>
+  } @else if (!errorMessage) {
+    <p class="suggestions-empty">{{ searchControl.value.trim() ? 'No friends found.' : 'No suggested friends.' }}</p>
+  }
 
-    <button
-      type="button"
-      class="follow-button"
-    >
-      + Follow
+  @if (hasMore && !isLoading) {
+    <button type="button" class="view-more-button" routerLink="/suggested-friends">
+      View more
     </button>
-
-  </div>
-
-
-  <!-- ================= META ================= -->
-  <div class="friend-meta">
-
-    <span>
-      41 followers
-    </span>
-
-    <span class="mutual">
-      2 mutual
-    </span>
-
-  </div>
-
-
-  <!-- ================= VIEW MORE ================= -->
-  <button
-    type="button"
-    class="view-more-button"
-  >
-    View more
-  </button>
-
+  }
 </section>
-

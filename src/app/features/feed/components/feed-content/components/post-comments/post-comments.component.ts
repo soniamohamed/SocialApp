@@ -3,8 +3,10 @@ import {
   EventEmitter,
   inject,
   Input,
+  OnChanges,
   OnInit,
   Output,
+  SimpleChanges,
   ViewChild,
   ElementRef
 } from '@angular/core';
@@ -17,20 +19,23 @@ import {
 import { CommentsService } from './services/comments.service';
 
 import { Comment } from './models/commentsData.interface';
+import { finalize } from 'rxjs';
+import { DatePipe } from '@angular/common';
+import { PostRepliesComponent } from './components/post-replies/post-replies.component';
 
 
 @Component({
   selector: 'app-post-comments',
 
   imports: [
-    ReactiveFormsModule
+    ReactiveFormsModule, DatePipe, PostRepliesComponent
   ],
 
   templateUrl: './post-comments.component.html',
 
   styleUrl: './post-comments.component.css'
 })
-export class PostCommentsComponent implements OnInit {
+export class PostCommentsComponent implements OnInit, OnChanges {
 
   private readonly commentsService =
     inject(CommentsService);
@@ -42,9 +47,21 @@ export class PostCommentsComponent implements OnInit {
 
   commentsList: Comment[] = [];
 
+  readonly commentLikeRequests = new Set<string>();
+
+  readonly expandedReplyCommentIds = new Set<string>();
+
+  currentPage: number = 1;
+
+  numberOfPages: number = 0;
+
+  isLoadingMore: boolean = false;
 
   @Input({ required: true })
   postId: string = '';
+
+  @Input({ required: true })
+  commentsCount: number = 0;
 
 
   // =========================================================
@@ -102,15 +119,20 @@ export class PostCommentsComponent implements OnInit {
   // =========================================================
 
   ngOnInit(): void {
-
-    if (!this.postId) {
-      return;
-    }
-
-
     this.getUserId();
 
-    this.getPostComments();
+  }
+
+
+  ngOnChanges(changes: SimpleChanges): void {
+
+    if (changes['postId'] && this.postId) {
+      this.commentsList = [];
+      this.currentPage = 1;
+      this.numberOfPages = 0;
+      this.isLoadingMore = false;
+      this.getPostComments();
+    }
 
   }
 
@@ -154,7 +176,7 @@ export class PostCommentsComponent implements OnInit {
   getPostComments(): void {
 
     this.commentsService
-      .getPostComments(this.postId)
+      .getPostComments(this.postId, 1)
 
       .subscribe({
 
@@ -168,12 +190,11 @@ export class PostCommentsComponent implements OnInit {
           this.commentsList =
             res.data.comments;
 
+          this.currentPage =
+            res.meta.pagination.currentPage;
 
-          // =================================================
-          // SEND INITIAL COMMENTS COUNT TO PARENT
-          // =================================================
-
-          this.emitCommentsCount();
+          this.numberOfPages =
+            res.meta.pagination.numberOfPages;
 
         },
 
@@ -193,13 +214,78 @@ export class PostCommentsComponent implements OnInit {
 
 
   // =========================================================
+  // LOAD MORE COMMENTS
+  // =========================================================
+
+  viewMoreComments(): void {
+
+    if (
+      this.isLoadingMore ||
+      this.commentsList.length >= this.commentsCount
+    ) {
+      return;
+    }
+
+    const nextPage = this.currentPage + 1;
+
+    this.isLoadingMore = true;
+
+    this.commentsService
+      .getPostComments(this.postId, nextPage)
+      .pipe(
+        finalize(() => {
+          this.isLoadingMore = false;
+        })
+      )
+      .subscribe({
+
+        next: (res) => {
+
+          if (!res.success) {
+            return;
+          }
+
+          const loadedCommentIds = new Set(
+            this.commentsList.map(comment => comment._id)
+          );
+
+          const newComments = res.data.comments.filter(
+            comment => !loadedCommentIds.has(comment._id)
+          );
+
+          this.commentsList = [
+            ...this.commentsList,
+            ...newComments
+          ];
+
+          this.currentPage =
+            res.meta.pagination.currentPage;
+
+          this.numberOfPages =
+            res.meta.pagination.numberOfPages;
+
+        },
+
+        error: (err) => {
+          console.error(
+            'Error loading more comments:',
+            err
+          );
+        }
+
+      });
+
+  }
+
+
+  // =========================================================
   // EMIT COMMENTS COUNT
   // =========================================================
 
   private emitCommentsCount(): void {
 
     this.commentsCountChange.emit(
-      this.commentsList.length
+      this.commentsCount
     );
 
   }
@@ -387,6 +473,8 @@ export class PostCommentsComponent implements OnInit {
             newComment,
             ...this.commentsList
           ];
+
+          this.commentsCount++;
 
 
           // =================================================
@@ -729,6 +817,11 @@ updateComment(
                 comment._id !== commentId
             );
 
+          this.commentsCount = Math.max(
+            0,
+            this.commentsCount - 1
+          );
+
 
           // =================================================
           // UPDATE PARENT COUNT
@@ -751,4 +844,99 @@ updateComment(
       });
 
     }
+    UpdateLikeInComment( postId: string,commentId: string):void
+    {
+    if (this.commentLikeRequests.has(commentId)) {
+      return;
+    }
+
+    const currentComment = this.commentsList.find(
+      comment => comment._id === commentId
+    );
+
+    if (!currentComment || !this.userId) {
+      return;
+    }
+
+    const wasLiked = currentComment.likes.includes(this.userId);
+
+    this.commentLikeRequests.add(commentId);
+
+    this.commentsService
+      .likeUnlikeComment(
+        postId,
+        commentId
+      )
+
+      .pipe(
+        finalize(() => {
+          this.commentLikeRequests.delete(commentId);
+        })
+      )
+
+      .subscribe({
+
+        next: (res) => {
+
+          if (!res.success) {
+            return;
+          }
+
+          const responseComment = res.data?.comment;
+
+          const likes = Array.isArray(responseComment?.likes)
+            ? responseComment.likes
+            : wasLiked
+              ? currentComment.likes.filter(userId => userId !== this.userId)
+              : [...currentComment.likes, this.userId];
+
+          const likesCount = typeof responseComment?.likesCount === 'number'
+            ? Math.max(0, responseComment.likesCount)
+            : Array.isArray(responseComment?.likes)
+              ? responseComment.likes.length
+              : Math.max(
+                  0,
+                  (currentComment.likesCount ?? currentComment.likes.length) +
+                    (wasLiked ? -1 : 1)
+                );
+
+          this.commentsList = this.commentsList.map(comment =>
+            comment._id === commentId
+              ? { ...comment, likes, likesCount }
+              : comment
+          );
+
+        },
+
+        error: (err) => {
+          console.error('Comment like request failed:', err);
+        }
+
+      });
+    }
+
+  isCommentLiked(comment: Comment): boolean {
+    return Boolean(this.userId) && comment.likes.includes(this.userId);
+  }
+
+  isCommentLikeLoading(commentId: string): boolean {
+    return this.commentLikeRequests.has(commentId);
+  }
+
+  toggleReplies(commentId: string): void {
+    if (this.expandedReplyCommentIds.has(commentId)) {
+      this.expandedReplyCommentIds.delete(commentId);
+      return;
+    }
+
+    this.expandedReplyCommentIds.add(commentId);
+  }
+
+  updateRepliesCount(commentId: string, repliesCount: number): void {
+    this.commentsList = this.commentsList.map(comment =>
+      comment._id === commentId
+        ? { ...comment, repliesCount }
+        : comment
+    );
+  }
 }

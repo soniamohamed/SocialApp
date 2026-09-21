@@ -2,7 +2,6 @@ import { HttpInterceptorFn } from '@angular/common/http';
 import { catchError, throwError } from 'rxjs';
 
 export const errorsInterceptor: HttpInterceptorFn = (req, next) => {
-const token=localStorage.getItem('socialToken');
 // if(req.url.includes('posts')){
 //   if(token)
 //   {
@@ -19,6 +18,5 @@ const token=localStorage.getItem('socialToken');
     return throwError(()=>err) } ) ) ;
   };
    
-
 
 

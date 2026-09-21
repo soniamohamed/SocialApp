@@ -12,6 +12,10 @@ import { NotFoundComponent } from './features/not-found/not-found.component';
 import { authGuard } from './core/auth/guards/auth-guard';
 import { guestGuard } from './core/auth/guards/guest-guard';
 import { DetailsComponent } from './features/details/details.component';
+import { SuggestedFriendsPageComponent } from './features/suggested-friends-page/suggested-friends-page.component';
+import { PostCollectionComponent } from './features/post-collection/post-collection.component';
+import { CommunityComponent } from './features/community/community.component';
+import { FeedContentComponent } from './features/feed/components/feed-content/feed-content.component';
 
 export const routes: Routes = [
 {   path:'',
@@ -41,10 +45,6 @@ export const routes: Routes = [
     ,canActivate:[authGuard]
      ,children: [
     {
-        path:'feed'
-       , component:FeedComponent
-    },
-    {
         path:'profile',
         component:ProfileComponent
     },
@@ -59,6 +59,34 @@ export const routes: Routes = [
     {
         path:'details/:id',
         component:DetailsComponent
+    },
+    {
+        path:'suggested-friends',
+        component:SuggestedFriendsPageComponent
+    },
+    {
+        path:'',
+        component:FeedComponent,
+        children:[
+          {
+            path:'feed',
+            component:FeedContentComponent
+          },
+          {
+            path:'my-posts',
+            component:PostCollectionComponent,
+            data:{ source:'my-posts' }
+          },
+          {
+            path:'saved',
+            component:PostCollectionComponent,
+            data:{ source:'saved' }
+          },
+          {
+            path:'community',
+            component:CommunityComponent
+          }
+        ]
     }
     ]
 },

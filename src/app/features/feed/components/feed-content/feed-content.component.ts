@@ -16,6 +16,9 @@ import {
 import { PostCommentsComponent } from './components/post-comments/post-comments.component';
 import { UserInfo } from '../../../../core/models/user-data.interface';
 import { RouterLink } from '@angular/router';
+import { DatePipe } from '@angular/common';
+import { HttpErrorResponse } from '@angular/common/http';
+import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-feed-content',
@@ -23,7 +26,7 @@ import { RouterLink } from '@angular/router';
   imports: [
     ReactiveFormsModule,
     PostCommentsComponent,
-    RouterLink
+    RouterLink,DatePipe
   ],
 
   templateUrl: './feed-content.component.html',
@@ -32,6 +35,7 @@ import { RouterLink } from '@angular/router';
 export class FeedContentComponent implements OnInit {
 
   private readonly postsService = inject(PostsService);
+  private readonly hostElement = inject<ElementRef<HTMLElement>>(ElementRef);
 
 
   // ==========================================
@@ -54,6 +58,17 @@ export class FeedContentComponent implements OnInit {
   // ==========================================
 
   postList: Post[] = [];
+
+  readonly postLikeRequests = new Set<string>();
+  readonly bookmarkRequests = new Set<string>();
+  readonly bookmarkErrors = new Map<string, string>();
+  readonly updateRequests = new Set<string>();
+  readonly deleteRequests = new Set<string>();
+  readonly postActionErrors = new Map<string, string>();
+  editingPostId: string | null = null;
+  deleteConfirmationPostId: string | null = null;
+  readonly editBodyControl = new FormControl('', { nonNullable: true });
+  readonly editPrivacyControl = new FormControl('public', { nonNullable: true });
 
 
   // ==========================================
@@ -513,9 +528,18 @@ export class FeedContentComponent implements OnInit {
   // Delete Post
   // ==========================================
 
-  deletePost(postId: string): void {
+  confirmDeletePost(postId: string): void {
+    if (this.deleteRequests.has(postId)) return;
 
-    this.postsService.deletePost(postId).subscribe({
+    const post = this.postList.find((item) => item.id === postId);
+    if (!post || post.user._id !== this.userId) return;
+
+    this.deleteRequests.add(postId);
+    this.postActionErrors.delete(postId);
+
+    this.postsService.deletePost(postId)
+      .pipe(finalize(() => this.deleteRequests.delete(postId)))
+      .subscribe({
 
       next: (res) => {
 
@@ -531,18 +555,214 @@ export class FeedContentComponent implements OnInit {
         this.postList = this.postList.filter(
           post => post.id !== postId
         );
+        this.deleteConfirmationPostId = null;
+        if (this.editingPostId === postId) this.cancelEdit();
 
       },
 
-      error: (err) => {
-
-        console.error(
-          'Delete post failed:',
-          err
+      error: (error: HttpErrorResponse) => {
+        this.postActionErrors.set(
+          postId,
+          error.error?.message || 'Unable to delete this post. Please try again.',
         );
-
       }
 
+    });
+  }
+
+   UpdateLikeInPost( postId: string):void
+    {
+    if (this.postLikeRequests.has(postId)) {
+      return;
+    }
+
+    const currentPost = this.postList.find(post => post.id === postId);
+
+    if (!currentPost || !this.userId) {
+      return;
+    }
+
+    const wasLiked = currentPost.likes.includes(this.userId);
+
+    this.postLikeRequests.add(postId);
+
+    this.postsService
+      .LikeUnlikePost(
+        postId
+      )
+
+      .pipe(
+        finalize(() => {
+          this.postLikeRequests.delete(postId);
+        })
+      )
+
+      .subscribe({
+
+        next: (res) => {
+
+          if (!res.success) {
+            return;
+          }
+
+          const responsePost = res.data?.post;
+
+          const likes = Array.isArray(responsePost?.likes)
+            ? responsePost.likes
+            : wasLiked
+              ? currentPost.likes.filter(userId => userId !== this.userId)
+              : [...currentPost.likes, this.userId];
+
+          const likesCount = typeof responsePost?.likesCount === 'number'
+            ? Math.max(0, responsePost.likesCount)
+            : Math.max(0, currentPost.likesCount + (wasLiked ? -1 : 1));
+
+          this.postList = this.postList.map(post =>
+            post.id === postId
+              ? { ...post, likes, likesCount }
+              : post
+          );
+
+        },
+
+        error: (err) => {
+          console.error('Post like request failed:', err);
+        }
+
+      });
+    }
+
+  isPostLiked(post: Post): boolean {
+    return Boolean(this.userId) && post.likes.includes(this.userId);
+  }
+
+  isPostLikeLoading(postId: string): boolean {
+    return this.postLikeRequests.has(postId);
+  }
+
+  toggleBookmark(postId: string, event?: Event): void {
+    if (this.bookmarkRequests.has(postId)) return;
+
+    this.closePostMenu(event);
+
+    const currentPost = this.postList.find((post) => post.id === postId);
+    if (!currentPost) return;
+
+    const wasBookmarked = currentPost.bookmarked;
+    this.bookmarkRequests.add(postId);
+    this.bookmarkErrors.delete(postId);
+
+    this.postsService.ToggleBookmark(postId)
+      .pipe(finalize(() => this.bookmarkRequests.delete(postId)))
+      .subscribe({
+        next: (response) => {
+          if (!response.success) return;
+
+          const apiBookmarked = response.data?.post?.bookmarked;
+          const bookmarked = typeof apiBookmarked === 'boolean'
+            ? apiBookmarked
+            : !wasBookmarked;
+
+          this.postList = this.postList.map((post) =>
+            post.id === postId ? { ...post, bookmarked } : post,
+          );
+        },
+        error: (error: HttpErrorResponse) => {
+          this.bookmarkErrors.set(
+            postId,
+            error.error?.message || 'Unable to update the saved post. Please try again.',
+          );
+        },
+      });
+  }
+
+  startEdit(post: Post, event?: Event): void {
+    this.closePostMenu(event);
+    if (post.user._id !== this.userId) return;
+
+    this.deleteConfirmationPostId = null;
+    this.postActionErrors.delete(post.id);
+    this.editingPostId = post.id;
+    this.editBodyControl.setValue(post.body ?? '');
+    this.editPrivacyControl.setValue(post.privacy);
+  }
+
+  cancelEdit(): void {
+    this.editingPostId = null;
+    this.editBodyControl.reset('');
+    this.editPrivacyControl.reset('public');
+  }
+
+  updatePost(postId: string): void {
+    if (this.updateRequests.has(postId)) return;
+
+    const currentPost = this.postList.find((post) => post.id === postId);
+    if (!currentPost || currentPost.user._id !== this.userId) return;
+
+    const body = this.editBodyControl.value.trim();
+    if (!body && !currentPost.image) {
+      this.postActionErrors.set(postId, 'A post must contain text or media.');
+      return;
+    }
+
+    this.updateRequests.add(postId);
+    this.postActionErrors.delete(postId);
+    const privacy = this.editPrivacyControl.value;
+
+    this.postsService.updatePost(postId, { body, privacy })
+      .pipe(finalize(() => this.updateRequests.delete(postId)))
+      .subscribe({
+        next: (response) => {
+          if (!response.success) return;
+
+          const updatedPost = response.data?.post;
+          this.postList = this.postList.map((post) =>
+            post.id === postId
+              ? {
+                  ...post,
+                  body: updatedPost?.body ?? body,
+                  image: updatedPost?.image ?? post.image,
+                  privacy: updatedPost?.privacy ?? privacy,
+                }
+              : post,
+          );
+          this.cancelEdit();
+        },
+        error: (error: HttpErrorResponse) => {
+          this.postActionErrors.set(
+            postId,
+            error.error?.message || 'Unable to update this post. Please try again.',
+          );
+        },
+      });
+  }
+
+  requestDelete(post: Post, event?: Event): void {
+    this.closePostMenu(event);
+    if (post.user._id !== this.userId) return;
+
+    this.cancelEdit();
+    this.postActionErrors.delete(post.id);
+    this.deleteConfirmationPostId = post.id;
+  }
+
+  cancelDelete(): void {
+    if (this.deleteConfirmationPostId && this.deleteRequests.has(this.deleteConfirmationPostId)) return;
+    this.deleteConfirmationPostId = null;
+  }
+
+  private closePostMenu(event?: Event): void {
+    const target = event?.currentTarget as HTMLElement | null;
+    target?.closest('details')?.removeAttribute('open');
+  }
+
+  onPostMenuToggle(event: Event): void {
+    const activeMenu = event.currentTarget as HTMLDetailsElement;
+    if (!activeMenu.open) return;
+
+    const menus = this.hostElement.nativeElement.querySelectorAll('details[open]') as NodeListOf<HTMLDetailsElement>;
+    menus.forEach((menu) => {
+      if (menu !== activeMenu) menu.removeAttribute('open');
     });
   }
 

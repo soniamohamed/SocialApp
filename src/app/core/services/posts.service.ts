@@ -36,6 +36,15 @@ export class PostsService {
   {
     return this.httpClient.delete<PostMutationDataResponse>(`${environment.base_url}/posts/${postId}`);
   }
+  LikeUnlikePost(postId:string):Observable<PostMutationDataResponse>
+  {
+    return this.httpClient.put<PostMutationDataResponse>(`${environment.base_url}/posts/${postId}/like`, {});
+  }
+  ToggleBookmark(postId:string):Observable<PostMutationDataResponse>
+  {
+    return this.httpClient.put<PostMutationDataResponse>(`${environment.base_url}/posts/${postId}/bookmark`, {});
+  }
+  
 
   }
 
