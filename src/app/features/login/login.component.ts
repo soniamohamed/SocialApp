@@ -4,10 +4,12 @@ import { FormGroup, FormBuilder, Validators, AbstractControl, ReactiveFormsModul
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../../core/auth/services/auth.service';
+import { TranslatePipe } from '@ngx-translate/core';
+import { LanguageSwitcherComponent } from '../../shared/language-switcher/language-switcher/language-switcher.component';
 
 @Component({
   selector: 'app-login',
-  imports: [RouterLink,RouterLinkActive,ReactiveFormsModule],
+  imports: [RouterLink,RouterLinkActive,ReactiveFormsModule,TranslatePipe,LanguageSwitcherComponent],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
 })

@@ -3,10 +3,11 @@ import { Component, inject, OnInit } from '@angular/core';
 import { finalize } from 'rxjs';
 import { NotificationItem } from '../../core/models/notification-data.interface';
 import { NotificationsService } from '../../core/services/notifications.service';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-notifications',
-  imports: [],
+  imports: [TranslatePipe],
   templateUrl: './notifications.component.html',
   styleUrl: './notifications.component.css',
 })

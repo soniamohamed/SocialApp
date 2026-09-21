@@ -1,11 +1,8 @@
-
 <nav
   class="sidebar-card"
-  dir="ltr"
-  aria-label="Feed navigation"
+  [attr.aria-label]="'SIDEBAR.NAVIGATION' | translate"
 >
 
-  <!-- Feed -->
   <a
     routerLink="/feed"
     routerLinkActive="active"
@@ -13,11 +10,13 @@
     class="sidebar-item"
   >
     <span class="sidebar-icon">📄</span>
-    <span>Feed</span>
+
+    <span>
+      {{ 'SIDEBAR.FEED' | translate }}
+    </span>
   </a>
 
 
-  <!-- My Posts -->
   <a
     routerLink="/my-posts"
     routerLinkActive="active"
@@ -25,11 +24,13 @@
     class="sidebar-item"
   >
     <span class="sidebar-icon">✍️</span>
-    <span>My Posts</span>
+
+    <span>
+      {{ 'SIDEBAR.MY_POSTS' | translate }}
+    </span>
   </a>
 
 
-  <!-- Community -->
   <a
     routerLink="/community"
     routerLinkActive="active"
@@ -37,11 +38,13 @@
     class="sidebar-item"
   >
     <span class="sidebar-icon">🌐</span>
-    <span>Community</span>
+
+    <span>
+      {{ 'SIDEBAR.COMMUNITY' | translate }}
+    </span>
   </a>
 
 
-  <!-- Saved -->
   <a
     routerLink="/saved"
     routerLinkActive="active"
@@ -49,7 +52,10 @@
     class="sidebar-item"
   >
     <span class="sidebar-icon">🔖</span>
-    <span>Saved</span>
+
+    <span>
+      {{ 'SIDEBAR.SAVED' | translate }}
+    </span>
   </a>
 
 </nav>

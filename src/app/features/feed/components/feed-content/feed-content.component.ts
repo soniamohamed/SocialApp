@@ -22,6 +22,7 @@ import { finalize, Observable } from 'rxjs';
 import { ProfileService } from '../../../../core/services/profile.service';
 import { BookmarksResponse } from '../../../../core/models/profile-data.interface';
 import { CommunityComponent } from '../../../community/community.component';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-feed-content',
@@ -30,7 +31,7 @@ import { CommunityComponent } from '../../../community/community.component';
     ReactiveFormsModule,
     CommunityComponent,
     PostCommentsComponent,
-    RouterLink,DatePipe
+    RouterLink,DatePipe,TranslatePipe
   ],
 
   templateUrl: './feed-content.component.html',

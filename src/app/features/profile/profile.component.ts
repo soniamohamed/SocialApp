@@ -1,3 +1,4 @@
+import { TranslatePipe } from '@ngx-translate/core';
 import { DatePipe } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, inject, OnInit } from '@angular/core';
@@ -9,7 +10,7 @@ import { ProfileService } from '../../core/services/profile.service';
 
 @Component({
   selector: 'app-profile',
-  imports: [DatePipe, RouterLink],
+  imports: [DatePipe, RouterLink,TranslatePipe],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css',
 })

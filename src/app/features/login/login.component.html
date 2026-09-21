@@ -1,64 +1,80 @@
 <main class="auth-page">
-
+ <div
+    class="fixed top-5 right-5 z-50"
+  >
+    <app-language-switcher />
+  </div>
   <div class="auth-container">
 
-    <!-- Left Side -->
+
+    <!-- ================= LEFT SIDE ================= -->
     <section class="intro-section">
 
       <header class="brand-header">
-        <h1 class="brand-title">Route Posts</h1>
+
+        <h1 class="brand-title">
+          Route Posts
+        </h1>
 
         <p class="brand-description">
-          Connect with friends and the world around you on Route Posts.
+          {{ 'AUTH.INTRO_DESCRIPTION' | translate }}
         </p>
+
       </header>
 
 
+      <!-- ================= ROUTE ACADEMY ================= -->
       <article class="academy-card">
 
         <p class="academy-label">
-          ABOUT ROUTE ACADEMY
+          {{ 'AUTH.ABOUT_ROUTE_ACADEMY' | translate }}
         </p>
 
         <h2 class="academy-title">
-          Egypt's Leading IT Training Center Since 2012
+          {{ 'AUTH.ACADEMY_TITLE' | translate }}
         </h2>
 
         <p class="academy-description">
-          Route Academy is the premier IT training center in Egypt,
-          established in 2012. We specialize in delivering high-quality
-          training courses in programming, web development, and application
-          development. We've identified the unique challenges people may face
-          when learning new technology and made efforts to provide strategies
-          to overcome them.
+          {{ 'AUTH.ACADEMY_DESCRIPTION' | translate }}
         </p>
 
 
+        <!-- ================= STATS ================= -->
         <div class="stats-grid">
 
           <div class="stat-card">
             <strong>2012</strong>
-            <span>FOUNDED</span>
+            <span>
+              {{ 'AUTH.FOUNDED' | translate }}
+            </span>
           </div>
 
           <div class="stat-card">
             <strong>40K+</strong>
-            <span>GRADUATES</span>
+            <span>
+              {{ 'AUTH.GRADUATES' | translate }}
+            </span>
           </div>
 
           <div class="stat-card">
             <strong>50+</strong>
-            <span>PARTNER COMPANIES</span>
+            <span>
+              {{ 'AUTH.PARTNER_COMPANIES' | translate }}
+            </span>
           </div>
 
           <div class="stat-card">
             <strong>5</strong>
-            <span>BRANCHES</span>
+            <span>
+              {{ 'AUTH.BRANCHES' | translate }}
+            </span>
           </div>
 
           <div class="stat-card">
             <strong>20</strong>
-            <span>DIPLOMAS AVAILABLE</span>
+            <span>
+              {{ 'AUTH.DIPLOMAS_AVAILABLE' | translate }}
+            </span>
           </div>
 
         </div>
@@ -68,172 +84,254 @@
     </section>
 
 
-    <!-- Right Side -->
+    <!-- ================= RIGHT SIDE ================= -->
     <section class="login-card">
 
+      <!-- ================= AUTH TABS ================= -->
       <div class="auth-tabs">
 
         <a
-    routerLink="/login"
-    routerLinkActive="active"
-    class="tab"
-  >
-    Login
-  </a>
+          routerLink="/login"
+          routerLinkActive="active"
+          class="tab"
+        >
+          {{ 'AUTH.LOGIN' | translate }}
+        </a>
 
-  <a
-    routerLink="/register"
-    routerLinkActive="active"
-    class="tab"
-  >
-    Register
-  </a>
+        <a
+          routerLink="/register"
+          routerLinkActive="active"
+          class="tab"
+        >
+          {{ 'AUTH.REGISTER' | translate }}
+        </a>
 
       </div>
 
 
+      <!-- ================= FORM HEADER ================= -->
       <div class="form-header">
 
-        <h2>Log in to Route Posts</h2>
+        <h2>
+          {{ 'AUTH.LOGIN_TITLE' | translate }}
+        </h2>
 
         <p>
-          Log in and continue your social journey.
+          {{ 'AUTH.LOGIN_SUBTITLE' | translate }}
         </p>
 
       </div>
 
 
-      <form class="login-form"  [formGroup]="loginForm"  
-       (ngSubmit)="submitForm()">
+      <!-- ================= LOGIN FORM ================= -->
+      <form
+        class="login-form"
+        [formGroup]="loginForm"
+        (ngSubmit)="submitForm()"
+      >
 
-      <!-- Email -->
-      <div>
-         @let emailControle=loginForm.get('email');
-        <div class="form-field"
-       [class.invalid-field]="
-    emailControle?.invalid  && emailControle?.touched ">
-
-          <span class="at-icon">
-            @
-          </span>
-
-
-          <input
-            type="email"
-            placeholder="Email address"
-            formControlName="email"
-            class="focus:ring-0 focus:outline-none"
-          >
-
-        </div>
-  @if (emailControle?.invalid  && emailControle?.touched) 
-        {
-       <!-- Error Alert  -->
-        <p class="validation-message">
-           @if (emailControle?.hasError('required')) 
-           {
-            <span class="block">Email is required.</span>
-           }
-       
-          @else if (emailControle?.hasError('email') )
-          {
-            <span class="block">Please enter a valid email address.</span> 
-          }
-        </p>
-      }
-      </div>
-          <!-- Password -->
+        <!-- ================= EMAIL ================= -->
         <div>
-          @let passwordControle=loginForm.get('password');
-        <div class="form-field"
-            [class.invalid-field]="passwordControle?.invalid && passwordControle?.touched">
-          <svg
-            class="field-icon"
-            viewBox="0 0 24 24"
-            fill="none"
+
+          @let emailControle = loginForm.get('email');
+
+          <div
+            class="form-field"
+            [class.invalid-field]="
+              emailControle?.invalid &&
+              emailControle?.touched
+            "
           >
 
-            <circle
-              cx="15.5"
-              cy="8.5"
-              r="4"
-              stroke="currentColor"
-              stroke-width="1.7"
-            />
+            <span class="at-icon">
+              @
+            </span>
 
-            <path
-              d="M12.7 11.3L5 19v2h2.5v-2.5H10V16h2.5l2.2-2.2"
-              stroke="currentColor"
-              stroke-width="1.7"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
+            <input
+              type="email"
+              [placeholder]="'AUTH.EMAIL_ADDRESS' | translate"
+              formControlName="email"
+              autocomplete="email"
+              class="focus:ring-0 focus:outline-none"
+            >
 
-          </svg>
+          </div>
 
-          
-          <input
-          #passInput
-            type= "password"
-            placeholder="Password"
-            formControlName="password"
-            autocomplete="new-password"
-            class="focus:ring-0 focus:outline-none"
-          >
-          <span class="password-icon"  (click)="showPassword(passInput)">
-            
-           <i   [class]="{ 'fa-eye-slash':passInput.type=== 'password',
-           'fa-eye' : passInput.type==='text' }"
-           class="fas"
-            ></i>
-          </span>
 
+          @if (
+            emailControle?.invalid &&
+            emailControle?.touched
+          ) {
+
+            <p class="validation-message">
+
+              @if (emailControle?.hasError('required')) {
+
+                <span class="block">
+                  {{ 'AUTH.EMAIL_REQUIRED' | translate }}
+                </span>
+
+              }
+
+              @else if (emailControle?.hasError('email')) {
+
+                <span class="block">
+                  {{ 'AUTH.EMAIL_INVALID' | translate }}
+                </span>
+
+              }
+
+            </p>
+
+          }
 
         </div>
 
-        @if (passwordControle?.invalid && passwordControle?.touched) 
-        {
-         <!-- Error Alert  -->
-        <p class="validation-message">
-        @if (passwordControle?.hasError('required')) 
-        {
-          <span class="block">Password is required.</span>
-        }
-         @else if (passwordControle?.hasError('pattern')) 
-        {
-          <span class="block">Password must include uppercase, lowercase, number, and special character. </span>
-        }
-        </p>
-      }
-       </div>
+
+        <!-- ================= PASSWORD ================= -->
+        <div>
+
+          @let passwordControle = loginForm.get('password');
+
+          <div
+            class="form-field"
+            [class.invalid-field]="
+              passwordControle?.invalid &&
+              passwordControle?.touched
+            "
+          >
+
+            <svg
+              class="field-icon"
+              viewBox="0 0 24 24"
+              fill="none"
+            >
+
+              <circle
+                cx="15.5"
+                cy="8.5"
+                r="4"
+                stroke="currentColor"
+                stroke-width="1.7"
+              />
+
+              <path
+                d="M12.7 11.3L5 19v2h2.5v-2.5H10V16h2.5l2.2-2.2"
+                stroke="currentColor"
+                stroke-width="1.7"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+
+            </svg>
 
 
-        <button class="login-button" type="submit">
-          @if(loading) 
-          {
-          <i class="fas fa-spinner animate-spin"></i>
-           Log In
+            <input
+              #passInput
+              type="password"
+              [placeholder]="'AUTH.PASSWORD' | translate"
+              formControlName="password"
+              autocomplete="current-password"
+              class="focus:ring-0 focus:outline-none"
+            >
+
+
+            <span
+              class="password-icon"
+              (click)="showPassword(passInput)"
+            >
+
+              <i
+                class="fas"
+                [class]="{
+                  'fa-eye-slash': passInput.type === 'password',
+                  'fa-eye': passInput.type === 'text'
+                }"
+              ></i>
+
+            </span>
+
+          </div>
+
+
+          @if (
+            passwordControle?.invalid &&
+            passwordControle?.touched
+          ) {
+
+            <p class="validation-message">
+
+              @if (passwordControle?.hasError('required')) {
+
+                <span class="block">
+                  {{ 'AUTH.PASSWORD_REQUIRED' | translate }}
+                </span>
+
+              }
+
+              @else if (passwordControle?.hasError('pattern')) {
+
+                <span class="block">
+                  {{ 'AUTH.PASSWORD_PATTERN' | translate }}
+                </span>
+
+              }
+
+            </p>
+
           }
-           @else
-           {
-              Log In
-           }
-         
+
+        </div>
+
+
+        <!-- ================= LOGIN BUTTON ================= -->
+        <button
+          class="login-button"
+          type="submit"
+          [disabled]="loading"
+        >
+
+          @if (loading) {
+
+            <i class="fas fa-spinner animate-spin"></i>
+
+            {{ 'AUTH.LOGGING_IN' | translate }}
+
+          }
+
+          @else {
+
+            {{ 'AUTH.LOG_IN' | translate }}
+
+          }
+
         </button>
 
-         @if(errMsg)
-        {
-        <p class="validation-message">
-           <span class="block">{{errMsg}}</span>
-       </p>
+
+        <!-- ================= API ERROR ================= -->
+        @if (errMsg) {
+
+          <p class="validation-message">
+
+            <span class="block">
+              {{ errMsg }}
+            </span>
+
+          </p>
+
         }
 
-        <a routerLink="/forget-password"  class="forget-password">
-          Forgot password?
+
+        <!-- ================= FORGOT PASSWORD ================= -->
+        <a
+          routerLink="/forget-password"
+          class="forget-password"
+        >
+          {{ 'AUTH.FORGOT_PASSWORD' | translate }}
         </a>
-     
+
       </form>
-    
+
     </section>
 
   </div>

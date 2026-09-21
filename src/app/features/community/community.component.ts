@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-community',
-  imports: [],
+  imports: [TranslatePipe],
   templateUrl: './community.component.html',
   styleUrl: './community.component.css',
 })

@@ -4,10 +4,12 @@ import {AbstractControl, FormBuilder, FormControl, FormGroup, ReactiveFormsModul
 import { AuthService } from '../../core/auth/services/auth.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Subscription } from 'rxjs';
+import { TranslatePipe } from '@ngx-translate/core';
+import { LanguageSwitcherComponent } from '../../shared/language-switcher/language-switcher/language-switcher.component';
 
 @Component({
   selector: 'app-register',
-  imports: [RouterLink, RouterLinkActive, ReactiveFormsModule],
+  imports: [RouterLink, RouterLinkActive, ReactiveFormsModule,TranslatePipe,LanguageSwitcherComponent],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css',
 })

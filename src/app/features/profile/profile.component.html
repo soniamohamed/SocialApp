@@ -1,106 +1,390 @@
 <main class="profile-page">
+
   @if (isLoading) {
     <section class="profile-state" role="status">
       <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
-      <p>Loading your profile...</p>
+
+      <p>
+        {{ 'PROFILE.LOADING_PROFILE' | translate }}
+      </p>
     </section>
-  } @else if (errorMessage || !profile) {
+  }
+
+  @else if (errorMessage || !profile) {
     <section class="profile-state profile-error" role="alert">
+
       <i class="fa-regular fa-circle-xmark" aria-hidden="true"></i>
-      <p>{{ errorMessage || 'Profile data is unavailable.' }}</p>
-      <button type="button" (click)="loadProfile()">Try again</button>
+
+      <p>
+        {{ errorMessage || ('PROFILE.DATA_UNAVAILABLE' | translate) }}
+      </p>
+
+      <button
+        type="button"
+        (click)="loadProfile()"
+      >
+        {{ 'COMMON.TRY_AGAIN' | translate }}
+      </button>
+
     </section>
-  } @else {
+  }
+
+  @else {
+
     <section
       class="cover-section"
       [class.has-cover]="!!profile.cover"
       [style.background-image]="profile.cover ? 'url(' + profile.cover + ')' : null"
     ></section>
 
+
     <section class="profile-card">
+
       <div class="profile-header">
+
         <div class="user-info">
+
           <div class="avatar-wrapper">
-            <img [src]="profile.photo || 'assets/images/user-avatar.jpg'" [alt]="profile.name" />
+
+            <img
+              [src]="profile.photo || 'assets/images/user-avatar.jpg'"
+              [alt]="profile.name"
+            />
+
           </div>
+
+
           <div class="user-details">
-            <h1>{{ profile.name }}</h1>
-            <p class="username">&#64;{{ profile.username }}</p>
-            <span class="member-badge"><i class="fa-solid fa-shield-halved" aria-hidden="true"></i> Route Posts member</span>
+
+            <h1>
+              {{ profile.name }}
+            </h1>
+
+            <p class="username">
+              &#64;{{ profile.username }}
+            </p>
+
+            <span class="member-badge">
+
+              <i
+                class="fa-solid fa-shield-halved"
+                aria-hidden="true"
+              ></i>
+
+              {{ 'PROFILE.ROUTE_POSTS_MEMBER' | translate }}
+
+            </span>
+
           </div>
+
         </div>
+
 
         <div class="profile-stats">
-          <div class="stat-box"><span class="stat-title">Followers</span><strong>{{ profile.followersCount ?? '—' }}</strong></div>
-          <div class="stat-box"><span class="stat-title">Following</span><strong>{{ profile.followingCount ?? '—' }}</strong></div>
-          <div class="stat-box"><span class="stat-title">Bookmarks</span><strong>{{ bookmarksCount }}</strong></div>
+
+          <div class="stat-box">
+
+            <span class="stat-title">
+              {{ 'PROFILE.FOLLOWERS' | translate }}
+            </span>
+
+            <strong>
+              {{ profile.followersCount ?? '—' }}
+            </strong>
+
+          </div>
+
+
+          <div class="stat-box">
+
+            <span class="stat-title">
+              {{ 'PROFILE.FOLLOWING' | translate }}
+            </span>
+
+            <strong>
+              {{ profile.followingCount ?? '—' }}
+            </strong>
+
+          </div>
+
+
+          <div class="stat-box">
+
+            <span class="stat-title">
+              {{ 'PROFILE.BOOKMARKS' | translate }}
+            </span>
+
+            <strong>
+              {{ bookmarksCount }}
+            </strong>
+
+          </div>
+
         </div>
+
       </div>
+
 
       <div class="profile-details">
+
         <div class="about-card">
-          <h2>About</h2>
-          <div class="about-item"><span class="about-icon"><i class="fa-regular fa-envelope"></i></span><span>{{ profile.email }}</span></div>
-          <div class="about-item"><span class="about-icon"><i class="fa-regular fa-user"></i></span><span>&#64;{{ profile.username }}</span></div>
+
+          <h2>
+            {{ 'PROFILE.ABOUT' | translate }}
+          </h2>
+
+
+          <div class="about-item">
+
+            <span class="about-icon">
+              <i class="fa-regular fa-envelope"></i>
+            </span>
+
+            <span>
+              {{ profile.email }}
+            </span>
+
+          </div>
+
+
+          <div class="about-item">
+
+            <span class="about-icon">
+              <i class="fa-regular fa-user"></i>
+            </span>
+
+            <span>
+              &#64;{{ profile.username }}
+            </span>
+
+          </div>
+
+
           @if (profile.createdAt) {
-            <div class="about-item"><span class="about-icon"><i class="fa-regular fa-calendar"></i></span><span>Member since {{ profile.createdAt | date: 'MMMM y' }}</span></div>
+
+            <div class="about-item">
+
+              <span class="about-icon">
+                <i class="fa-regular fa-calendar"></i>
+              </span>
+
+              <span>
+                {{ 'PROFILE.MEMBER_SINCE' | translate }}
+                {{ profile.createdAt | date: 'MMMM y' }}
+              </span>
+
+            </div>
+
           }
+
         </div>
+
 
         <div class="activity-section">
-          <div class="activity-card"><span>My Posts</span><strong>{{ myPostsCount }}</strong></div>
-          <div class="activity-card"><span>Saved Posts</span><strong>{{ savedPostsCount }}</strong></div>
+
+          <div class="activity-card">
+
+            <span>
+              {{ 'PROFILE.MY_POSTS' | translate }}
+            </span>
+
+            <strong>
+              {{ myPostsCount }}
+            </strong>
+
+          </div>
+
+
+          <div class="activity-card">
+
+            <span>
+              {{ 'PROFILE.SAVED_POSTS' | translate }}
+            </span>
+
+            <strong>
+              {{ savedPostsCount }}
+            </strong>
+
+          </div>
+
         </div>
+
       </div>
+
     </section>
+
+
+    <!-- ================= TABS ================= -->
 
     <section class="tabs-card">
+
       <div class="tabs">
-        <button type="button" class="tab" [class.active]="activeTab === 'posts'" (click)="setActiveTab('posts')">
-          <i class="fa-regular fa-rectangle-list tab-icon" aria-hidden="true"></i> My Posts
+
+        <button
+          type="button"
+          class="tab"
+          [class.active]="activeTab === 'posts'"
+          (click)="setActiveTab('posts')"
+        >
+
+          <i
+            class="fa-regular fa-rectangle-list tab-icon"
+            aria-hidden="true"
+          ></i>
+
+          {{ 'PROFILE.MY_POSTS' | translate }}
+
         </button>
-        <button type="button" class="tab" [class.active]="activeTab === 'saved'" (click)="setActiveTab('saved')">
-          <i class="fa-regular fa-bookmark tab-icon" aria-hidden="true"></i> Saved
+
+
+        <button
+          type="button"
+          class="tab"
+          [class.active]="activeTab === 'saved'"
+          (click)="setActiveTab('saved')"
+        >
+
+          <i
+            class="fa-regular fa-bookmark tab-icon"
+            aria-hidden="true"
+          ></i>
+
+          {{ 'PROFILE.SAVED' | translate }}
+
         </button>
+
       </div>
-      <span class="posts-count">{{ displayedCount }}</span>
+
+
+      <span class="posts-count">
+        {{ displayedCount }}
+      </span>
+
     </section>
+
+
+    <!-- ================= POSTS ================= -->
 
     <section class="posts-section">
+
       @if (displayedPosts.length === 0) {
+
         <div class="posts-empty">
-          <i [class]="activeTab === 'posts' ? 'fa-regular fa-rectangle-list' : 'fa-regular fa-bookmark'" aria-hidden="true"></i>
-          <p>{{ activeTab === 'posts' ? 'No posts yet.' : 'No saved posts yet.' }}</p>
+
+          <i
+            [class]="
+              activeTab === 'posts'
+                ? 'fa-regular fa-rectangle-list'
+                : 'fa-regular fa-bookmark'
+            "
+            aria-hidden="true"
+          ></i>
+
+          <p>
+            {{
+              activeTab === 'posts'
+                ? ('PROFILE.NO_POSTS' | translate)
+                : ('PROFILE.NO_SAVED_POSTS' | translate)
+            }}
+          </p>
+
         </div>
-      } @else {
+
+      }
+
+      @else {
+
         @for (post of displayedPosts; track postId(post)) {
+
           <article class="post-card">
+
             <header class="post-header">
+
               <div class="post-author">
-                <img [src]="post.user.photo || 'assets/images/user-avatar.jpg'" [alt]="post.user.name" />
+
+                <img
+                  [src]="post.user.photo || 'assets/images/user-avatar.jpg'"
+                  [alt]="post.user.name"
+                />
+
                 <div>
-                  <h3>{{ post.user.name }}</h3>
-                  <span>&#64;{{ post.user.username }} · {{ post.createdAt | date: 'MMM d, y' }}</span>
+
+                  <h3>
+                    {{ post.user.name }}
+                  </h3>
+
+                  <span>
+                    &#64;{{ post.user.username }}
+                    ·
+                    {{ post.createdAt | date: 'MMM d, y' }}
+                  </span>
+
                 </div>
+
               </div>
-              <a class="view-details" [routerLink]="['/details', postId(post)]">View details</a>
+
+
+              <a
+                class="view-details"
+                [routerLink]="['/details', postId(post)]"
+              >
+                {{ 'PROFILE.VIEW_DETAILS' | translate }}
+              </a>
+
             </header>
 
-            @if (post.body) { <div class="post-content"><p>{{ post.body }}</p></div> }
-            @if (post.image) {
-              <div class="post-media">
-                <img class="post-image" [src]="post.image" [alt]="post.body || 'Post image'" />
+
+            @if (post.body) {
+
+              <div class="post-content">
+                <p>{{ post.body }}</p>
               </div>
+
             }
 
+
+            @if (post.image) {
+
+              <div class="post-media">
+
+                <img
+                  class="post-image"
+                  [src]="post.image"
+                  [alt]="post.body || ('PROFILE.POST_IMAGE' | translate)"
+                />
+
+              </div>
+
+            }
+
+
             <footer class="post-metrics">
-              <span><i class="fa-regular fa-thumbs-up"></i> {{ post.likesCount }}</span>
-              <span><i class="fa-regular fa-comment"></i> {{ post.commentsCount }}</span>
-              <span><i class="fa-solid fa-share"></i> {{ post.sharesCount }}</span>
+
+              <span>
+                <i class="fa-regular fa-thumbs-up"></i>
+                {{ post.likesCount }}
+              </span>
+
+              <span>
+                <i class="fa-regular fa-comment"></i>
+                {{ post.commentsCount }}
+              </span>
+
+              <span>
+                <i class="fa-solid fa-share"></i>
+                {{ post.sharesCount }}
+              </span>
+
             </footer>
+
           </article>
+
         }
+
       }
+
     </section>
+
   }
+
 </main>

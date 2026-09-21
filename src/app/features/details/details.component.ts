@@ -8,11 +8,12 @@ import { finalize } from 'rxjs';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
 import { AuthService } from '../../core/auth/services/auth.service';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-details',
   standalone: true,
-  imports: [PostCommentsComponent,DatePipe,ReactiveFormsModule],
+  imports: [PostCommentsComponent,DatePipe,ReactiveFormsModule,TranslatePipe],
   templateUrl: './details.component.html',
   styleUrl: './details.component.css',
 })

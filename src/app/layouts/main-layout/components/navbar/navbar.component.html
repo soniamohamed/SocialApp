@@ -1,4 +1,5 @@
 <nav
+  dir="ltr"
   class="fixed inset-x-0 top-0 z-50 h-28 lg:h-16
          border-b border-gray-200
          bg-white/95 backdrop-blur-md
@@ -6,20 +7,20 @@
 >
   <div class="mx-auto h-full max-w-7xl px-4 sm:px-6 lg:px-8">
 
-    <div class="flex h-full flex-wrap items-center justify-between gap-x-4 lg:flex-nowrap">
+    <div
+      class="flex h-full flex-wrap items-center justify-between gap-x-3 lg:flex-nowrap"
+    >
 
       <!-- ================= LOGO ================= -->
       <a
         routerLink="/feed"
         class="flex shrink-0 items-center gap-3"
       >
-        <div class="relative">
-          <img
-            src="assets/images/logo.jpg"
-            alt="Route Posts logo"
-            class="h-10 w-10 rounded-full border-2 border-gray-200 object-cover"
-          />
-        </div>
+        <img
+          src="assets/images/logo.jpg"
+          alt="Route Posts logo"
+          class="h-10 w-10 rounded-full border-2 border-gray-200 object-cover"
+        />
 
         <span class="hidden text-lg font-bold text-gray-900 sm:block">
           Route Posts
@@ -29,10 +30,9 @@
 
       <!-- ================= CENTER NAVIGATION ================= -->
       <div
-        class="order-3 flex w-full items-center justify-center gap-1 lg:order-none lg:w-auto
-               rounded-2xl border border-gray-200
-               bg-gray-100 p-1
-               mb-2 lg:mb-0"
+        class="order-3 mb-2 flex w-full items-center justify-center gap-1
+               rounded-2xl border border-gray-200 bg-gray-100 p-1
+               lg:order-none lg:mb-0 lg:w-auto"
       >
 
         <!-- Feed -->
@@ -40,14 +40,16 @@
           routerLink="/feed"
           routerLinkActive="bg-white text-blue-600 shadow-sm"
           [routerLinkActiveOptions]="{ exact: true }"
-          class="flex items-center gap-2
-                 rounded-xl px-2 py-2 lg:px-4
-                 text-xs font-semibold text-gray-600 sm:text-sm
-                 transition-all
-                 hover:bg-white hover:text-blue-600"
+          class="flex items-center gap-2 rounded-xl
+                 px-2 py-2 text-xs font-semibold text-gray-600
+                 transition-all hover:bg-white hover:text-blue-600
+                 sm:text-sm lg:px-4"
         >
           <span>⌂</span>
-          <span>Feed</span>
+
+          <span>
+            {{ 'NAV.FEED' | translate }}
+          </span>
         </a>
 
 
@@ -55,14 +57,16 @@
         <a
           routerLink="/profile"
           routerLinkActive="bg-white text-blue-600 shadow-sm"
-          class="flex items-center gap-2
-                 rounded-xl px-2 py-2 lg:px-4
-                 text-xs font-semibold text-gray-600 sm:text-sm
-                 transition-all
-                 hover:bg-white hover:text-blue-600"
+          class="flex items-center gap-2 rounded-xl
+                 px-2 py-2 text-xs font-semibold text-gray-600
+                 transition-all hover:bg-white hover:text-blue-600
+                 sm:text-sm lg:px-4"
         >
           <span>👤</span>
-          <span>Profile</span>
+
+          <span>
+            {{ 'NAV.PROFILE' | translate }}
+          </span>
         </a>
 
 
@@ -70,14 +74,12 @@
         <a
           routerLink="/notifications"
           routerLinkActive="bg-white text-blue-600 shadow-sm"
-          class="flex items-center gap-2
-                 rounded-xl px-2 py-2 lg:px-4
-                 text-xs font-semibold text-gray-600 sm:text-sm
-                 transition-all
-                 hover:bg-white hover:text-blue-600"
+          class="flex items-center gap-2 rounded-xl
+                 px-2 py-2 text-xs font-semibold text-gray-600
+                 transition-all hover:bg-white hover:text-blue-600
+                 sm:text-sm lg:px-4"
         >
 
-          <!-- Notification icon + unread badge -->
           <span class="relative inline-flex items-center justify-center">
 
             <span>🔔</span>
@@ -89,7 +91,6 @@
                        rounded-full border border-white
                        bg-red-500 px-1
                        text-[10px] font-bold leading-none text-white"
-                aria-label="Unread notifications"
               >
                 {{ unreadCount() > 99 ? '99+' : unreadCount() }}
               </span>
@@ -97,116 +98,158 @@
 
           </span>
 
-          <span>Notifications</span>
+          <span>
+            {{ 'NAV.NOTIFICATIONS' | translate }}
+          </span>
 
         </a>
 
       </div>
 
 
-      <!-- ================= USER MENU ================= -->
-      <div class="relative shrink-0">
+      <!-- ================= RIGHT ACTIONS ================= -->
+      <div class="flex shrink-0 items-center gap-2">
 
+        <!-- ================= LANGUAGE BUTTON ================= -->
         <button
           type="button"
-          (click)="toggleDropdown($event)"
-          [attr.aria-expanded]="isDropdownOpen()"
-          aria-label="Open user menu"
-          class="flex cursor-pointer items-center gap-2
-                 rounded-full border border-gray-200
-                 bg-white p-1
+          (click)="toggleLanguage()"
+          class="flex h-10 cursor-pointer items-center gap-1.5
+                 rounded-xl border border-gray-200
+                 bg-white px-3
+                 text-sm font-semibold text-gray-700
                  transition-all
-                 hover:bg-gray-50 hover:shadow-sm"
+                 hover:border-blue-200
+                 hover:bg-blue-50
+                 hover:text-blue-600"
         >
+          <span>🌐</span>
 
-          <!-- Avatar -->
-          <img
-            [src]="currentUser()?.photo || 'assets/images/user-avatar.jpg'"
-            [alt]="(currentUser()?.name || 'User') + ' profile photo'"
-            class="h-9 w-9 shrink-0 rounded-full
-                   border border-gray-200 object-cover"
-          />
-
-          <!-- Name -->
-          <span
-            class="hidden max-w-32 truncate
-                   text-sm font-semibold text-gray-700
-                   md:block"
-          >
-            {{ currentUser()?.name || 'User' }}
-          </span>
-
-          <!-- Menu icon -->
-          <span
-            class="hidden h-8 w-8 items-center justify-center
-                   rounded-full text-gray-500
-                   hover:bg-gray-100 sm:flex"
-          >
-            ☰
-          </span>
+          @if (currentLanguage() === 'en') {
+            <span>العربية</span>
+          } @else {
+            <span>EN</span>
+          }
 
         </button>
 
 
-        <!-- ================= DROPDOWN ================= -->
-        @if (isDropdownOpen()) {
+        <!-- ================= USER MENU ================= -->
+        <div class="relative">
 
-          <div
-            class="dropdown-animation
-                   absolute right-0 top-full z-[9999] mt-3
-                   w-56 rounded-2xl
-                   border border-gray-200
-                   bg-white p-2
-                   shadow-xl"
+          <button
+            type="button"
+            (click)="toggleDropdown($event)"
+            [attr.aria-expanded]="isDropdownOpen()"
+            aria-label="Open user menu"
+            class="flex cursor-pointer items-center gap-2
+                   rounded-full border border-gray-200
+                   bg-white p-1
+                   transition-all
+                   hover:bg-gray-50 hover:shadow-sm"
           >
 
-            <!-- Profile -->
-            <a
-              routerLink="/profile"
-              (click)="closeDropdown()"
-              class="flex items-center gap-3
-                     rounded-xl px-4 py-3
-                     text-sm font-medium text-gray-700
-                     transition hover:bg-gray-50"
+            <!-- Avatar -->
+            <img
+              [src]="currentUser()?.photo || 'assets/images/user-avatar.jpg'"
+              [alt]="(currentUser()?.name || 'User') + ' profile photo'"
+              class="h-9 w-9 shrink-0 rounded-full
+                     border border-gray-200 object-cover"
+            />
+
+
+            <!-- User name -->
+            <span
+              class="hidden max-w-32 truncate
+                     text-sm font-semibold text-gray-700
+                     md:block"
             >
-              <span>👤</span>
-              <span>Profile Settings</span>
-            </a>
+              {{ currentUser()?.name || 'User' }}
+            </span>
 
 
-            <!-- Change Password -->
-            <a
-              routerLink="/change-password"
-              (click)="closeDropdown()"
-              class="flex items-center gap-3
-                     rounded-xl px-4 py-3
-                     text-sm font-medium text-gray-700
-                     transition hover:bg-gray-50"
+            <!-- Menu icon -->
+            <span
+              class="hidden h-8 w-8 items-center justify-center
+                     rounded-full text-gray-500
+                     hover:bg-gray-100 sm:flex"
             >
-              <span>🔑</span>
-              <span>Change Password</span>
-            </a>
+              ☰
+            </span>
+
+          </button>
 
 
-            <div class="my-2 border-t border-gray-100"></div>
+          <!-- ================= DROPDOWN ================= -->
+          @if (isDropdownOpen()) {
 
-
-            <!-- Logout -->
-            <button
-              type="button"
-              (click)="logOut()"
-              class="flex w-full cursor-pointer items-center gap-3
-                     rounded-xl px-4 py-3
-                     text-left text-sm font-medium text-red-600
-                     transition hover:bg-red-50"
+            <div
+              class="dropdown-animation
+                     absolute end-0 top-full z-[9999] mt-3
+                     w-56 rounded-2xl
+                     border border-gray-200
+                     bg-white p-2
+                     shadow-xl"
             >
-              <span>🚪</span>
-              <span>Logout</span>
-            </button>
 
-          </div>
+              <!-- Profile Settings -->
+              <a
+                routerLink="/profile"
+                (click)="closeDropdown()"
+                class="flex items-center gap-3
+                       rounded-xl px-4 py-3
+                       text-sm font-medium text-gray-700
+                       transition hover:bg-gray-50"
+              >
+                <span>👤</span>
 
-        }
+                <span>
+                  {{ 'NAV.PROFILE_SETTINGS' | translate }}
+                </span>
+              </a>
+
+
+              <!-- Change Password -->
+              <a
+                routerLink="/change-password"
+                (click)="closeDropdown()"
+                class="flex items-center gap-3
+                       rounded-xl px-4 py-3
+                       text-sm font-medium text-gray-700
+                       transition hover:bg-gray-50"
+              >
+                <span>🔑</span>
+
+                <span>
+                  {{ 'NAV.CHANGE_PASSWORD' | translate }}
+                </span>
+              </a>
+
+
+              <div class="my-2 border-t border-gray-100"></div>
+
+
+              <!-- Logout -->
+              <button
+                type="button"
+                (click)="logOut()"
+                class="flex w-full cursor-pointer items-center gap-3
+                       rounded-xl px-4 py-3
+                       text-start text-sm font-medium text-red-600
+                       transition hover:bg-red-50"
+              >
+                <span>🚪</span>
+
+                <span>
+                  {{ 'NAV.LOGOUT' | translate }}
+                </span>
+              </button>
+
+            </div>
+
+          }
+
+        </div>
 
       </div>
 

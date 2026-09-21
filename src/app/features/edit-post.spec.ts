@@ -28,6 +28,8 @@ describe('Edit Post', () => {
   let http: HttpTestingController;
 
   beforeEach(async () => {
+    vi.spyOn(FeedContentComponent.prototype, 'ngOnInit').mockImplementation(() => {});
+    vi.spyOn(DetailsComponent.prototype, 'ngOnInit').mockImplementation(() => {});
     TestBed.configureTestingModule({
       providers: [
         provideHttpClient(), provideHttpClientTesting(),
@@ -48,9 +50,12 @@ describe('Edit Post', () => {
   });
 
   afterEach(() => {
-    http.verify();
-    TestBed.resetTestingModule();
-    vi.restoreAllMocks();
+    try {
+      http.verify();
+    } finally {
+      TestBed.resetTestingModule();
+      vi.restoreAllMocks();
+    }
   });
 
   function setup(feed: boolean) {
@@ -91,7 +96,6 @@ describe('Edit Post', () => {
       await TestBed.compileComponents();
       const fixture = feed ? TestBed.createComponent(FeedContentComponent) : TestBed.createComponent(DetailsComponent);
       const component = fixture.componentInstance;
-      vi.spyOn(component, 'ngOnInit').mockImplementation(() => {});
       component.userId = 'owner';
       if (component instanceof FeedContentComponent) {
         component.postList = [{ ...original }];
@@ -116,6 +120,8 @@ describe('Edit Post', () => {
       const request = http.expectOne(req => req.method === 'PUT');
       expect(request.request.body).toEqual({ body: 'Submitted from textarea' });
       request.flush({ success: true, message: 'Updated', data: { post: { body: 'Persisted body' } } });
+      // This isolated test uses zoneless change detection; the app uses Zone.js.
+      fixture.changeDetectorRef.markForCheck();
       fixture.detectChanges();
       expect(fixture.nativeElement.textContent).toContain('Persisted body');
       expect(fixture.nativeElement.querySelector(feed ? '#edit-body-post-1' : '#details-edit-body')).toBeNull();

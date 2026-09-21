@@ -8,13 +8,14 @@ import { debounceTime, distinctUntilChanged, finalize, map, Subscription } from 
 import { AuthService } from '../../../../core/auth/services/auth.service';
 import { SuggestedFriend } from '../../../../core/models/suggested-friends-data.interface';
 import { SuggestedFriendsService } from '../../../../core/services/suggested-friends.service';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-suggested-friends',
   standalone: true,
   imports: [
     ReactiveFormsModule,
-    RouterLink
+    RouterLink,TranslatePipe
   ],
   templateUrl: './suggested-friends.component.html',
   styleUrl: './suggested-friends.component.css',

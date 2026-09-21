@@ -1,6 +1,7 @@
 <section class="suggestions-card" dir="ltr">
 
   <div class="suggestions-header">
+
     <div class="suggestions-title">
 
       <span class="group-icon">
@@ -10,13 +11,16 @@
         ></i>
       </span>
 
-      <h2>Suggested Friends</h2>
+      <h2>
+        {{ 'SUGGESTED_FRIENDS.TITLE' | translate }}
+      </h2>
 
     </div>
 
     <span class="suggestions-count">
       {{ totalSuggestions }}
     </span>
+
   </div>
 
 
@@ -32,20 +36,22 @@
     <input
       type="search"
       [formControl]="searchControl"
-      placeholder="Search by name or username..."
-      aria-label="Search by name or username"
+      [placeholder]="'SUGGESTED_FRIENDS.SEARCH_BY_NAME' | translate"
+      [attr.aria-label]="'SUGGESTED_FRIENDS.SEARCH_BY_NAME' | translate"
     />
 
   </div>
 
 
   @if (errorMessage) {
+
     <p
       class="suggestions-error"
       role="alert"
     >
       {{ errorMessage }}
     </p>
+
   }
 
 
@@ -62,7 +68,7 @@
       ></i>
 
       <span>
-        Loading suggestions...
+        {{ 'SUGGESTED_FRIENDS.LOADING' | translate }}
       </span>
 
     </div>
@@ -107,14 +113,12 @@
               type="button"
               class="follow-button"
               (click)="follow(friend)"
-              [disabled]="
-                followRequests.has(friend._id)
-              "
+              [disabled]="followRequests.has(friend._id)"
             >
               {{
                 followRequests.has(friend._id)
-                  ? 'Following...'
-                  : '+ Follow'
+                  ? ('SUGGESTED_FRIENDS.FOLLOWING' | translate)
+                  : ('SUGGESTED_FRIENDS.FOLLOW' | translate)
               }}
             </button>
 
@@ -126,7 +130,8 @@
             <div class="friend-meta">
 
               <span>
-                {{ friend.followersCount }} followers
+                {{ friend.followersCount }}
+                {{ 'SUGGESTED_FRIENDS.FOLLOWERS' | translate }}
               </span>
 
             </div>
@@ -144,8 +149,8 @@
     <p class="suggestions-empty">
       {{
         searchControl.value.trim()
-          ? 'No friends found.'
-          : 'No suggested friends.'
+          ? ('SUGGESTED_FRIENDS.NO_RESULTS' | translate)
+          : ('SUGGESTED_FRIENDS.NO_SUGGESTIONS' | translate)
       }}
     </p>
 
@@ -159,7 +164,7 @@
       class="view-more-button"
       routerLink="/suggested-friends"
     >
-      View more
+      {{ 'COMMON.VIEW_MORE' | translate }}
     </button>
 
   }

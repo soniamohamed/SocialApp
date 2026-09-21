@@ -1,181 +1,516 @@
-<!-- Back Button with proper professional spacing -->
+<!-- ================= BACK BUTTON ================= -->
+
 <div class="mt-6 mb-4">
-  <button 
+
+  <button
     (click)="goBack()"
     class="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-slate-700 bg-white border border-slate-200 rounded-xl shadow-xs hover:bg-slate-50 hover:text-slate-900 cursor-pointer transition-all"
   >
+
     <i class="fa-solid fa-arrow-left text-xs"></i>
-    Back to Posts
+
+    {{ 'POST.BACK_TO_POSTS' | translate }}
+
   </button>
+
 </div>
 
-<!-- One Post Design: -->
-<div class="bg-white rounded-2xl my-3 shadow-xs border border-slate-200/80 p-5 font-sans">
-    
-    <!-- User Details & Header -->
-    <div class="flex items-start justify-between mb-4">
-      <div class="flex items-center gap-3">
-        <img
-          [src]="postData.user.photo"
-          [alt]="postData.user.name"
-          class="size-11 rounded-full object-cover shrink-0 bg-slate-100 border border-slate-100 shadow-xs"
-        />
-        
-        <div>
-          <span class="text-[15px] font-bold text-slate-900 leading-snug hover:underline cursor-pointer">
-            {{postData.user.name}}
+
+<!-- ================= ONE POST ================= -->
+
+<div
+  class="bg-white rounded-2xl my-3 shadow-xs border border-slate-200/80 p-5 font-sans"
+>
+
+  <!-- User Details & Header -->
+
+  <div class="flex items-start justify-between mb-4">
+
+    <div class="flex items-center gap-3">
+
+      <img
+        [src]="postData.user.photo"
+        [alt]="postData.user.name"
+        class="size-11 rounded-full object-cover shrink-0 bg-slate-100 border border-slate-100 shadow-xs"
+      />
+
+
+      <div>
+
+        <span
+          class="text-[15px] font-bold text-slate-900 leading-snug hover:underline cursor-pointer"
+        >
+          {{ postData.user.name }}
+        </span>
+
+
+        <div
+          class="flex items-center flex-wrap text-xs text-slate-500 mt-0.5 gap-1.5"
+        >
+
+          <span
+            class="hover:underline cursor-pointer text-slate-600 font-medium"
+          >
+            {{ postData.user.username }}
           </span>
-          
-          <div class="flex items-center flex-wrap text-xs text-slate-500 mt-0.5 gap-1.5">
-            <span class="hover:underline cursor-pointer text-slate-600 font-medium">{{postData.user.username}}</span>
+
+          <span class="text-slate-300">&bull;</span>
+
+          <span class="hover:underline cursor-pointer">
+            {{ postData.createdAt | date:'dd MMM yyyy, h:mm a' }}
+          </span>
+
+
+          @if (postData.user._id === userId) {
+
             <span class="text-slate-300">&bull;</span>
-            <span class="hover:underline cursor-pointer"> {{ postData.createdAt | date:'dd MMM yyyy, h:mm a' }}
-            </span>
-            
-            @if(postData.user._id === userId) {
-              <span class="text-slate-300">&bull;</span>
-              <div class="inline-flex items-center bg-slate-100 text-slate-700 rounded-md px-2 py-0.5 border border-slate-200 text-xs">
-                <select class="border-none bg-transparent cursor-pointer focus:outline-none focus:ring-0 p-0 text-xs text-slate-600 font-medium">
-                  <option [selected]="postData.privacy=='public'" value="public">Public</option>
-                  <option [selected]="postData.privacy=='following'" value="following">Followers</option>
-                  <option [selected]="postData.privacy=='only_me'" value="only_me">Only Me</option>
-                </select>
-              </div>
-            }
-          </div>
+
+            <div
+              class="inline-flex items-center bg-slate-100 text-slate-700 rounded-md px-2 py-0.5 border border-slate-200 text-xs"
+            >
+
+              <select
+                class="border-none bg-transparent cursor-pointer focus:outline-none focus:ring-0 p-0 text-xs text-slate-600 font-medium"
+              >
+
+                <option
+                  [selected]="postData.privacy === 'public'"
+                  value="public"
+                >
+                  {{ 'POST.PUBLIC' | translate }}
+                </option>
+
+                <option
+                  [selected]="postData.privacy === 'following'"
+                  value="following"
+                >
+                  {{ 'POST.FOLLOWERS' | translate }}
+                </option>
+
+                <option
+                  [selected]="postData.privacy === 'only_me'"
+                  value="only_me"
+                >
+                  {{ 'POST.ONLY_ME' | translate }}
+                </option>
+
+              </select>
+
+            </div>
+
+          }
+
         </div>
+
       </div>
 
-      <!-- Options Dropdown -->
-      <div class="relative">
-        <button
-          id="dropdownMenuIconButton"
-          (click)="toggleMenu($event)"
-          [attr.aria-expanded]="isMenuOpen"
-          class="text-slate-500 hover:text-slate-700 bg-transparent hover:bg-slate-100 font-medium rounded-full text-sm p-2.5 inline-flex items-center transition-colors cursor-pointer focus:outline-none"
-          type="button"
+    </div>
+
+
+    <!-- ================= OPTIONS DROPDOWN ================= -->
+
+    <div class="relative">
+
+      <button
+        id="dropdownMenuIconButton"
+        (click)="toggleMenu($event)"
+        [attr.aria-expanded]="isMenuOpen"
+        class="text-slate-500 hover:text-slate-700 bg-transparent hover:bg-slate-100 font-medium rounded-full text-sm p-2.5 inline-flex items-center transition-colors cursor-pointer focus:outline-none"
+        type="button"
+      >
+
+        <svg
+          class="w-5 h-5"
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
         >
-          <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-            <path stroke="currentColor" stroke-linecap="round" stroke-width="2.5" d="M12 6h.01M12 12h.01M12 18h.01"/>
-          </svg>
+          <path
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-width="2.5"
+            d="M12 6h.01M12 12h.01M12 18h.01"
+          />
+        </svg>
+
+      </button>
+
+
+      @if (isMenuOpen) {
+
+        <div
+          (click)="keepMenuOpen($event)"
+          class="z-50 absolute end-0 mt-1 bg-white border border-slate-200 rounded-xl shadow-xl w-44 overflow-hidden py-1 pointer-events-auto"
+        >
+
+          <ul class="text-sm text-slate-700 font-medium">
+
+            <li>
+
+              <button
+                type="button"
+                (click)="toggleBookmark($event)"
+                [disabled]="isBookmarking"
+                class="flex items-center w-full px-4 py-2.5 text-start hover:bg-slate-50 transition-colors cursor-pointer disabled:opacity-60"
+              >
+
+                <i
+                  class="fa-regular fa-bookmark me-2"
+                  [class.text-blue-600]="postData.bookmarked"
+                  [class.text-slate-400]="!postData.bookmarked"
+                ></i>
+
+                {{
+                  postData.bookmarked
+                    ? ('POST.UNSAVE_POST' | translate)
+                    : ('POST.SAVE_POST' | translate)
+                }}
+
+              </button>
+
+
+              @if (postData.user._id === userId) {
+
+                <button
+                  type="button"
+                  (click)="startEdit($event)"
+                  class="flex items-center w-full px-4 py-2.5 text-start hover:bg-slate-50 transition-colors cursor-pointer"
+                >
+
+                  <i
+                    class="fa-regular fa-pen-to-square me-2 text-slate-400"
+                  ></i>
+
+                  {{ 'POST.EDIT_POST' | translate }}
+
+                </button>
+
+
+                <button
+                  type="button"
+                  (click)="requestDelete($event)"
+                  class="flex items-center w-full px-4 py-2.5 text-start text-red-600 hover:bg-red-50 transition-colors cursor-pointer"
+                >
+
+                  <i
+                    class="fa-regular fa-trash-can me-2 text-red-500"
+                  ></i>
+
+                  {{ 'POST.DELETE_POST' | translate }}
+
+                </button>
+
+              }
+
+            </li>
+
+          </ul>
+
+        </div>
+
+      }
+
+    </div>
+
+  </div>
+
+
+  <!-- ================= ACTION MESSAGE ================= -->
+
+  @if (actionMessage) {
+
+    <p
+      class="mb-4 rounded-xl px-3 py-2 text-sm"
+      [class.bg-green-50]="actionMessageType === 'success'"
+      [class.text-green-700]="actionMessageType === 'success'"
+      [class.bg-red-50]="actionMessageType === 'error'"
+      [class.text-red-700]="actionMessageType === 'error'"
+      [attr.role]="actionMessageType === 'error' ? 'alert' : 'status'"
+    >
+      {{ actionMessage }}
+    </p>
+
+  }
+
+
+  <!-- ================= POST CONTENT ================= -->
+
+  @if (isEditing) {
+
+    <form
+      class="mb-4 rounded-2xl border border-blue-100 bg-blue-50/40 p-4"
+      (submit)="$event.preventDefault(); updatePost()"
+    >
+
+      <label
+        for="details-edit-body"
+        class="mb-2 block text-xs font-bold text-slate-600"
+      >
+        {{ 'POST.POST_CONTENT' | translate }}
+      </label>
+
+
+      <textarea
+        id="details-edit-body"
+        [formControl]="editBodyControl"
+        rows="5"
+        class="w-full resize-y rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm text-slate-800 outline-none focus:border-blue-500"
+      ></textarea>
+
+
+      <div class="mt-4 flex justify-end gap-2">
+
+        <button
+          type="button"
+          (click)="cancelEdit()"
+          [disabled]="isUpdating"
+          class="rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-600 hover:bg-slate-50 disabled:opacity-60"
+        >
+          {{ 'COMMON.CANCEL' | translate }}
         </button>
 
-        <!-- Dropdown menu -->
-        @if (isMenuOpen) {
-        <div (click)="keepMenuOpen($event)" class="z-50 absolute right-0 mt-1 bg-white border border-slate-200 rounded-xl shadow-xl w-44 overflow-hidden py-1 pointer-events-auto">
-          <ul class="text-sm text-slate-700 font-medium">
-            <li>
-              <button type="button" (click)="toggleBookmark($event)" [disabled]="isBookmarking" class="flex items-center w-full px-4 py-2.5 text-left hover:bg-slate-50 transition-colors cursor-pointer disabled:opacity-60">
-                <i class="fa-regular fa-bookmark mr-2" [class.text-blue-600]="postData.bookmarked" [class.text-slate-400]="!postData.bookmarked"></i>
-                {{ postData.bookmarked ? 'Unsave Post' : 'Save Post' }}
-              </button>
-              
-              @if (postData.user._id === userId) {
-                <button type="button" (click)="startEdit($event)" class="flex items-center w-full px-4 py-2.5 text-left hover:bg-slate-50 transition-colors cursor-pointer">
-                  <i class="fa-regular fa-pen-to-square mr-2 text-slate-400"></i> Edit post
-                </button>
-                <button type="button" (click)="requestDelete($event)" class="flex items-center w-full px-4 py-2.5 text-left text-red-600 hover:bg-red-50 transition-colors cursor-pointer">
-                  <i class="fa-regular fa-trash-can mr-2 text-red-500"></i> Delete post
-                </button>
-              }
-            </li>
-          </ul>
-        </div>
-        }
+
+        <button
+          type="submit"
+          [disabled]="isUpdating || !editBodyControl.value.trim()"
+          class="rounded-xl bg-blue-600 px-4 py-2 text-sm font-semibold text-white hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-60"
+        >
+          {{
+            isUpdating
+              ? ('POST.UPDATING' | translate)
+              : ('COMMON.UPDATE' | translate)
+          }}
+        </button>
+
       </div>
-    </div>
 
-    <!-- Post Content -->
-    @if (actionMessage) {
-      <p class="mb-4 rounded-xl px-3 py-2 text-sm" [class.bg-green-50]="actionMessageType === 'success'" [class.text-green-700]="actionMessageType === 'success'" [class.bg-red-50]="actionMessageType === 'error'" [class.text-red-700]="actionMessageType === 'error'" [attr.role]="actionMessageType === 'error' ? 'alert' : 'status'">{{ actionMessage }}</p>
-    }
+    </form>
 
-    @if (isEditing) {
-      <form class="mb-4 rounded-2xl border border-blue-100 bg-blue-50/40 p-4" (submit)="$event.preventDefault(); updatePost()">
-        <label for="details-edit-body" class="mb-2 block text-xs font-bold text-slate-600">Post content</label>
-        <textarea id="details-edit-body" [formControl]="editBodyControl" rows="5" class="w-full resize-y rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm text-slate-800 outline-none focus:border-blue-500"></textarea>
-        <div class="mt-4 flex justify-end gap-2">
-          <button type="button" (click)="cancelEdit()" [disabled]="isUpdating" class="rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-600 hover:bg-slate-50 disabled:opacity-60">Cancel</button>
-          <button type="submit" [disabled]="isUpdating || !editBodyControl.value.trim()" class="rounded-xl bg-blue-600 px-4 py-2 text-sm font-semibold text-white hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-60">{{ isUpdating ? 'Updating...' : 'Update' }}</button>
-        </div>
-      </form>
-    } @else {
-    <div class="text-[15px] text-slate-800 leading-relaxed mb-4">
+  } @else {
+
+    <div
+      class="text-[15px] text-slate-800 leading-relaxed mb-4"
+    >
+
       @if (postData.body) {
-        <p class="whitespace-pre-line">{{postData.body}}</p>
+
+        <p class="whitespace-pre-line">
+          {{ postData.body }}
+        </p>
+
       }
+
+
       @if (postData.image) {
-        <div class="mt-3 overflow-hidden rounded-xl border border-slate-100 bg-slate-50">
+
+        <div
+          class="mt-3 overflow-hidden rounded-xl border border-slate-100 bg-slate-50"
+        >
+
           <img
             [src]="postData.image"
-            alt="post Image"
+            [alt]="'PROFILE.POST_IMAGE' | translate"
             class="w-full max-h-[420px] object-cover hover:scale-[1.01] transition-transform duration-300"
           />
+
         </div>
+
       }
-    </div>
-    }
 
-    @if (isDeleteConfirmationOpen) {
-      <div class="fixed inset-0 z-[100] flex items-center justify-center bg-slate-950/50 p-4" role="dialog" aria-modal="true" aria-labelledby="details-delete-title">
-        <div class="w-full max-w-sm rounded-2xl bg-white p-5 shadow-2xl">
-          <h3 id="details-delete-title" class="text-base font-bold text-slate-900">Delete post</h3>
-          <p class="mt-2 text-sm text-slate-600">Are you sure you want to delete this post?</p>
-          @if (actionMessageType === 'error' && actionMessage) {
-            <p class="mt-3 rounded-xl bg-red-50 px-3 py-2 text-xs text-red-600" role="alert">{{ actionMessage }}</p>
-          }
-          <div class="mt-5 flex justify-end gap-2">
-            <button type="button" (click)="cancelDelete()" [disabled]="isDeleting" class="rounded-xl border border-slate-200 px-4 py-2 text-sm font-semibold text-slate-600 hover:bg-slate-50 disabled:opacity-60">Cancel</button>
-            <button type="button" (click)="confirmDelete()" [disabled]="isDeleting" class="rounded-xl bg-red-600 px-4 py-2 text-sm font-semibold text-white hover:bg-red-700 disabled:cursor-not-allowed disabled:opacity-60">{{ isDeleting ? 'Deleting...' : 'Delete' }}</button>
-          </div>
-        </div>
-      </div>
-    }
-
-    <!-- Likes, Shares, Comments Stats -->
-    <div class="flex items-center justify-between text-xs text-slate-500 mb-3 px-1">
-      <div class="flex items-center gap-1.5 cursor-pointer hover:underline">
-        <div class="w-5 h-5 rounded-full bg-blue-600 text-white flex items-center justify-center text-[10px] shadow-xs">
-          <i class="fa-solid fa-thumbs-up"></i>
-        </div>
-        <span class="font-medium text-slate-600">{{postData.likesCount}} likes</span>
-      </div>
-      <div class="flex items-center gap-3">
-        <span class="cursor-pointer hover:underline">{{postData.sharesCount}} shares</span>
-        <span class="cursor-pointer hover:underline">{{postData.commentsCount}} comments</span>
-      </div>
     </div>
 
-    <hr class="border-t border-slate-100 mb-1" />
+  }
 
-    <!-- Action Buttons (Like - Comment - Share) -->
-    <div class="flex items-center justify-between px-1 py-0.5">
-      <button
-        type="button"
-        (click)="updateLike()"
-        [class.text-blue-600]="isPostLiked()"
-        [class.text-slate-600]="!isPostLiked()"
-        class="flex-1 cursor-pointer flex items-center justify-center gap-2 font-semibold text-sm hover:bg-slate-50 py-2.5 rounded-xl transition-colors"
+
+  <!-- ================= DELETE CONFIRMATION ================= -->
+
+  @if (isDeleteConfirmationOpen) {
+
+    <div
+      class="fixed inset-0 z-[100] flex items-center justify-center bg-slate-950/50 p-4"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="details-delete-title"
+    >
+
+      <div
+        class="w-full max-w-sm rounded-2xl bg-white p-5 shadow-2xl"
       >
-        <i class="fa-regular fa-thumbs-up text-base"></i>
-        Like
-      </button>
-      <button #commentBtn class="flex-1 flex cursor-pointer items-center justify-center gap-2 text-slate-600 font-semibold text-sm hover:bg-slate-50 py-2.5 rounded-xl transition-colors">
-        <i class="fa-regular fa-message text-base"></i>
-        Comment
-      </button>
-      <button class="flex-1 flex cursor-pointer items-center justify-center gap-2 text-slate-600 font-semibold text-sm hover:bg-slate-50 py-2.5 rounded-xl transition-colors">
-        <i class="fa-solid fa-share text-base"></i>
-        Share
-      </button>
+
+        <h3
+          id="details-delete-title"
+          class="text-base font-bold text-slate-900"
+        >
+          {{ 'POST.DELETE_POST' | translate }}
+        </h3>
+
+
+        <p class="mt-2 text-sm text-slate-600">
+          {{ 'POST.DELETE_CONFIRMATION' | translate }}
+        </p>
+
+
+        @if (
+          actionMessageType === 'error' &&
+          actionMessage
+        ) {
+
+          <p
+            class="mt-3 rounded-xl bg-red-50 px-3 py-2 text-xs text-red-600"
+            role="alert"
+          >
+            {{ actionMessage }}
+          </p>
+
+        }
+
+
+        <div class="mt-5 flex justify-end gap-2">
+
+          <button
+            type="button"
+            (click)="cancelDelete()"
+            [disabled]="isDeleting"
+            class="rounded-xl border border-slate-200 px-4 py-2 text-sm font-semibold text-slate-600 hover:bg-slate-50 disabled:opacity-60"
+          >
+            {{ 'COMMON.CANCEL' | translate }}
+          </button>
+
+
+          <button
+            type="button"
+            (click)="confirmDelete()"
+            [disabled]="isDeleting"
+            class="rounded-xl bg-red-600 px-4 py-2 text-sm font-semibold text-white hover:bg-red-700 disabled:cursor-not-allowed disabled:opacity-60"
+          >
+            {{
+              isDeleting
+                ? ('POST.DELETING' | translate)
+                : ('COMMON.DELETE' | translate)
+            }}
+          </button>
+
+        </div>
+
+      </div>
+
     </div>
-@defer(on interaction(commentBtn))
-{
+
+  }
+
+
+  <!-- ================= LIKES / SHARES / COMMENTS ================= -->
+
+  <div
+    class="flex items-center justify-between text-xs text-slate-500 mb-3 px-1"
+  >
+
+    <div
+      class="flex items-center gap-1.5 cursor-pointer hover:underline"
+    >
+
+      <div
+        class="w-5 h-5 rounded-full bg-blue-600 text-white flex items-center justify-center text-[10px] shadow-xs"
+      >
+        <i class="fa-solid fa-thumbs-up"></i>
+      </div>
+
+      <span class="font-medium text-slate-600">
+        {{ postData.likesCount }}
+        {{ 'POST.LIKES' | translate }}
+      </span>
+
+    </div>
+
+
+    <div class="flex items-center gap-3">
+
+      <span class="cursor-pointer hover:underline">
+        {{ postData.sharesCount }}
+        {{ 'POST.SHARES' | translate }}
+      </span>
+
+      <span class="cursor-pointer hover:underline">
+        {{ postData.commentsCount }}
+        {{ 'POST.COMMENTS' | translate }}
+      </span>
+
+    </div>
+
+  </div>
+
+
+  <hr class="border-t border-slate-100 mb-1" />
+
+
+  <!-- ================= ACTION BUTTONS ================= -->
+
+  <div
+    class="flex items-center justify-between px-1 py-0.5"
+  >
+
+    <!-- Like -->
+    <button
+      type="button"
+      (click)="updateLike()"
+      [class.text-blue-600]="isPostLiked()"
+      [class.text-slate-600]="!isPostLiked()"
+      class="flex-1 cursor-pointer flex items-center justify-center gap-2 font-semibold text-sm hover:bg-slate-50 py-2.5 rounded-xl transition-colors"
+    >
+
+      <i
+        class="fa-regular fa-thumbs-up text-base"
+      ></i>
+
+      {{ 'POST.LIKE' | translate }}
+
+    </button>
+
+
+    <!-- Comment -->
+    <button
+      #commentBtn
+      type="button"
+      class="flex-1 flex cursor-pointer items-center justify-center gap-2 text-slate-600 font-semibold text-sm hover:bg-slate-50 py-2.5 rounded-xl transition-colors"
+    >
+
+      <i
+        class="fa-regular fa-message text-base"
+      ></i>
+
+      {{ 'POST.COMMENT' | translate }}
+
+    </button>
+
+
+    <!-- Share -->
+    <button
+      type="button"
+      class="flex-1 flex cursor-pointer items-center justify-center gap-2 text-slate-600 font-semibold text-sm hover:bg-slate-50 py-2.5 rounded-xl transition-colors"
+    >
+
+      <i
+        class="fa-solid fa-share text-base"
+      ></i>
+
+      {{ 'POST.SHARE' | translate }}
+
+    </button>
+
+  </div>
+
+
+  <!-- ================= COMMENTS ================= -->
+
+  @defer (on interaction(commentBtn)) {
+
     <app-post-comments
       [postId]="postData.id"
       [commentsCount]="postData.commentsCount"
       (commentsCountChange)="postData.commentsCount = $event"
     ></app-post-comments>
-}
- 
+
+  }
+
 </div>
