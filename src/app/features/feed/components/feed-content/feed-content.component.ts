@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 
 import { PostsService } from '../../../../core/services/posts.service';
-import { Post } from '../../../../core/models/posts-data.interface';
+import { Post, PostsDataResponse } from '../../../../core/models/posts-data.interface';
 import {
   FormControl,
   ReactiveFormsModule
@@ -15,16 +15,20 @@ import {
 
 import { PostCommentsComponent } from './components/post-comments/post-comments.component';
 import { UserInfo } from '../../../../core/models/user-data.interface';
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
-import { finalize } from 'rxjs';
+import { finalize, Observable } from 'rxjs';
+import { ProfileService } from '../../../../core/services/profile.service';
+import { BookmarksResponse } from '../../../../core/models/profile-data.interface';
+import { CommunityComponent } from '../../../community/community.component';
 
 @Component({
   selector: 'app-feed-content',
 
   imports: [
     ReactiveFormsModule,
+    CommunityComponent,
     PostCommentsComponent,
     RouterLink,DatePipe
   ],
@@ -33,6 +37,11 @@ import { finalize } from 'rxjs';
   styleUrl: './feed-content.component.css'
 })
 export class FeedContentComponent implements OnInit {
+
+  private readonly profileService = inject(ProfileService);
+  readonly source: string = inject(ActivatedRoute).snapshot.data['source'] ?? 'feed';
+  isLoading = false;
+  loadError = '';
 
   private readonly postsService = inject(PostsService);
   private readonly hostElement = inject<ElementRef<HTMLElement>>(ElementRef);
@@ -146,7 +155,17 @@ export class FeedContentComponent implements OnInit {
 
   getAllPosts(): void {
 
-    this.postsService.getAllPosts().subscribe({
+    if (this.source === 'community') return;
+
+    this.isLoading = true;
+    this.loadError = '';
+    const request: Observable<PostsDataResponse | BookmarksResponse> = this.source === 'my-posts'
+      ? this.profileService.GetMyPosts()
+      : this.source === 'saved'
+        ? this.profileService.GetBookmarks()
+        : this.postsService.getAllPosts();
+
+    request.pipe(finalize(() => this.isLoading = false)).subscribe({
 
       next: (res) => {
 
@@ -156,7 +175,7 @@ export class FeedContentComponent implements OnInit {
 
 
         // Update Posts List
-        this.postList = res.data.posts;
+        this.postList = 'posts' in res.data ? res.data.posts : res.data.bookmarks;
 
 
         // Scroll To Post
@@ -180,8 +199,8 @@ export class FeedContentComponent implements OnInit {
 
       error: (err) => {
 
-        console.error(
-          'Failed to load posts:',
+        this.loadError = 'Unable to load posts. Please try again.';
+        console.error('Failed to load posts:',
           err
         );
 
@@ -460,10 +479,9 @@ export class FeedContentComponent implements OnInit {
         // Add New Post Immediately
         // ==========================================
 
-        this.postList = [
-          newPost,
-          ...this.postList
-        ];
+        if (this.source === 'feed' || this.source === 'my-posts') {
+          this.postList = [newPost, ...this.postList];
+        }
 
 
         // ==========================================

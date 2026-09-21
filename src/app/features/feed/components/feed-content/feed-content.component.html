@@ -1,5 +1,5 @@
 <div
-  class="max-w-xl mx-auto py-6"
+  class="max-w-xl mx-auto pt-0 pb-6 lg:pt-6"
   dir="ltr"
 >
   <!-- =====================================================
@@ -185,6 +185,19 @@
   <!-- =====================================================
        POSTS FEED
   ====================================================== -->
+
+  @if (source === 'community') {
+    <app-community />
+  } @else if (isLoading) {
+    <p class="rounded-2xl bg-white p-4 text-center text-slate-500" role="status">Loading posts...</p>
+  } @else if (loadError) {
+    <div class="rounded-2xl bg-white p-4 text-center" role="alert">
+      <p class="text-red-600">{{ loadError }}</p>
+      <button type="button" class="mt-2 text-blue-600" (click)="getAllPosts()">Try again</button>
+    </div>
+  } @else if (postList.length === 0) {
+    <p class="rounded-2xl bg-white p-4 text-center text-slate-500">{{ source === 'saved' ? 'No saved posts yet.' : 'No posts yet.' }}</p>
+  }
 
   @for (post of postList; track post.id) {
 

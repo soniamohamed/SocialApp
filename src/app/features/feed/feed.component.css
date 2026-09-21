@@ -92,77 +92,19 @@
    TABLET / SMALL LAPTOP
 ========================================= */
 
-@media (max-width: 1100px) {
-  .feed-layout {
-    max-width: 920px;
-    grid-template-columns:
-      minmax(180px, 220px)
-      minmax(0, 1fr);
-    gap: 24px;
-  }
-
-  .right-sidebar {
-    display: none;
-  }
-}
-
-
-/* =========================================
-   TABLET
-========================================= */
-
-@media (max-width: 850px) {
+@media (max-width: 1023px) {
   .feed-page {
-    padding-top: 80px;
-  }
-
-  .feed-layout {
-    padding: 0 16px;
-    grid-template-columns:
-      190px
-      minmax(0, 1fr);
-    gap: 16px;
-  }
-}
-
-
-/* =========================================
-   MOBILE
-========================================= */
-
-@media (max-width: 768px) {
-  .feed-page {
-    padding-top: 76px;
+    padding-top: 20px;
     padding-bottom: 20px;
   }
-
   .feed-layout {
-    display: block;
+    max-width: 608px;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
     padding: 0 12px;
   }
-
   .left-sidebar,
   .right-sidebar {
-    display: none;
-  }
-
-  .feed-main {
-    width: 100%;
-    max-width: 100%;
-  }
-}
-
-
-/* =========================================
-   SMALL MOBILE
-========================================= */
-
-@media (max-width: 480px) {
-  .feed-page {
-    padding-top: 72px;
-  }
-
-  .feed-layout {
-    padding: 0 8px;
+    position: static;
   }
 }

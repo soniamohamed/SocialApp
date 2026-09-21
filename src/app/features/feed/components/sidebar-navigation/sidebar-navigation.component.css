@@ -102,3 +102,17 @@
 
   font-size: 16px;
 }
+@media (max-width: 1023px) {
+  .sidebar-card {
+    flex-direction: row;
+    overflow-x: auto;
+    padding: 8px;
+  }
+  .sidebar-item {
+    flex: 1 0 auto;
+    justify-content: center;
+    gap: 6px;
+    padding: 10px;
+    white-space: nowrap;
+  }
+}
