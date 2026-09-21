@@ -77,7 +77,6 @@ export class FeedContentComponent implements OnInit {
   editingPostId: string | null = null;
   deleteConfirmationPostId: string | null = null;
   readonly editBodyControl = new FormControl('', { nonNullable: true });
-  readonly editPrivacyControl = new FormControl('public', { nonNullable: true });
 
 
   // ==========================================
@@ -696,60 +695,54 @@ export class FeedContentComponent implements OnInit {
 
   startEdit(post: Post, event?: Event): void {
     this.closePostMenu(event);
-    if (post.user._id !== this.userId) return;
+    if (!this.userId || post.user._id !== this.userId || this.updateRequests.has(post.id)) return;
 
     this.deleteConfirmationPostId = null;
     this.postActionErrors.delete(post.id);
     this.editingPostId = post.id;
     this.editBodyControl.setValue(post.body ?? '');
-    this.editPrivacyControl.setValue(post.privacy);
   }
 
   cancelEdit(): void {
+    const post = this.postList.find(post => post.id === this.editingPostId);
+    this.editBodyControl.reset(post?.body ?? '');
     this.editingPostId = null;
-    this.editBodyControl.reset('');
-    this.editPrivacyControl.reset('public');
   }
 
   updatePost(postId: string): void {
-    if (this.updateRequests.has(postId)) return;
+    if (this.updateRequests.has(postId) || this.editingPostId !== postId || !this.userId) return;
 
     const currentPost = this.postList.find((post) => post.id === postId);
     if (!currentPost || currentPost.user._id !== this.userId) return;
 
     const body = this.editBodyControl.value.trim();
-    if (!body && !currentPost.image) {
-      this.postActionErrors.set(postId, 'A post must contain text or media.');
+    if (!body) {
+      this.postActionErrors.set(postId, 'Post text cannot be empty.');
       return;
     }
 
     this.updateRequests.add(postId);
     this.postActionErrors.delete(postId);
-    const privacy = this.editPrivacyControl.value;
 
-    this.postsService.updatePost(postId, { body, privacy })
+    this.postsService.updatePost(currentPost._id || postId, body)
       .pipe(finalize(() => this.updateRequests.delete(postId)))
       .subscribe({
         next: (response) => {
-          if (!response.success) return;
-
-          const updatedPost = response.data?.post;
           this.postList = this.postList.map((post) =>
             post.id === postId
               ? {
                   ...post,
-                  body: updatedPost?.body ?? body,
-                  image: updatedPost?.image ?? post.image,
-                  privacy: updatedPost?.privacy ?? privacy,
+                  body: response.body,
                 }
               : post,
           );
-          this.cancelEdit();
+          if (this.editingPostId === postId) this.cancelEdit();
         },
-        error: (error: HttpErrorResponse) => {
+        error: (error: HttpErrorResponse | Error) => {
           this.postActionErrors.set(
             postId,
-            error.error?.message || 'Unable to update this post. Please try again.',
+            (error instanceof HttpErrorResponse ? error.error?.message : error.message)
+              || 'Unable to update this post. Please try again.',
           );
         },
       });

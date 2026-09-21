@@ -97,7 +97,7 @@ export class DetailsComponent implements OnInit {
   startEdit(event: MouseEvent): void {
     event.stopPropagation();
     this.closeMenu();
-    if (this.postData.user._id !== this.userId) return;
+    if (!this.userId || this.postData.user._id !== this.userId || this.isUpdating) return;
 
     this.isDeleteConfirmationOpen = false;
     this.actionMessage = '';
@@ -113,7 +113,7 @@ export class DetailsComponent implements OnInit {
   }
 
   updatePost(): void {
-    if (this.isUpdating || this.postData.user._id !== this.userId) return;
+    if (!this.isEditing || this.isUpdating || !this.userId || this.postData.user._id !== this.userId) return;
 
     const body = this.editBodyControl.value.trim();
     if (!body) {
@@ -121,28 +121,26 @@ export class DetailsComponent implements OnInit {
       return;
     }
 
-    const updatePayload = new FormData();
-    updatePayload.append('body', body);
-
     this.isUpdating = true;
     this.actionMessage = '';
-    this.postsService.updatePost(this.postData.id, updatePayload)
+    this.actionMessageType = '';
+    const postId = this.postData._id || this.postData.id;
+    this.postsService.updatePost(postId, body)
       .pipe(finalize(() => (this.isUpdating = false)))
       .subscribe({
         next: (response) => {
-          if (response.success === false) return;
-
-          const responseData = response.data as typeof response.data & { body?: string };
-          const returnedBody = responseData.post?.body ?? responseData.body;
+          if ((this.postData._id || this.postData.id) !== postId) return;
           this.postData = {
             ...this.postData,
-            body: typeof returnedBody === 'string' ? returnedBody : body,
+            body: response.body,
           };
           this.isEditing = false;
           this.showActionMessage(response.message || 'Post updated successfully.', 'success');
         },
-        error: (error: HttpErrorResponse) => {
-          this.showActionMessage(error.error?.message || 'Unable to update this post. Please try again.', 'error');
+        error: (error: HttpErrorResponse | Error) => {
+          this.showActionMessage(
+            (error instanceof HttpErrorResponse ? error.error?.message : error.message)
+              || 'Unable to update this post. Please try again.', 'error');
         },
       });
   }

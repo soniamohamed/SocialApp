@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { map, Observable, throwError } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { PostsDataResponse } from '../models/posts-data.interface';
-import { PostMutationData, PostMutationDataResponse } from '../models/post-mutation-data.interface';
+import { PostMutationDataResponse, PostUpdateDataResponse, UpdatedPostBody } from '../models/post-mutation-data.interface';
 import { PostDetailsDataResponse } from '../../features/details/models/post-details-data.interface';
 
 
@@ -28,9 +28,23 @@ export class PostsService {
   {
       return this.httpClient.get<PostDetailsDataResponse>(`${environment.base_url}/posts/${postId}`);
   }
-   updatePost(postId:string,data:object):Observable<PostMutationDataResponse>
+   updatePost(postId: string, editedBody: string): Observable<UpdatedPostBody>
   {
-     return this.httpClient.put<PostMutationDataResponse>(`${environment.base_url}/posts/${postId}`,data);
+    const body = editedBody.trim();
+    if (!body) return throwError(() => new Error('Post text cannot be empty.'));
+
+    // The official demo uses JSON for text-only edits; no media or privacy fields.
+    return this.httpClient.put<PostUpdateDataResponse>(`${environment.base_url}/posts/${postId}`, { body })
+      .pipe(map(response => {
+        if (!response.success) {
+          throw new Error(response.message || 'Unable to update this post. Please try again.');
+        }
+        const returnedBody = response.data?.post?.body;
+        return {
+          body: typeof returnedBody === 'string' ? returnedBody : body,
+          message: response.message,
+        };
+      }));
   }
    deletePost(postId:string):Observable<PostMutationDataResponse>
   {

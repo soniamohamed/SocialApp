@@ -91,12 +91,12 @@
     }
 
     @if (isEditing) {
-      <form class="mb-4 rounded-2xl border border-blue-100 bg-blue-50/40 p-4" (ngSubmit)="updatePost()">
+      <form class="mb-4 rounded-2xl border border-blue-100 bg-blue-50/40 p-4" (submit)="$event.preventDefault(); updatePost()">
         <label for="details-edit-body" class="mb-2 block text-xs font-bold text-slate-600">Post content</label>
         <textarea id="details-edit-body" [formControl]="editBodyControl" rows="5" class="w-full resize-y rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm text-slate-800 outline-none focus:border-blue-500"></textarea>
         <div class="mt-4 flex justify-end gap-2">
           <button type="button" (click)="cancelEdit()" [disabled]="isUpdating" class="rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-600 hover:bg-slate-50 disabled:opacity-60">Cancel</button>
-          <button type="submit" [disabled]="isUpdating" class="rounded-xl bg-blue-600 px-4 py-2 text-sm font-semibold text-white hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-60">{{ isUpdating ? 'Updating...' : 'Update' }}</button>
+          <button type="submit" [disabled]="isUpdating || !editBodyControl.value.trim()" class="rounded-xl bg-blue-600 px-4 py-2 text-sm font-semibold text-white hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-60">{{ isUpdating ? 'Updating...' : 'Update' }}</button>
         </div>
       </form>
     } @else {

@@ -441,7 +441,7 @@
       ====================================================== -->
 
       @if (editingPostId === post.id) {
-        <form class="mb-4 rounded-2xl border border-blue-100 bg-blue-50/40 p-4" (ngSubmit)="updatePost(post.id)">
+        <form class="mb-4 rounded-2xl border border-blue-100 bg-blue-50/40 p-4" (submit)="$event.preventDefault(); updatePost(post.id)">
           <label class="mb-2 block text-xs font-bold text-slate-600" [for]="'edit-body-' + post.id">Post content</label>
           <textarea
             [id]="'edit-body-' + post.id"
@@ -450,24 +450,13 @@
             class="w-full resize-y rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm text-slate-800 outline-none focus:border-blue-500"
           ></textarea>
 
-          <label class="mb-2 mt-3 block text-xs font-bold text-slate-600" [for]="'edit-privacy-' + post.id">Privacy</label>
-          <select
-            [id]="'edit-privacy-' + post.id"
-            [formControl]="editPrivacyControl"
-            class="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus:border-blue-500"
-          >
-            <option value="public">Public</option>
-            <option value="following">Followers</option>
-            <option value="only_me">Only me</option>
-          </select>
-
           @if (postActionErrors.get(post.id); as editError) {
             <p class="mt-2 text-xs text-red-600" role="alert">{{ editError }}</p>
           }
 
           <div class="mt-4 flex justify-end gap-2">
             <button type="button" (click)="cancelEdit()" [disabled]="updateRequests.has(post.id)" class="rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-600 hover:bg-slate-50 disabled:opacity-60">Cancel</button>
-            <button type="submit" [disabled]="updateRequests.has(post.id)" class="rounded-xl bg-blue-600 px-4 py-2 text-sm font-semibold text-white hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-60">
+            <button type="submit" [disabled]="updateRequests.has(post.id) || !editBodyControl.value.trim()" class="rounded-xl bg-blue-600 px-4 py-2 text-sm font-semibold text-white hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-60">
               {{ updateRequests.has(post.id) ? 'Updating...' : 'Update' }}
             </button>
           </div>

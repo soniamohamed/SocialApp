@@ -8,6 +8,17 @@ export interface PostMutationData {
    post: Post;
 }
 
+export interface PostUpdateDataResponse {
+   success: boolean;
+   message: string;
+   data?: { post?: Partial<Post> };
+}
+
+export interface UpdatedPostBody {
+   body: string;
+   message: string;
+}
+
 export interface Post {
    _id: string;
    id: string;
